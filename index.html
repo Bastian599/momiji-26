@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#9e2b25">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Japan 26">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Japan 2026 · Euer Reisebegleiter</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍁</text></svg>">
+</head>
+<body>
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --night:#151C2C; --night-2:#1E2942; --night-3:#26334F;
+  --horizon:#3D2E3A; --ember:#7A3A2C;
+  --washi:#F4F1E8; --washi-2:#ECE7D9; --card:#FBF9F2; --line:#DCD5C3; --line-soft:#E7E1D2;
+  --ink:#2A2D35; --ink-soft:#6A6D75; --ink-faint:#9A9CA3;
+  --momiji:#C7402D; --momiji-deep:#9E2F20; --momiji-soft:#F3DAD3;
+  --gold:#C9962F; --gold-bright:#E0AE4A; --gold-soft:#F1E3C2;
+  --indigo:#2E4A72; --indigo-soft:#DDE4EE;
+  --matcha:#5F7D54; --matcha-soft:#E2E9DC;
+  --qatar:#5C0632;
+  --on-night:#EDE7D9; --on-night-dim:#98A0B4; --on-night-faint:#5E6880;
+  --serif:"Yu Mincho","YuMincho","Hiragino Mincho ProN","Noto Serif JP","Noto Serif",Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,Roboto,"Hiragino Sans","Noto Sans JP","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Consolas,Menlo,monospace;
+  --shadow:0 1px 2px rgba(42,45,53,.06),0 8px 28px -12px rgba(42,45,53,.18);
+  --shadow-lg:0 2px 6px rgba(10,14,24,.25),0 24px 60px -20px rgba(10,14,24,.5);
+  --r:14px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--washi);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.25;margin:0;text-wrap:balance}
+p{margin:0}
+a{color:var(--indigo)}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:1rem;color:var(--ink);accent-color:var(--matcha)}
+:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;border-radius:4px}
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--mono)}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ============ NAV ============ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(15,20,33,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(237,231,217,.08)}
+.nav-inner{max-width:1120px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;gap:18px}
+.brand{font-family:var(--serif);color:var(--on-night);text-decoration:none;font-size:1.15rem;letter-spacing:.02em;display:flex;align-items:baseline;gap:7px;flex-shrink:0}
+.brand b{color:var(--gold-bright);font-weight:600}
+.brand span{font-size:.7rem;color:var(--on-night-dim);letter-spacing:.22em;font-family:var(--sans)}
+.nav-links{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;-webkit-overflow-scrolling:touch}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{color:var(--on-night-dim);text-decoration:none;font-size:.82rem;padding:6px 10px;border-radius:8px;white-space:nowrap;transition:color .15s}
+.nav-links a:hover{color:var(--on-night)}
+.jst-chip{flex-shrink:0;display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--on-night-dim);background:rgba(237,231,217,.07);border:1px solid rgba(237,231,217,.12);padding:5px 11px;border-radius:99px}
+.jst-chip b{color:var(--gold-bright);font-weight:600;font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:.82rem}
+.jst-dot{width:6px;height:6px;border-radius:50%;background:var(--momiji);box-shadow:0 0 6px var(--momiji)}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:100svh;background:linear-gradient(180deg,#0D1322 0%,#151C2C 34%,#232B44 58%,#41314276 74%,#152036 74%);background:linear-gradient(180deg,#0D1322 0%,#151C2C 36%,#28304C 58%,#4A3348 72%,#6E4434 84%,#3A2A33 92%,#151C2C 100%);color:var(--on-night);overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+#leafCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-scene{position:absolute;left:0;right:0;bottom:0;width:100%;pointer-events:none;display:block}
+.hero-inner{position:relative;z-index:2;max-width:1120px;margin:0 auto;padding:120px 20px 150px;width:100%}
+.hero-kicker{font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:18px;font-weight:600}
+.hero-kicker .sep{color:var(--on-night-faint);margin:0 8px}
+.hero-title{font-size:clamp(3rem,8.5vw,5.6rem);color:var(--on-night);letter-spacing:.01em}
+.hero-title em{font-style:normal;color:var(--gold-bright)}
+.hero-sub{margin-top:14px;font-size:clamp(1rem,2.2vw,1.25rem);color:var(--on-night-dim);max-width:34em}
+.hero-sub b{color:var(--on-night);font-weight:600}
+.countdown{display:flex;gap:12px;margin-top:42px;flex-wrap:wrap}
+.cd-block{background:rgba(237,231,217,.06);border:1px solid rgba(237,231,217,.13);border-radius:var(--r);padding:16px 10px 12px;min-width:92px;text-align:center;backdrop-filter:blur(4px)}
+.cd-num{font-family:var(--serif);font-size:clamp(2rem,5vw,3rem);font-variant-numeric:tabular-nums;color:var(--on-night);line-height:1;display:block}
+.cd-lbl{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--on-night-faint);margin-top:8px;display:block}
+.phase-line{margin-top:22px;font-size:.95rem;color:var(--gold-bright)}
+.hero-cta{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}
+.hero-vert{position:absolute;top:96px;right:38px;z-index:2;writing-mode:vertical-rl;text-orientation:upright;font-family:var(--serif);font-size:clamp(1.4rem,3vw,2.1rem);letter-spacing:.42em;color:rgba(237,231,217,.34);user-select:none;pointer-events:none}
+.scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:2;color:var(--on-night-faint);font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,7px)}}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--momiji);color:#FFF8F0;border:none;padding:11px 20px;border-radius:10px;font-size:.92rem;font-weight:600;text-decoration:none;transition:background .15s,transform .1s}
+.btn:hover{background:var(--momiji-deep)}
+.btn:active{transform:translateY(1px)}
+.btn-ghost{background:transparent;color:var(--on-night);border:1px solid rgba(237,231,217,.3)}
+.btn-ghost:hover{background:rgba(237,231,217,.08)}
+.btn-light{background:var(--ink);color:var(--washi)}
+.btn-light:hover{background:#000}
+.btn-line{background:transparent;color:var(--ink);border:1px solid var(--line);font-weight:500}
+.btn-line:hover{background:var(--washi-2);}
+.btn-sm{padding:7px 13px;font-size:.82rem;border-radius:8px}
+
+/* ============ SECTIONS ============ */
+.sec{max-width:1120px;margin:0 auto;padding:84px 20px 10px;scroll-margin-top:70px}
+.sec-head{max-width:640px;margin-bottom:36px}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:.75rem;letter-spacing:.24em;text-transform:uppercase;color:var(--momiji);font-weight:700;margin-bottom:12px}
+.eyebrow .jp{font-family:var(--serif);font-size:1rem;letter-spacing:.12em;color:var(--gold);text-transform:none}
+.eyebrow::after{content:"";height:1px;width:44px;background:var(--line)}
+.sec h2{font-size:clamp(1.7rem,3.4vw,2.3rem);color:var(--ink)}
+.lede{margin-top:12px;color:var(--ink-soft);max-width:60ch}
+.card{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--r);box-shadow:var(--shadow)}
+
+/* Japan-Moment */
+.fact-strip{max-width:1120px;margin:0 auto;padding:0 20px;transform:translateY(-56px)}
+.fact-card{background:var(--night-2);color:var(--on-night);border-radius:var(--r);box-shadow:var(--shadow-lg);padding:22px 26px;display:flex;gap:18px;align-items:flex-start;border:1px solid rgba(237,231,217,.1)}
+.fact-mark{font-family:var(--serif);font-size:1.7rem;color:var(--gold-bright);line-height:1.15;flex-shrink:0}
+.fact-card h3{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--on-night-faint);font-family:var(--sans);font-weight:700;margin-bottom:6px}
+.fact-card p{font-size:.98rem;color:var(--on-night);line-height:1.6}
+.fact-next{margin-left:auto;flex-shrink:0;background:none;border:1px solid rgba(237,231,217,.22);color:var(--on-night-dim);border-radius:8px;padding:7px 12px;font-size:.78rem}
+.fact-next:hover{color:var(--on-night);border-color:rgba(237,231,217,.45)}
+
+/* ============ FLIGHTS ============ */
+.flights-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.fcard{background:var(--night);border-radius:var(--r);color:var(--on-night);overflow:hidden;box-shadow:var(--shadow-lg);border-top:3px solid var(--qatar);display:flex;flex-direction:column}
+.fcard-head{display:flex;justify-content:space-between;align-items:center;padding:16px 22px;border-bottom:1px dashed rgba(237,231,217,.16)}
+.fcard-head h3{font-family:var(--sans);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-bright);font-weight:700}
+.fcard-head span{font-size:.75rem;color:var(--on-night-faint)}
+.leg{padding:20px 22px 6px}
+.leg-route{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center}
+.apt{display:flex;flex-direction:column;gap:2px}
+.apt.right{text-align:right}
+.apt-code{font-family:var(--serif);font-size:2.1rem;line-height:1;color:var(--on-night)}
+.apt-city{font-size:.78rem;color:var(--on-night-dim)}
+.apt-time{font-family:var(--mono);font-size:.95rem;color:var(--gold-bright);font-variant-numeric:tabular-nums;margin-top:5px}
+.apt-date{font-size:.72rem;color:var(--on-night-faint)}
+.leg-mid{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:104px}
+.leg-no{font-family:var(--mono);font-size:.78rem;color:var(--on-night);background:rgba(237,231,217,.09);border:1px solid rgba(237,231,217,.16);padding:2px 9px;border-radius:99px}
+.leg-line{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(237,231,217,.5),transparent);position:relative}
+.leg-line::after{content:"✈";position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:.8rem;color:var(--gold-bright)}
+.leg-dur{font-size:.72rem;color:var(--on-night-faint);font-variant-numeric:tabular-nums}
+.layover{margin:12px 22px;text-align:center;font-size:.78rem;color:var(--on-night-dim);border-top:1px dashed rgba(237,231,217,.14);border-bottom:1px dashed rgba(237,231,217,.14);padding:8px 0}
+.layover b{color:var(--gold-bright)}
+.fcard-foot{margin-top:auto;padding:14px 22px 18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.fchip{font-size:.74rem;color:var(--on-night-dim);background:rgba(237,231,217,.07);border:1px solid rgba(237,231,217,.13);padding:4px 10px;border-radius:99px;white-space:nowrap}
+.fchip b{color:var(--on-night);font-weight:600}
+.flight-meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.copy-chip{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 14px;font-size:.86rem;color:var(--ink)}
+.copy-chip b{font-family:var(--mono);letter-spacing:.06em}
+.copy-chip button{background:none;border:none;color:var(--indigo);font-size:.78rem;font-weight:600;padding:2px 4px}
+.checkin-note{margin-top:16px;font-size:.88rem;color:var(--ink-soft);border-left:3px solid var(--gold);padding:2px 0 2px 14px;max-width:70ch}
+.checkin-note b{color:var(--ink)}
+
+/* ============ ROUTE MAP ============ */
+.route-wrap{overflow-x:auto;padding-bottom:8px}
+.route-svg{min-width:940px;width:100%;display:block}
+.route-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:6px;font-size:.8rem;color:var(--ink-soft)}
+.route-legend span{display:inline-flex;align-items:center;gap:7px}
+.lg-dot{width:11px;height:11px;border-radius:50%;border:3px solid var(--momiji);background:#fff;display:inline-block}
+.lg-dot.branch{border-color:var(--indigo);width:9px;height:9px;border-width:2.5px}
+
+/* ============ PLAN ============ */
+.plan-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:22px}
+.plan-hint{font-size:.85rem;color:var(--ink-soft)}
+.plan-list{display:flex;flex-direction:column;gap:10px}
+.day{background:var(--card);border:1px solid var(--line-soft);border-left:4px solid var(--tagc,var(--line));border-radius:12px;padding:16px 18px;display:grid;grid-template-columns:74px 1fr;gap:6px 18px;box-shadow:var(--shadow)}
+.day.done{opacity:.62}
+.day.done .day-title{text-decoration:line-through;text-decoration-color:var(--matcha);text-decoration-thickness:2px}
+.day.today{border-color:var(--gold);border-left-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft),var(--shadow)}
+.day-date{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:2px}
+.dd-num{font-family:var(--serif);font-size:1.7rem;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.dd-wd{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-top:4px}
+.dd-idx{font-size:.66rem;color:var(--ink-faint);margin-top:6px;background:var(--washi-2);padding:1px 7px;border-radius:99px;white-space:nowrap}
+.today-badge{font-size:.66rem;font-weight:700;letter-spacing:.1em;color:#7A5B10;background:var(--gold-soft);padding:2px 8px;border-radius:99px;margin-top:6px}
+.day-main{min-width:0}
+.day-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tag{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--tagc,var(--ink-soft));padding:2.5px 9px;border-radius:99px}
+.day-title{font-size:1.06rem;font-weight:600;color:var(--ink);font-family:var(--serif)}
+.day-done-toggle{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:.76rem;color:var(--ink-soft);cursor:pointer;user-select:none;white-space:nowrap}
+.day-plan{margin-top:6px;color:var(--ink-soft);font-size:.92rem;max-width:75ch}
+.day-tip{margin-top:8px;font-size:.82rem;color:#8A6A1B;background:var(--gold-soft);border-radius:8px;padding:6px 12px;display:inline-block}
+.day-note{margin-top:10px;width:100%;border:1px dashed var(--line);border-radius:8px;background:transparent;padding:8px 12px;font-size:.88rem;color:var(--indigo);resize:vertical;min-height:0;field-sizing:content}
+.day-note::placeholder{color:var(--ink-faint)}
+.day-note:focus{border-style:solid;border-color:var(--indigo);outline:none;background:#fff}
+.poi-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.poi{font-size:.76rem;color:var(--indigo);background:var(--indigo-soft);border-radius:99px;padding:3px 11px;text-decoration:none;white-space:nowrap;transition:background .15s}
+.poi:hover{background:#CBD7E8}
+
+/* Unterkünfte */
+.hotel-row{display:grid;grid-template-columns:170px 1fr 1fr auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+.hotel-row:last-child{border-bottom:none}
+.h-city{font-weight:600;color:var(--ink);font-family:var(--serif);font-size:1.02rem}
+.h-city small{display:block;font-family:var(--sans);font-weight:400;font-size:.74rem;color:var(--ink-faint);margin-top:2px}
+.hotel-row input{border:1px dashed var(--line);border-radius:8px;padding:8px 12px;background:transparent;font-size:.88rem;width:100%}
+.hotel-row input:focus{border-style:solid;border-color:var(--indigo);outline:none;background:#fff}
+.hotel-row .poi{visibility:hidden}
+.hotel-row .poi.show{visibility:visible}
+.hotel-row .h-bk{grid-column:2/4;display:flex;flex-direction:column;gap:3px;font-size:.86rem;line-height:1.45}
+.hotel-row .h-bk b{color:var(--matcha);font-size:.92rem}
+.hotel-row .h-bk .h-sub{opacity:.78}
+.hotel-row .h-bk .h-ref{font-size:.76rem;letter-spacing:.04em;opacity:.6}
+.hotel-row .h-bk .h-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+/* ---- Karte ---- */
+.map-wrap{border:1px solid var(--line-soft);border-radius:14px;overflow:hidden;background:#E6EDF1}
+.jmap{display:block;width:100%;height:auto}
+.map-legend{display:flex;flex-wrap:wrap;gap:14px 22px;font-size:.82rem;color:#6b6e76;margin:0 0 12px}
+.map-legend span{display:inline-flex;align-items:center;gap:7px}
+.mlg{display:inline-block;width:14px;height:14px;border-radius:50%}
+.mlg.stay{background:#FBF9F2;border:3px solid #C7402D}
+.mlg.trip{background:#FBF9F2;border:2.5px solid #2E4A72;width:11px;height:11px}
+.mlg.line-main{width:22px;height:4px;border-radius:2px;background:#C7402D}
+.mlg.line-back{width:22px;height:0;border-radius:0;border-top:3px dashed #B98A1E}
+.mstop{cursor:pointer;outline:none}
+.mstop .hit{fill:transparent}
+.mstop .dot{fill:#FBF9F2;stroke-width:3.5;transition:r .15s}
+.mstop.t-stay .dot{stroke:#C7402D}
+.mstop.t-trip .dot{stroke:#2E4A72;stroke-width:2.5}
+.mstop.t-via .dot{stroke:#64748B;stroke-width:2.5}
+.mstop.t-air .dot{stroke:#9A9CA3;stroke-width:2}
+.mstop text{font-size:13px;font-weight:600;fill:#2A2D35;pointer-events:none}
+.mstop text.sub{font-size:10.5px;font-weight:400;fill:#9A9CA3}
+.mstop.t-trip text,.mstop.t-via text{font-size:11.5px;font-weight:500;fill:#4a4e58}
+.mstop.t-air text{font-size:10.5px;font-weight:500;fill:#9A9CA3}
+.mstop.sel .dot,.mstop:focus-visible .dot{fill:#C7402D;stroke:#8f2a1c}
+.mstop.sel.t-trip .dot,.mstop.sel.t-via .dot{fill:#2E4A72;stroke:#1d3050}
+.mstop .now-ring{fill:none;stroke:#B98A1E;stroke-width:2.5;opacity:0}
+.mstop.now .now-ring{opacity:1}
+@media (prefers-reduced-motion: no-preference){
+  .mstop.now .now-ring{animation:mapPulse 2s ease-out infinite}
+  @keyframes mapPulse{0%{stroke-width:3;opacity:.9}100%{stroke-width:14;opacity:0}}
+}
+.map-panel{margin-top:14px;border:1px solid var(--line-soft);border-radius:14px;background:#fff;padding:18px 20px}
+.map-panel h3{margin:0 0 2px;font-family:Georgia,serif;font-size:1.15rem}
+.map-panel .mp-dates{display:inline-block;font-size:.78rem;font-weight:600;color:#8A6A1B;background:#F6EEDC;border-radius:99px;padding:3px 11px;margin:4px 0 10px}
+.map-panel ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px;font-size:.92rem;line-height:1.5}
+.map-panel .mp-jump{margin-top:13px;display:inline-block;border:none;border-radius:99px;background:#C7402D;color:#fff;font-size:.85rem;font-weight:600;padding:9px 18px;cursor:pointer}
+.map-panel .mp-jump:hover{background:#a83424}
+.day.flash{animation:flashDay 1.4s ease-out 2}
+@keyframes flashDay{0%{box-shadow:0 0 0 4px rgba(199,64,45,.5)}100%{box-shadow:0 0 0 0 rgba(199,64,45,0)}}
+@media (max-width:680px){.hotel-row{grid-template-columns:1fr;gap:7px;padding:14px 0}.hotel-row .poi{justify-self:start}}
+
+/* ============ CHECKLISTEN ============ */
+.check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.clist{padding:22px 22px 18px;display:flex;flex-direction:column}
+.clist-head{margin-bottom:6px}
+.clist-head h3{font-size:1.12rem;color:var(--ink)}
+.clist-when{font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--momiji);font-weight:700;margin-bottom:6px;display:block}
+.progress{height:5px;background:var(--washi-2);border-radius:99px;margin:12px 0 14px;overflow:hidden}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--matcha),#7FA06F);border-radius:99px;transition:width .35s ease;width:0}
+.pct{font-size:.74rem;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+.citem{display:flex;align-items:flex-start;gap:11px;padding:8px 2px;border-bottom:1px solid var(--line-soft);font-size:.92rem}
+.citem:last-of-type{border-bottom:none}
+.citem input[type=checkbox]{width:17px;height:17px;margin-top:2.5px;flex-shrink:0}
+.citem label{flex:1;cursor:pointer}
+.citem.done label{color:var(--ink-faint);text-decoration:line-through;text-decoration-color:var(--matcha)}
+.citem small{display:block;color:var(--ink-faint);font-size:.78rem;margin-top:1px}
+.deadline{font-size:.68rem;font-weight:700;color:var(--indigo);background:var(--indigo-soft);border-radius:99px;padding:2px 8px;white-space:nowrap;margin-top:2px}
+.deadline.hot{color:var(--momiji-deep);background:var(--momiji-soft)}
+.citem .rm{background:none;border:none;color:var(--ink-faint);font-size:1rem;padding:0 4px;line-height:1}
+.citem .rm:hover{color:var(--momiji)}
+.add-row{display:flex;gap:8px;margin-top:12px}
+.add-row input{flex:1;border:1px dashed var(--line);border-radius:8px;padding:8px 12px;background:transparent;font-size:.88rem}
+.add-row input:focus{border-style:solid;border-color:var(--indigo);outline:none;background:#fff}
+
+/* ============ BUDGET ============ */
+.budget-grid{display:grid;grid-template-columns:5fr 7fr;gap:22px;align-items:start}
+.pad{padding:24px}
+.conv-title{font-size:1.05rem;margin-bottom:16px}
+.conv-row{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
+.conv-field{display:flex;flex-direction:column;gap:5px}
+.conv-field label{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);font-weight:700}
+.conv-field input{border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:1.25rem;font-family:var(--mono);font-variant-numeric:tabular-nums;width:100%;background:#fff}
+.conv-swap{font-size:1.2rem;color:var(--ink-faint);padding-top:20px}
+.rate-row{display:flex;align-items:center;gap:9px;margin-top:16px;font-size:.85rem;color:var(--ink-soft);flex-wrap:wrap}
+.rate-row input{width:86px;border:1px solid var(--line);border-radius:8px;padding:6px 9px;font-family:var(--mono);font-variant-numeric:tabular-nums;background:#fff}
+.quickchips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.qchip{font-size:.8rem;background:var(--washi-2);border:none;border-radius:99px;padding:6px 13px;color:var(--ink);font-variant-numeric:tabular-nums}
+.qchip:hover{background:var(--gold-soft)}
+.budget-target{display:flex;align-items:center;gap:10px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line-soft);font-size:.88rem;flex-wrap:wrap}
+.budget-target input{width:110px;border:1px solid var(--line);border-radius:8px;padding:6px 9px;font-family:var(--mono);background:#fff}
+.exp-form{display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:6px}
+.exp-form-row{display:flex;gap:10px;flex-wrap:wrap}
+.exp-form input[type=number]{width:130px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-family:var(--mono);font-size:1.05rem;background:#fff}
+.exp-form input[type=text]{flex:1;min-width:150px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff}
+.exp-form select{border:1px solid var(--line);border-radius:10px;padding:10px 10px;background:#fff}
+.cur-toggle{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.cur-toggle button{border:none;background:#fff;padding:10px 14px;font-size:.9rem;font-family:var(--mono);color:var(--ink-soft)}
+.cur-toggle button.on{background:var(--ink);color:var(--washi)}
+.exp-summary{display:flex;gap:22px;flex-wrap:wrap;align-items:baseline;margin:18px 0 8px}
+.sum-big{font-family:var(--serif);font-size:2rem;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+.sum-sub{font-size:.82rem;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+.budget-bar{height:7px;background:var(--washi-2);border-radius:99px;overflow:hidden;margin:6px 0 16px}
+.budget-bar i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.budget-bar i.over{background:var(--momiji)}
+.catbars{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
+.catbar{display:grid;grid-template-columns:118px 1fr auto;gap:10px;align-items:center;font-size:.82rem}
+.catbar .bar{height:6px;background:var(--washi-2);border-radius:99px;overflow:hidden}
+.catbar .bar i{display:block;height:100%;border-radius:99px}
+.catbar .amt{color:var(--ink-soft);font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:.78rem}
+.cat-name{display:flex;align-items:center;gap:8px;color:var(--ink-soft)}
+.cat-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.exp-list{display:flex;flex-direction:column;max-height:340px;overflow-y:auto;border-top:1px solid var(--line-soft)}
+.exp-item{display:flex;align-items:center;gap:12px;padding:9px 2px;border-bottom:1px solid var(--line-soft);font-size:.88rem}
+.exp-item .what{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.exp-item .when{color:var(--ink-faint);font-size:.76rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.exp-item .yen{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.exp-item .eur{color:var(--ink-faint);font-size:.78rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.exp-item .rm{background:none;border:none;color:var(--ink-faint);font-size:1.05rem;line-height:1;padding:0 4px}
+.exp-item .rm:hover{color:var(--momiji)}
+.exp-empty{padding:26px 0;text-align:center;color:var(--ink-faint);font-size:.88rem}
+
+/* JR-Rechner */
+.jr-grid{display:grid;grid-template-columns:7fr 5fr;gap:22px;margin-top:22px;align-items:start}
+.jr-leg{display:flex;align-items:center;gap:11px;padding:9px 2px;border-bottom:1px solid var(--line-soft);font-size:.9rem}
+.jr-leg:last-of-type{border-bottom:none}
+.jr-leg input{width:17px;height:17px;flex-shrink:0}
+.jr-leg label{flex:1;cursor:pointer}
+.jr-leg small{color:var(--ink-faint);display:block;font-size:.76rem}
+.jr-leg .p{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink-soft);font-size:.84rem;white-space:nowrap}
+.verdict{background:var(--night-2);color:var(--on-night);border-radius:var(--r);padding:22px}
+.verdict h4{font-family:var(--sans);font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:14px}
+.v-row{display:flex;justify-content:space-between;gap:12px;font-size:.9rem;padding:7px 0;border-bottom:1px dashed rgba(237,231,217,.14);font-variant-numeric:tabular-nums}
+.v-row:last-of-type{border-bottom:none}
+.v-row b{font-family:var(--mono);font-weight:600}
+.v-msg{margin-top:14px;font-size:.88rem;line-height:1.55;color:var(--on-night-dim)}
+.v-msg b{color:var(--gold-bright)}
+
+/* ============ SPRACHE ============ */
+.phrase-cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.pcat{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:7px 15px;font-size:.85rem;color:var(--ink-soft)}
+.pcat.on{background:var(--ink);color:var(--washi);border-color:var(--ink)}
+.phrase-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.phrase{background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:13px 16px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow)}
+.ph-txt{flex:1;min-width:0}
+.ph-de{font-size:.8rem;color:var(--ink-faint)}
+.ph-jp{font-family:var(--serif);font-size:1.15rem;color:var(--ink);margin-top:1px}
+.ph-ro{font-size:.84rem;color:var(--indigo);font-style:italic;margin-top:1px}
+.say-btn{flex-shrink:0;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--washi);font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);transition:all .15s}
+.say-btn:hover{background:var(--momiji);border-color:var(--momiji);color:#fff}
+.say-btn.playing{background:var(--gold);border-color:var(--gold);color:#fff}
+.speech-note{font-size:.8rem;color:var(--ink-faint);margin-top:14px}
+
+/* ============ FOOD ============ */
+.food-count{font-size:.9rem;color:var(--ink-soft);margin-bottom:18px}
+.food-count b{color:var(--momiji);font-family:var(--serif);font-size:1.3rem;font-variant-numeric:tabular-nums}
+.food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.food-card{position:relative;background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:14px 16px;cursor:pointer;user-select:none;box-shadow:var(--shadow);transition:transform .12s,border-color .15s}
+.food-card:hover{transform:translateY(-2px)}
+.food-card .f-emoji{font-size:1.5rem;line-height:1}
+.food-card h4{font-family:var(--sans);font-size:.95rem;font-weight:600;margin-top:8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.food-card .f-jp{font-family:var(--serif);color:var(--ink-faint);font-size:.82rem;font-weight:400}
+.food-card p{font-size:.8rem;color:var(--ink-soft);margin-top:4px;line-height:1.5}
+.food-card .f-where{display:block;font-size:.74rem;color:var(--indigo);margin-top:7px}
+.nov-badge{font-size:.62rem;font-weight:800;letter-spacing:.08em;color:#7A3A10;background:var(--gold-soft);padding:2px 7px;border-radius:99px;text-transform:uppercase}
+.food-card.checked{border-color:var(--matcha);background:var(--matcha-soft)}
+.food-card.checked::after{content:"✓ probiert";position:absolute;top:10px;right:12px;font-size:.7rem;font-weight:800;color:var(--matcha)}
+.food-card.checked h4,.food-card.checked p{opacity:.75}
+.f-vg{display:block;font-size:.74rem;color:var(--matcha);margin-top:7px;font-weight:600}
+
+/* ============ GUIDE ============ */
+.guide-block{margin-bottom:44px}
+.guide-block h3{font-size:1.3rem;margin-bottom:16px;color:var(--ink)}
+.dodont{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.dd-col{padding:20px 22px}
+.dd-col h4{font-family:var(--sans);font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px}
+.dd-col.do h4{color:var(--matcha)}
+.dd-col.dont h4{color:var(--momiji)}
+.dd-col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+.dd-col li{font-size:.9rem;color:var(--ink-soft);padding-left:22px;position:relative;line-height:1.5}
+.dd-col.do li::before{content:"○";position:absolute;left:0;color:var(--matcha);font-weight:700}
+.dd-col.dont li::before{content:"✕";position:absolute;left:0;color:var(--momiji);font-weight:700}
+.dd-col li b{color:var(--ink)}
+.spots{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.spot{background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:15px 17px;box-shadow:var(--shadow)}
+.spot h4{font-family:var(--sans);font-size:.95rem;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.spot .peak{font-size:.7rem;font-weight:700;color:#7A5B10;background:var(--gold-soft);border-radius:99px;padding:2px 9px;white-space:nowrap}
+.spot p{font-size:.82rem;color:var(--ink-soft);margin-top:5px;line-height:1.55}
+.weather-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.wx{background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:14px 16px;text-align:center}
+.wx b{font-family:var(--serif);font-size:1.35rem;display:block;color:var(--ink);font-variant-numeric:tabular-nums}
+.wx span{font-size:.74rem;color:var(--ink-faint)}
+.tip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.tip{background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+.tip h4{font-family:var(--sans);font-size:.92rem;font-weight:700;color:var(--ink)}
+.tip p{font-size:.84rem;color:var(--ink-soft);margin-top:5px;line-height:1.6}
+.tip p b{color:var(--ink)}
+
+/* ============ NOTFALL ============ */
+.sos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sos{background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
+.sos.hot{background:var(--night);border-color:var(--night);color:var(--on-night)}
+.sos h4{font-family:var(--sans);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--momiji);margin-bottom:8px}
+.sos.hot h4{color:var(--gold-bright)}
+.sos-num{font-family:var(--serif);font-size:2rem;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums}
+.sos.hot .sos-num{color:var(--on-night)}
+.sos p{font-size:.82rem;color:var(--ink-soft);margin-top:6px;line-height:1.55}
+.sos.hot p{color:var(--on-night-dim)}
+.sos a{color:inherit}
+
+/* ============ FOOTER ============ */
+.footer{margin-top:100px;background:linear-gradient(180deg,var(--washi) 0%,#D8CFC2 12%,#8A6355 34%,#3E3448 58%,#151C2C 86%);padding:130px 20px 40px;color:var(--on-night)}
+.footer-inner{max-width:1120px;margin:0 auto;text-align:center}
+.footer-jp{font-family:var(--serif);font-size:clamp(1.9rem,4.5vw,3rem);color:var(--on-night);letter-spacing:.14em}
+.footer-sub{color:var(--on-night-dim);margin-top:10px;font-size:.95rem}
+.data-controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+.footer-note{margin-top:30px;font-size:.76rem;color:var(--on-night-faint);max-width:60ch;margin-left:auto;margin-right:auto;line-height:1.7}
+.footer-fine{margin-top:26px;padding-top:18px;border-top:1px solid rgba(237,231,217,.1);font-size:.72rem;color:var(--on-night-faint)}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,80px);background:var(--ink);color:var(--washi);padding:11px 20px;border-radius:99px;font-size:.86rem;box-shadow:var(--shadow-lg);z-index:99;opacity:0;transition:all .3s ease;pointer-events:none;max-width:90vw;text-align:center}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:980px){
+  .flights-grid,.budget-grid,.jr-grid,.dodont{grid-template-columns:1fr}
+  .food-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-vert{display:none}
+  .weather-strip{grid-template-columns:repeat(2,1fr)}
+  .sos-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:680px){
+  .check-grid,.phrase-list,.food-grid,.spots,.tip-grid,.sos-grid{grid-template-columns:1fr}
+  .hero-inner{padding:104px 20px 130px}
+  .cd-block{min-width:0;flex:1;padding:12px 6px 10px}
+  .countdown{gap:8px}
+  .day{grid-template-columns:56px 1fr;padding:14px 14px}
+  .fact-card{flex-wrap:wrap}
+  .fact-next{margin-left:0}
+  .jst-chip .jst-city{display:none}
+  .sec{padding-top:64px}
+  .exp-form-row{flex-direction:column}
+  .exp-form input[type=number]{width:100%}
+}
+/* ========== WOW-Paket: Reveal, Seigaiha, Karte 2.0, Hanko, Flip, Konfetti ========== */
+.sec::before{content:"";display:block;height:20px;margin:0 auto 42px;max-width:480px;opacity:.5;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'><g fill='none' stroke='%23C9B98C' stroke-width='1.2'><path d='M0 22a22 22 0 0 1 44 0'/><path d='M7 22a15 15 0 0 1 30 0'/><path d='M14 22a8 8 0 0 1 16 0'/></g></svg>") repeat-x center bottom/44px 20px}
+@media (prefers-reduced-motion: no-preference){
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
+  .rv.in{opacity:1;transform:none}
+}
+.map-wrap{position:relative}
+.map-tools{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:6px;z-index:3}
+.map-tools button,.map-play{border:1px solid var(--line);background:rgba(251,249,242,.94);color:var(--ink-soft);border-radius:9px;box-shadow:var(--shadow);cursor:pointer;font:inherit}
+.map-tools button{width:34px;height:34px;font-size:1.05rem;line-height:1}
+.map-tools button:hover,.map-play:hover{background:var(--momiji);border-color:var(--momiji);color:#fff}
+.map-play{position:absolute;left:10px;bottom:10px;z-index:3;padding:8px 14px;font-size:.86rem;font-weight:600}
+.map-play[disabled]{opacity:.55;cursor:default}
+.jmap.zoomed{cursor:grab}
+.jmap.grabbing{cursor:grabbing}
+.jmap .deco{pointer-events:none}
+.jmap.anim .mstop,.jmap.anim .deco{opacity:.1;transition:opacity .45s}
+.jmap.anim .mstop.pop,.jmap.anim .deco.pop{opacity:1}
+.mstop .dot{transform-box:fill-box;transform-origin:center}
+#trainG{pointer-events:none}
+@media (prefers-reduced-motion: no-preference){
+  .mstop.pop .dot{animation:popDot .55s cubic-bezier(.2,1.5,.4,1)}
+}
+@keyframes popDot{0%{transform:scale(.2)}60%{transform:scale(1.6)}100%{transform:scale(1)}}
+.day{position:relative}
+.day.done::after{content:"済";position:absolute;top:44px;right:14px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;color:#B3301F;border:2.6px solid #B3301F;border-radius:50%;font-family:var(--serif);font-size:1.5rem;font-weight:700;transform:rotate(-12deg);opacity:.8;box-shadow:inset 0 0 7px rgba(179,48,31,.28);background:radial-gradient(circle at 35% 30%,rgba(179,48,31,.07),transparent 62%);pointer-events:none}
+.day.stamp-anim::after{animation:stampIn .5s cubic-bezier(.25,1.4,.45,1)}
+@keyframes stampIn{0%{transform:rotate(-32deg) scale(2.6);opacity:0}55%{transform:rotate(-9deg) scale(.92);opacity:1}100%{transform:rotate(-12deg) scale(1);opacity:.8}}
+.phrase{perspective:900px;cursor:pointer;-webkit-tap-highlight-color:transparent;outline:none}
+.ph-inner{position:relative;display:grid;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.35,.9,.3,1)}
+.phrase.flip .ph-inner{transform:rotateY(180deg)}
+.ph-face{grid-area:1/1;display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:13px 16px;box-shadow:var(--shadow);backface-visibility:hidden;-webkit-backface-visibility:hidden;min-height:80px}
+.phrase:focus-visible .ph-face{border-color:var(--momiji)}
+.ph-back{transform:rotateY(180deg)}
+.ph-front .ph-de{font-size:.98rem;color:var(--ink);flex:1}
+.ph-flip-hint{flex-shrink:0;font-size:.72rem;color:var(--ink-faint);border:1px solid var(--line-soft);border-radius:999px;padding:3px 10px;white-space:nowrap}
+.leafbit{position:fixed;z-index:1200;pointer-events:none;font-size:15px;will-change:transform,opacity;animation:leafPop 1.15s ease-out forwards}
+@keyframes leafPop{0%{transform:translate(0,0) rotate(0deg);opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(var(--rr));opacity:0}}
+@media print{.map-tools,.map-play,.ph-flip-hint,.sec::before{display:none !important}}
+/* ========== Ende WOW-Paket ========== */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .scroll-hint{animation:none}
+  *{transition-duration:.01ms !important;animation-duration:.01ms !important}
+}
+@media print{
+  .nav,.hero,.fact-strip,.footer .data-controls,.say-btn,.fact-next,.hero-cta,.scroll-hint{display:none !important}
+  body{background:#fff}
+  .sec{padding-top:28px}
+  .day,.clist,.card{box-shadow:none;break-inside:avoid}
+}
+</style>
+<nav class="nav" aria-label="Hauptnavigation">
+  <div class="nav-inner">
+    <a class="brand" href="#top">日本<b>2026</b><span>NOV</span></a>
+    <div class="nav-links">
+      <a href="#fluege">Flüge</a><a href="#karte">Karte</a><a href="#plan">Reiseplan</a><a href="#listen">Checklisten</a><a href="#budget">Budget</a><a href="#sprache">Sprache</a><a href="#essen">Essen</a><a href="#guide">Guide</a><a href="#notfall">Notfall</a>
+    </div>
+    <span class="jst-chip" title="Aktuelle Uhrzeit in Japan"><span class="jst-dot"></span><span class="jst-city">Tokio</span><b id="jstClock">--:--</b></span>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="leafCanvas" aria-hidden="true"></canvas>
+  <svg class="hero-scene" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <circle cx="1150" cy="72" r="56" fill="#E8C57F" opacity=".1"/>
+    <circle cx="1150" cy="72" r="34" fill="#E8C57F" opacity=".85"/>
+    <polygon fill="#1A2337" points="0,212 180,172 320,198 520,152 700,192 900,162 1100,188 1290,160 1440,182 1440,300 0,300"/>
+    <polygon fill="#111A2E" points="400,300 690,90 750,90 1040,300"/>
+    <path d="M664 118 L690 90 L750 90 L776 118 L752 112 L736 124 L718 112 L700 122 L682 112 Z" fill="#D9DEEA" opacity=".9"/>
+    <polygon fill="#0E1526" points="0,300 0,232 140,206 300,244 420,224 560,258 700,300"/>
+    <polygon fill="#0E1526" points="820,300 960,240 1120,262 1260,236 1440,258 1440,300"/>
+    <g fill="#0A0F1C">
+      <rect x="1162" y="172" width="15" height="112"/>
+      <rect x="1265" y="172" width="15" height="112"/>
+      <rect x="1140" y="152" width="162" height="17" rx="3"/>
+      <rect x="1148" y="146" width="146" height="7" rx="3"/>
+      <rect x="1158" y="196" width="126" height="11"/>
+      <rect x="1214" y="169" width="14" height="27"/>
+    </g>
+  </svg>
+  <div class="hero-inner">
+    <p class="hero-kicker">Frankfurt <span class="sep">→</span> Doha <span class="sep">→</span> Tokio</p>
+    <h1 class="hero-title">Drei Wochen <em>Japan.</em></h1>
+    <p class="hero-sub"><b>6.&thinsp;–&thinsp;28. November 2026</b> · 21 Tage mitten in der Momiji-Saison — wenn Kyōtos Tempel in Rot und Tokios Ginkgo-Alleen in Gold stehen.</p>
+    <div class="countdown num" id="countdown" role="timer" aria-label="Countdown bis zum Abflug">
+      <div class="cd-block"><span class="cd-num" id="cdD">–</span><span class="cd-lbl">Tage</span></div>
+      <div class="cd-block"><span class="cd-num" id="cdH">–</span><span class="cd-lbl">Stunden</span></div>
+      <div class="cd-block"><span class="cd-num" id="cdM">–</span><span class="cd-lbl">Minuten</span></div>
+      <div class="cd-block"><span class="cd-num" id="cdS">–</span><span class="cd-lbl">Sekunden</span></div>
+    </div>
+    <p class="phase-line" id="phaseLine"></p>
+    <div class="hero-cta">
+      <a class="btn" href="#plan">Zum Reiseplan</a>
+      <a class="btn btn-ghost" href="#listen">Vorbereitung starten</a>
+    </div>
+  </div>
+  <div class="hero-vert" aria-hidden="true">日本の秋</div>
+  <div class="scroll-hint" aria-hidden="true">Scrollen</div>
+</header>
+
+<div class="fact-strip">
+  <div class="fact-card">
+    <div class="fact-mark" aria-hidden="true">豆<br>知<br>識</div>
+    <div>
+      <h3>Japan-Moment des Tages</h3>
+      <p id="factText">…</p>
+    </div>
+    <button class="fact-next" id="factNext" type="button" aria-label="Nächsten Japan-Moment anzeigen">Noch einer →</button>
+  </div>
+</div>
+
+<!-- ============ FLÜGE ============ -->
+<section class="sec" id="fluege">
+  <div class="sec-head">
+    <p class="eyebrow"><span class="jp">飛行機</span> Eure Flüge</p>
+    <h2>Qatar Airways, Buchung <span class="pnr-slot">🔒</span></h2>
+    <p class="lede">Beide Strecken bestätigt (Status OK), Economy Classic mit 25 kg Freigepäck pro Person. Umstieg jeweils in Doha — genug Zeit, ohne Stress.</p>
+  </div>
+  <div class="flights-grid">
+    <article class="fcard">
+      <div class="fcard-head"><h3>Hinflug · Fr, 6. November</h3><span>Gesamt 18:40 h</span></div>
+      <div class="leg">
+        <div class="leg-route">
+          <div class="apt"><span class="apt-code">FRA</span><span class="apt-city">Frankfurt · Terminal 3</span><span class="apt-time num">09:15</span><span class="apt-date">Fr, 06.11.</span></div>
+          <div class="leg-mid"><span class="leg-no">QR 70</span><span class="leg-line"></span><span class="leg-dur num">6:00 h</span></div>
+          <div class="apt right"><span class="apt-code">DOH</span><span class="apt-city">Doha Hamad Intl.</span><span class="apt-time num">17:15</span><span class="apt-date">Fr, 06.11.</span></div>
+        </div>
+      </div>
+      <p class="layover">Umstieg in Doha · <b>2 Std 35 Min</b></p>
+      <div class="leg">
+        <div class="leg-route">
+          <div class="apt"><span class="apt-code">DOH</span><span class="apt-city">Doha Hamad Intl.</span><span class="apt-time num">19:50</span><span class="apt-date">Fr, 06.11.</span></div>
+          <div class="leg-mid"><span class="leg-no">QR 808</span><span class="leg-line"></span><span class="leg-dur num">10:05 h</span></div>
+          <div class="apt right"><span class="apt-code">NRT</span><span class="apt-city">Tokio-Narita · Terminal 2</span><span class="apt-time num">11:55</span><span class="apt-date">Sa, 07.11.</span></div>
+        </div>
+      </div>
+      <div class="fcard-foot">
+        <span class="fchip">Ankunft <b>Samstagmittag</b> — perfekt gegen Jetlag</span>
+        <span class="fchip"><b>25 kg</b> Gepäck</span>
+        <span class="fchip">Economy Classic</span>
+      </div>
+    </article>
+    <article class="fcard">
+      <div class="fcard-head"><h3>Rückflug · Sa, 28. November</h3><span>Gesamt 19:55 h</span></div>
+      <div class="leg">
+        <div class="leg-route">
+          <div class="apt"><span class="apt-code">HND</span><span class="apt-city">Tokio-Haneda · Terminal 3</span><span class="apt-time num">01:25</span><span class="apt-date">Sa, 28.11.</span></div>
+          <div class="leg-mid"><span class="leg-no">QR 813</span><span class="leg-line"></span><span class="leg-dur num">11:15 h</span></div>
+          <div class="apt right"><span class="apt-code">DOH</span><span class="apt-city">Doha Hamad Intl.</span><span class="apt-time num">06:40</span><span class="apt-date">Sa, 28.11.</span></div>
+        </div>
+      </div>
+      <p class="layover">Umstieg in Doha · <b>2 Std 20 Min</b></p>
+      <div class="leg">
+        <div class="leg-route">
+          <div class="apt"><span class="apt-code">DOH</span><span class="apt-city">Doha Hamad Intl.</span><span class="apt-time num">09:00</span><span class="apt-date">Sa, 28.11.</span></div>
+          <div class="leg-mid"><span class="leg-no">QR 67</span><span class="leg-line"></span><span class="leg-dur num">6:20 h</span></div>
+          <div class="apt right"><span class="apt-code">FRA</span><span class="apt-city">Frankfurt · Terminal 3</span><span class="apt-time num">13:20</span><span class="apt-date">Sa, 28.11.</span></div>
+        </div>
+      </div>
+      <div class="fcard-foot">
+        <span class="fchip">Nachtflug ab Haneda — <b>letzter Hoteltag: Fr, 27.11.</b></span>
+        <span class="fchip">Zu Hause <b>Sa 13:20</b>, Sonntag zum Ankommen</span>
+      </div>
+    </article>
+  </div>
+  <div class="flight-meta">
+    <span class="copy-chip">Buchung <b class="pnr-slot">🔒</b><button type="button" class="pnr-copy" data-copy="">Kopieren</button></span>
+    <span class="copy-chip">Ticket <b class="tix-slot">🔒</b><button type="button" class="tix-copy" data-copy="">Kopieren</button></span>
+    <button class="btn btn-light btn-sm" id="icsBtn" type="button">📅 Flüge in Kalender (.ics)</button>
+    <button class="btn btn-line btn-sm" id="remBtn" type="button">🔔 Planungs-Deadlines (.ics)</button>
+    <a class="btn btn-line btn-sm" href="https://www.qatarairways.com/en/manage-booking.html" target="_blank" rel="noopener">Manage Booking ↗</a>
+  </div>
+  <p class="checkin-note"><b>Online-Check-in</b> öffnet 48 h vorher: Hinflug ab <b>Mi, 4.11., 09:15 Uhr</b> · Rückflug ab <b>Do, 26.11., 01:25 Uhr JST</b> (= Mi, 25.11., 17:25 Uhr dt. Zeit). Am Flugtag ~3 h vorher da sein — Frankfurt fliegt laut Ticket vom <b>neuen Terminal 3</b> ab, Anfahrt kurz vorher prüfen. Der Rückflug geht um 01:25 nachts: Am 27.11. gegen 21:30 Uhr ab Tokio-Zentrum Richtung Haneda reicht entspannt.</p>
+</section>
+
+<!-- ============ KARTE ============ -->
+<section class="sec" id="karte">
+  <div class="sec-head">
+    <p class="eyebrow"><span class="jp">地図</span> Karte</p>
+    <h2>Japan, eure Route, ein Blick</h2>
+    <p class="lede">Eure drei Wochen auf einen Blick: Rot ist euer Hinweg, Gold die Rückfahrt, gestrichelt die Tagesausflüge. Station antippen — dann zeigt die Karte unten Daten, Unterkunft und geplante Zeiten, mit Absprung zum passenden Reisetag. Während der Reise pulsiert automatisch der Ort, an dem ihr gerade seid.</p>
+  </div>
+  <div class="map-legend">
+    <span><span class="mlg stay"></span> Übernachtung</span>
+    <span><span class="mlg trip"></span> Tagesausflug</span>
+    <span><span class="mlg line-main"></span> Hinweg</span>
+    <span><span class="mlg line-back"></span> Rückfahrt 25.11.</span>
+  </div>
+  <div class="map-wrap">
+    <svg class="jmap" viewBox="0 0 1000 500" role="img" aria-label="Geografische Karte eurer Japan-Route von Tokio über Hakone, Kyōto, Ōsaka und den Kōyasan bis Hiroshima, mit Tagesausflügen">
+      <rect x="0" y="0" width="1000" height="500" fill="#E6EDF1"/>
+      <!-- Honshū -->
+      <path fill="#F7F2E4" stroke="#CDC3A9" stroke-width="1.5" stroke-linejoin="round" d="M0 372 C 30 378, 60 388, 93 393 C 104 380, 108 366, 118 362 C 130 372, 138 378, 149 376 C 168 372, 188 372, 206 370 C 210 364, 212 364, 216 362 C 235 356, 255 350, 273 344 C 288 338, 304 333, 319 330 C 330 326, 340 324, 350 323 C 368 326, 386 330, 402 333 C 412 335, 420 337, 427 339 C 429 348, 428 356, 427 365 C 418 372, 408 378, 399 385 C 394 398, 392 414, 391 428 C 402 450, 428 468, 459 476 C 478 452, 492 428, 505 405 C 517 389, 529 373, 541 359 C 546 347, 551 336, 556 325 C 562 329, 567 332, 572 336 C 580 338, 589 340, 597 342 C 606 341, 614 340, 623 339 C 638 337, 654 334, 670 332 C 686 326, 701 320, 716 313 C 725 304, 733 294, 742 285 C 749 284, 755 283, 762 283 C 764 291, 765 300, 767 308 C 770 319, 774 331, 778 342 C 786 329, 794 315, 803 302 C 805 291, 806 279, 808 268 C 818 265, 828 263, 839 262 C 843 262, 846 262, 850 262 C 853 268, 856 274, 860 280 C 865 266, 870 252, 876 239 C 881 233, 886 227, 891 222 C 894 230, 897 237, 901 245 C 898 266, 894 287, 891 308 C 904 299, 918 289, 932 279 C 941 258, 950 238, 958 217 C 963 205, 968 194, 973 182 C 971 159, 970 137, 968 114 C 954 76, 941 38, 927 0 L 0 0 Z"/>
+      <!-- Shikoku -->
+      <path fill="#F7F2E4" stroke="#CDC3A9" stroke-width="1.5" stroke-linejoin="round" d="M155 422 C 180 404, 208 388, 237 376 C 268 380, 300 384, 330 388 C 337 401, 344 414, 350 428 C 334 440, 317 452, 299 462 C 268 464, 236 466, 206 467 C 186 464, 166 460, 149 456 C 151 444, 153 434, 155 422 Z"/>
+      <!-- Awaji & Kyūshū-Ecke -->
+      <ellipse cx="380" cy="360" rx="10" ry="15" fill="#F7F2E4" stroke="#CDC3A9" stroke-width="1.5"/>
+      <path fill="#F7F2E4" stroke="#CDC3A9" stroke-width="1.5" d="M0 402 C 22 408, 44 414, 62 422 C 55 444, 48 466, 41 500 L 0 500 Z"/>
+      <!-- Fuji -->
+      <path d="M762 244 L777 266 L747 266 Z" fill="#EDE9F2" stroke="#8B8FA3" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M762 244 L768 253 L756 253 Z" fill="#FFFFFF"/>
+      <text x="640" y="472" font-size="12" fill="#B4C3CC" font-style="italic" letter-spacing=".2em">PAZIFIK</text>
+      <!-- Hinweg (rot) -->
+      <g fill="none" stroke="#C7402D" stroke-width="3.5" stroke-linecap="round">
+        <path id="r0" d="M864 219 C 840 240, 820 255, 804 270"/>
+        <path id="r1" d="M804 270 C 700 330, 560 330, 460 295"/>
+        <path id="r2" d="M460 295 C 448 315, 442 322, 433 332"/>
+        <path id="r3" d="M433 332 C 436 352, 438 368, 442 386"/>
+        <path id="r4" d="M442 386 C 436 356, 434 342, 426 334 C 398 327, 372 323, 349 321 C 300 330, 262 341, 216 357 C 180 363, 150 364, 119 365"/>
+      </g>
+      <!-- Rückfahrt (gold, gestrichelt) — über Himeji -->
+      <g fill="none" stroke="#B98A1E" stroke-width="2.5" stroke-dasharray="8 7" stroke-linecap="round">
+        <path id="rb1" d="M119 365 C 190 345, 280 325, 349 316"/>
+        <path id="rb2" d="M349 316 C 500 250, 680 195, 864 219"/>
+      </g>
+      <!-- Flüge -->
+      <path d="M936 209 L 872 218" fill="none" stroke="#9A9CA3" stroke-width="1.5" stroke-dasharray="3 4"/>
+      <!-- Tagesausflüge (indigo, gestrichelt) -->
+      <g id="tripLines" fill="none" stroke="#2E4A72" stroke-width="2" stroke-dasharray="4 5" stroke-linecap="round">
+        <path d="M864 219 L 857 97"/>
+        <path d="M864 219 L 850 260"/>
+        <path d="M460 295 L 468 332"/>
+        <path d="M119 365 L 105 376"/>
+      </g>
+      <!-- Mini-Illustrationen -->
+      <g id="mapDecos" aria-hidden="true">
+        <g class="deco" data-deco="tokio" transform="translate(884,194)" fill="none" stroke="#C7402D" stroke-width="1.5" opacity=".8">
+          <path d="M0 -3 L0 0 L-7 21 M0 0 L7 21 M-7 21 L7 21"/>
+          <path d="M-4.5 13.5 L4.5 13.5 M-2.8 7.5 L2.8 7.5" stroke-width="1.2"/>
+        </g>
+        <g class="deco" data-deco="hakone" transform="translate(778,252)" opacity=".85">
+          <path d="M-8 6 A8 4.5 0 0 0 8 6 L-8 6 Z" fill="#2E4A72" opacity=".5"/>
+          <path d="M-4 2 C-5.5 -1,-2.5 -3,-4 -6 M0 2 C-1.5 -1,1.5 -3,0 -6 M4 2 C2.5 -1,5.5 -3,4 -6" stroke="#2E4A72" stroke-width="1.3" fill="none" opacity=".75"/>
+        </g>
+        <g class="deco" data-deco="kyoto" transform="translate(418,270)" fill="none" stroke="#C7402D" stroke-width="1.7" opacity=".85">
+          <path d="M-8 12 L-6.5 -1 M6.5 -1 L8 12 M-10.5 -2 Q0 -6 10.5 -2 M-7 3.5 L7 3.5"/>
+        </g>
+        <g class="deco" data-deco="osaka" transform="translate(456,349)" opacity=".9">
+          <path d="M-7.5 1.5 A7.5 7.5 0 0 1 7.5 1.5 L-7.5 1.5 Z" fill="#C7402D"/>
+          <circle cx="-3.6" cy="-2.4" r="1.7" fill="#FBF9F2"/><circle cx="3.2" cy="-3" r="2.1" fill="#FBF9F2"/>
+          <rect x="-3.4" y="1.5" width="6.8" height="4.6" rx="1.8" fill="#F0E6D0" stroke="#C9B98C" stroke-width=".7"/>
+        </g>
+        <g class="deco" data-deco="koyasan" transform="translate(472,392)" fill="none" stroke="#5F7D54" stroke-width="1.5" opacity=".9">
+          <path d="M-6 10 L6 10 M-3.6 10 L-3.6 5.5 M3.6 10 L3.6 5.5 M-7 5.5 Q0 0.5 7 5.5 M0 0.8 L0 -1.5"/>
+        </g>
+        <g class="deco" data-deco="hiroshima" transform="translate(80,352)" fill="none" stroke="#64748B" stroke-width="1.4" opacity=".85">
+          <path d="M-5.5 11 L-5.5 1.5 M5.5 11 L5.5 1.5 M-5.5 11 L5.5 11 M-5.5 1.5 A5.5 5.5 0 0 1 5.5 1.5"/>
+          <path d="M-3.2 1.2 A3.4 4.2 0 0 1 3.2 1.2" stroke-width="1.1"/>
+        </g>
+        <g class="deco" data-deco="miyajima" transform="translate(70,378)" fill="none" stroke="#C7402D" stroke-width="1.6" opacity=".9">
+          <path d="M-6.5 10 L-5.2 -1 M5.2 -1 L6.5 10 M-8.5 -1.6 Q0 -4.8 8.5 -1.6 M-5.6 2.8 L5.6 2.8"/>
+        </g>
+      </g>
+      <!-- Fahrzeit-Labels -->
+      <g font-size="11" fill="#9A9CA3" font-style="italic">
+        <text x="826" y="240" text-anchor="end">~1,5 Std</text>
+        <text x="612" y="306" text-anchor="middle">Shinkansen ~2 Std</text>
+        <text x="452" y="316">30 Min</text>
+        <text x="450" y="366">Nankai ~2,5 Std</text>
+        <text x="240" y="370" text-anchor="middle">~4,5 Std</text>
+      </g>
+      <text x="600" y="204" text-anchor="middle" font-size="12" fill="#8A6A1B" font-style="italic">Rückfahrt 25.11. · Shinkansen ~4 Std (mit Himeji-Stopp)</text>
+      <g id="mapStops"></g>
+      <g id="trainG"></g>
+    </svg>
+    <div class="map-tools" aria-label="Karten-Zoom">
+      <button type="button" id="mapZin" aria-label="Hineinzoomen">+</button>
+      <button type="button" id="mapZout" aria-label="Herauszoomen">−</button>
+      <button type="button" id="mapZreset" aria-label="Ansicht zurücksetzen" style="font-size:.8rem">⤢</button>
+    </div>
+    <button type="button" class="map-play" id="mapPlay">▶ Route abspielen</button>
+  </div>
+  <div class="map-panel" id="mapPanel" aria-live="polite"></div>
+</section>
+
+<!-- ============ REISEPLAN ============ -->
+<section class="sec" id="plan">
+  <div class="sec-head">
+    <p class="eyebrow"><span class="jp">旅程</span> Reiseplan</p>
+    <h2>23 Tage, Tag für Tag</h2>
+    <p class="lede">Ein durchdachter Vorschlag, auf die Momiji-Saison und eure Flugzeiten gelegt. Macht ihn zu eurem: Notizen tippen (speichert automatisch hier im Browser), unterwegs Tage abhaken. Der heutige Tag leuchtet während der Reise golden.</p>
+  </div>
+  <div class="plan-tools">
+    <button class="btn btn-light btn-sm" id="todayBtn" type="button" hidden>↓ Zum heutigen Tag</button>
+    <span class="plan-hint" id="planHint"></span>
+    <button class="btn btn-line btn-sm" id="planReset" type="button" style="margin-left:auto">Notizen &amp; Haken zurücksetzen</button>
+  </div>
+  <div class="plan-list" id="planList"></div>
+  <div class="guide-block" style="margin-top:56px">
+    <h3>Eure Unterkünfte</h3>
+    <p class="lede" style="margin-bottom:18px">Einmal eintragen, nie mehr suchen: Unterwegs sind Hotelname und Adresse (fürs Taxi, für Maps, fürs Takkyūbin-Formular) immer griffbereit. 20 Nächte insgesamt.</p>
+    <div class="card" style="padding:6px 22px" id="hotelList"></div>
+  </div>
+</section>
+<!-- ============ CHECKLISTEN ============ -->
+<section class="sec" id="listen">
+  <div class="sec-head">
+    <p class="eyebrow"><span class="jp">準備</span> Checklisten</p>
+    <h2>Nichts vergessen, nichts verpassen</h2>
+    <p class="lede">Vier Listen mit echten Deadlines — von „am besten diese Woche" bis zur Nacht vor dem Abflug. Haken setzen, eigene Punkte ergänzen; der Stand bleibt gespeichert.</p>
+  </div>
+  <div class="check-grid" id="checkGrid"></div>
+</section>
+
+<!-- ============ BUDGET ============ -->
+<section class="sec" id="budget">
+  <div class="sec-head">
+    <p class="eyebrow"><span class="jp">予算</span> Budget &amp; Yen</p>
+    <h2>Kosten im Blick</h2>
+    <p class="lede">Was schon gebucht und bezahlt ist — und unten klärt der Rechner die ewige Frage: Lohnt sich der Japan Rail Pass? (Spoiler für eure Route: nein — aber es gibt einen besseren Trick.)</p>
+  </div>
+  <div class="guide-block">
+    <h3>Fixkosten bisher</h3>
+    <p class="lede" style="margin-bottom:20px">Alles, was schon gebucht ist — als Basis fürs Reisebudget oben.</p>
+    <div class="card pad" id="fixCosts"></div>
+  </div>
+  <div class="guide-block" style="margin-top:48px">
+    <h3>Der JR-Pass-Rechner</h3>
+    <p class="lede" style="margin-bottom:20px">Hakt an, welche Strecken ihr wirklich fahrt — verglichen wird mit den offiziellen Passpreisen. Preise sind Richtwerte (Nozomi/Hikari, reservierter Sitz).</p>
+    <div class="jr-grid">
+      <div class="card pad" id="jrLegs">
+        <div class="jr-leg"><input type="checkbox" id="jr0" data-price="3280" checked><label for="jr0">Tokio → Odawara (Hakone)<small>13.11. · Shinkansen Kodama, 35 Min</small></label><span class="p num">¥ 3.280</span></div>
+        <div class="jr-leg"><input type="checkbox" id="jr1" data-price="11750" checked><label for="jr1">Odawara → Kyōto<small>14.11. · Hikari, ~2 Std</small></label><span class="p num">¥ 11.750</span></div>
+        <div class="jr-leg"><input type="checkbox" id="jr2" data-price="580" checked><label for="jr2">Kyōto → Ōsaka<small>19.11. · JR Special Rapid, 29 Min (Kōyasan am 22. via Nankai ab Namba, ~¥ 1.700 — kein JR)</small></label><span class="p num">¥ 580</span></div>
+        <div class="jr-leg"><input type="checkbox" id="jr3" data-price="10420" checked><label for="jr3">Shin-Ōsaka → Hiroshima<small>23.11. · Nozomi, ~1 Std 25 · Feiertag: reservieren!</small></label><span class="p num">¥ 10.420</span></div>
+        <div class="jr-leg"><input type="checkbox" id="jr4" data-price="8150" checked><label for="jr4">Hiroshima → Himeji<small>25.11. · Nozomi/Sakura, ~1 Std</small></label><span class="p num">¥ 8.150</span></div>
+        <div class="jr-leg"><input type="checkbox" id="jr5" data-price="15800" checked><label for="jr5">Himeji → Tokio<small>25.11. · Nozomi, ~3 Std</small></label><span class="p num">¥ 15.800</span></div>
+        <div class="jr-leg"><input type="checkbox" id="jr6" data-price="1440" checked><label for="jr6">Kyōto ⇄ Nara<small>18.11. · JR Nara Line, hin &amp; zurück</small></label><span class="p num">¥ 1.440</span></div>
+        <div class="jr-leg"><input type="checkbox" id="jr7" data-price="1870" checked><label for="jr7">Tokio ⇄ Kamakura<small>11.11. · JR Yokosuka Line, hin &amp; zurück</small></label><span class="p num">¥ 1.870</span></div>
+      </div>
+      <div class="verdict">
+        <h4>Das Urteil</h4>
+        <div class="v-row"><span>Eure Strecken einzeln</span><b id="jrSum">¥ 0</b></div>
+        <div class="v-row"><span>JR Pass 21 Tage</span><b>¥ 100.000</b></div>
+        <div class="v-row"><span>JR Pass 14 Tage</span><b>¥ 80.000</b></div>
+        <div class="v-row"><span>JR Pass 7 Tage</span><b>¥ 50.000</b></div>
+        <p class="v-msg" id="jrMsg"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPRACHE ============ -->
+<section class="sec" id="sprache">
+  <div class="sec-head">
+    <p class="eyebrow"><span class="jp">言葉</span> Sprache</p>
+    <h2>40 Sätze, die Türen öffnen</h2>
+    <p class="lede">Mehr braucht es nicht: Ein „Sumimasen" mit Lächeln löst in Japan fast alles. Tippt auf den Lautsprecher — euer Gerät spricht die Sätze auf Japanisch vor. Die vier Vegetarier-Sätze unter „Restaurant" sind eure wichtigsten: einmal vorspielen, und die Küche weiß Bescheid.</p>
+  </div>
+  <div class="phrase-cats" id="phraseCats" role="tablist"></div>
+  <div class="phrase-list" id="phraseList"></div>
+  <p class="speech-note" id="speechNote">🔊 Sprachausgabe nutzt die Stimmen eures Geräts (funktioniert offline; auf iPhone/Android ist eine japanische Stimme meist vorinstalliert).</p>
+</section>
+
+<!-- ============ ESSEN ============ -->
+<section class="sec" id="essen">
+  <div class="sec-head">
+    <p class="eyebrow"><span class="jp">食</span> Essens-Bucket-List</p>
+    <h2>Was ihr probiert haben müsst</h2>
+    <p class="lede">November ist Nabe-, Oden- und Süßkartoffel-Zeit — die beste Ess-Saison des Jahres. Antippen, sobald probiert: Die Karte wird grün, der Zähler steigt. Die 🌱-Zeile auf den Karten zeigt jeweils die vegetarische Spur — Dashi-Brühe ist ja für euch okay, damit ist Japan halb gewonnen.</p>
+  </div>
+  <p class="food-count"><b id="foodDone">0</b> von <span id="foodTotal">0</span> probiert</p>
+  <div class="food-grid" id="foodGrid"></div>
+</section>
+
+<!-- ============ GUIDE ============ -->
+<section class="sec" id="guide">
+  <div class="sec-head">
+    <p class="eyebrow"><span class="jp">案内</span> Guide</p>
+    <h2>Gut vorbereitet ist halb verbeugt</h2>
+    <p class="lede">Die Etikette-Basics, die November-Highlights eurer Reisezeit und das praktische Wissen, das vor Ort den Unterschied macht.</p>
+  </div>
+
+  <div class="guide-block">
+    <h3>Etikette — entspannt alles richtig machen</h3>
+    <div class="dodont">
+      <div class="card dd-col do">
+        <h4>So macht ihr's richtig</h4>
+        <ul>
+          <li><b>„Sumimasen"</b> ist Entschuldigung, „Hallo" und „Danke" in einem — großzügig verwenden.</li>
+          <li><b>Schuhe aus</b> im Genkan (Eingangsbereich) von Ryokan, Tempeln, manchen Restaurants — Socken ohne Löcher einpacken.</li>
+          <li>Geld beim Bezahlen <b>in die kleine Schale</b> legen, nicht in die Hand drücken.</li>
+          <li><b>Ordentlich anstehen</b> — an Markierungen am Gleis, vor Ramen-Läden, überall.</li>
+          <li>Im Onsen: <b>erst gründlich waschen</b>, dann (ohne Badekleidung) ins Becken; das kleine Handtuch bleibt draußen.</li>
+          <li>Müll gibt's kaum Eimer — <b>mitnehmen</b> und im Konbini/Hotel entsorgen.</li>
+          <li>Eine kleine <b>Verbeugung</b> als Dank wirkt Wunder — Nicken reicht völlig.</li>
+        </ul>
+      </div>
+      <div class="card dd-col dont">
+        <h4>Besser nicht</h4>
+        <ul>
+          <li><b>Kein Trinkgeld</b> — es gilt als unhöflich und wird euch hinterhergetragen.</li>
+          <li><b>Nicht telefonieren in Bahnen</b>, Handy auf lautlos („Manner Mode"), leise reden.</li>
+          <li><b>Stäbchen nie senkrecht</b> in den Reis stecken und nichts von Stäbchen zu Stäbchen reichen (Bestattungsrituale).</li>
+          <li><b>Nicht im Gehen essen</b> — kurz stehen bleiben oder hinsetzen (Ausnahme: Festival-Stände).</li>
+          <li>Rolltreppe: In Tokio <b>links stehen</b>, in Ōsaka rechts — nicht mittig blockieren.</li>
+          <li>Tattoos in Onsen ggf. <b>abdecken</b> oder tattoo-freundliche Bäder suchen.</li>
+          <li>Nase putzen in der Öffentlichkeit gilt als unfein — lieber kurz <b>zurückziehen</b>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-block">
+    <h3>Euer November — Momiji, Lichter, Feste</h3>
+    <div class="weather-strip">
+      <div class="wx"><b>10–17 °C</b><span>Tokio · meist sonnig &amp; trocken</span></div>
+      <div class="wx"><b>7–17 °C</b><span>Kyōto · kalte, klare Morgen</span></div>
+      <div class="wx"><b>~16:35</b><span>Sonnenuntergang — früh los lohnt sich!</span></div>
+      <div class="wx"><b>Zwiebellook</b><span>T-Shirt bis Winterjacke, alles dabei</span></div>
+    </div>
+    <div class="spots">
+      <div class="spot"><h4>Tōfuku-ji, Kyōto <span class="peak">Mitte–Ende Nov</span></h4><p>Der Momiji-Klassiker: das Ahornmeer unter der Tsūten-kyō-Brücke. Werktags früh um 8:30 hin — am Wochenende wird's voll.</p></div>
+      <div class="spot"><h4>Eikan-dō, Kyōto <span class="peak">Illumination bis Anfang Dez</span></h4><p>Die schönste Abend-Illumination der Stadt. Tickets abends vor Ort, Termine kurz vorher online prüfen — liegt perfekt an eurem Philosophenweg-Tag.</p></div>
+      <div class="spot"><h4>Arashiyama <span class="peak">Mitte–Ende Nov</span></h4><p>Bambushain vor 8 Uhr (danach Menschenmassen), dann Tenryū-ji-Garten — einer der besten Herbstgärten Japans.</p></div>
+      <div class="spot"><h4>Kiyomizu-dera <span class="peak">Herbst-Illumination Mitte Nov–Anfang Dez</span></h4><p>Abends leuchtet das Ahorntal unter der Holzterrasse. Kombiniert es mit einem Abendspaziergang durch Higashiyamas Gassen.</p></div>
+      <div class="spot"><h4>Meiji Jingū Gaien, Tokio <span class="peak">Mitte Nov–Anfang Dez</span></h4><p>300 m goldener Ginkgo-Tunnel — euer Tokio-Finale am 25./26.11. trifft den Peak ziemlich genau.</p></div>
+      <div class="spot"><h4>Rikugien, Tokio <span class="peak">Ende Nov–Anfang Dez</span></h4><p>Landschaftsgarten mit abendlicher Momiji-Beleuchtung — ruhiger als die Kyōto-Illuminationen.</p></div>
+      <div class="spot"><h4>Momijidani-Park, Miyajima <span class="peak">Mitte–Ende Nov</span></h4><p>Der Name sagt's: „Ahorntal". Plus Momiji-Manjū frisch von der Backform — das Original gibt's nur hier.</p></div>
+      <div class="spot"><h4>Nikkō <span class="peak">Anfang–Mitte Nov, knapp!</span></h4><p>In den Bergen fällt das Laub früher — euer Ausflug am 12.11. ist spät dran, unten am Tōshō-gū aber meist noch goldrichtig.</p></div>
+      <div class="spot"><h4>Shichi-Go-San <span class="peak">um den 15.11.</span></h4><p>Familien bringen ihre 3-, 5- und 7-jährigen Kinder im Mini-Kimono zum Schrein — an eurem ersten Kyōto-Wochenende überall zu sehen. Bezaubernd (dezent fotografieren, erst fragen).</p></div>
+      <div class="spot"><h4>Tori-no-Ichi, Tokio <span class="peak">mehrere Nov-Termine</span></h4><p>Nächtliche Glücksrechen-Märkte an Ōtori-Schreinen (z. B. Asakusa) — Termine folgen dem alten Kalender, vor Ort prüfen.</p></div>
+      <div class="spot"><h4>Feiertag: 23.11. <span class="peak">Kinrō-Kansha-Tag</span></h4><p>Euer Reisetag nach Hiroshima ist ein Montags-Feiertag: Shinkansen-Sitzplätze am Vortag reservieren, das Friedensmuseum wird nachmittags ruhiger. Miyajima habt ihr clever auf den leeren Dienstag gelegt.</p></div>
+      <div class="spot"><h4>Illumination-Start überall <span class="peak">ab Mitte Nov</span></h4><p>Shibuya Blue Cave, Marunouchi, Osaka Midosuji — die Winterlichter starten genau in eurer Reisezeit. Abende einplanen!</p></div>
+    </div>
+  </div>
+
+  <div class="guide-block">
+    <h3>Praktisches, das den Unterschied macht</h3>
+    <div class="tip-grid">
+      <div class="tip"><h4>🌱 Vegetarisch in Japan — der Spickzettel</h4><p>Da Dashi-Brühe für euch okay ist, ist Japan halb gewonnen. Zuverlässig fleisch- und fischfrei: <b>CoCo Ichibanya</b> (offizielle Veggie-Curry-Karte), <b>T's Tantan</b> (Vegan-Ramen im Tokyo-Bahnhof), Afuri Vegan-Ramen, Zaru Soba, Yasai-Tempura, <b>Yudōfu</b> in Kyōto, Konbini (Ume-/Kombu-Onigiri, Tamago-Sando). App: HappyCow. Kanji merken: <b>肉</b> = Fleisch, <b>魚</b> = Fisch. Der Zaubersatz steht mit Audio unter „Sprache".</p></div>
+      <div class="tip"><h4>Super Nintendo World ohne Frust</h4><p>Datiertes USJ-Ticket + <b>Express Pass 4 in einer Variante, die „Mario Kart: Koopa’s Challenge" listet</b> — nur Varianten mit Nintendo-Attraktion enthalten den garantierten Area-Zutritt (~ab September buchbar). Euer Slot ist bewusst der Freitag (20.11.) — weniger voll und meist günstiger als das Wochenende. Sonst: 60–90 Min vor Türöffnung am Gate sein und in der USJ-App sofort den Nintendo-Bereichszutritt ziehen. Power-Up-Band fürs Münzen-Sammeln mitnehmen, Kinopio's Café hat vegetarische Optionen.</p></div>
+      <div class="tip"><h4>🏮 Okunoin bei Nacht — euer Selbstführer (22.11.)</h4><p>Der Friedhof ist 24 h offen und der Hauptweg laternenbeleuchtet — ihr braucht keine Tour, nur diese Geschichten: An der <b>Ichinohashi-Brücke</b> verbeugen — der Legende nach begleitet Kōbō Daishi jeden Besucher persönlich. An der <b>Kakuban-zaka-Treppe</b> nicht stolpern (kostet der Legende nach 3 Lebensjahre 😉). Beim <b>schwitzenden Jizō</b> in den <b>Sugatami-Brunnen</b> schauen: Wer sein Spiegelbild sieht, lebt lang. Kurz vor der Gobyō-Brücke den <b>Miroku-Stein</b> durchs Gitterloch aufs Regal heben — er ist leicht für gute Menschen, schwer für Sünder. Hinter der <b>Gobyō-Brücke</b> beginnt der heiligste Ort Japans: keine Fotos, nichts essen, flüstern — seit 835 bringen Mönche dem meditierenden Kōbō Daishi zweimal täglich Essen. Auf dem Rückweg lohnt der neue Teil mit den <b>Firmengräbern</b> (Rakete, Riesen-Kaffeetasse, ein Denkmal für Termiten). Praktisch: Seitenwege sind stockdunkel — Handylampe an.</p></div>
+      <div class="tip"><h4>♨️ Onsen ohne Aufpreis</h4><p>Euer Onsen-Erlebnis ist doppelt im Plan: Im <b>Shinanoki</b> (13.11.) habt ihr euer eigenes Open-Air-Bad auf dem Balkon — Novemberluft, Dampf, Sternenhimmel — und am Kōyasan wohnt ihr mit dem <b>Fukuchi-in</b> im einzigen Tempel mit echter heißer Quelle (perfekt nach der eiskalten Nachttour). Frühmorgens sind die Becken überall fast leer. Bonus-Optionen unterwegs: <b>Hakone Yuryō</b> (Tages-Onsen, Gratis-Shuttle ab Hakone-Yumoto), <b>Solaniwa Onsen</b> in Ōsaka (riesiges Edo-Spa, perfekt nach dem USJ-Tag) — und wer bei den Stadthotels eine <b>Dormy Inn</b> nimmt, hat das Bad gleich auf dem Hoteldach. Ablauf überall gleich: erst gründlich waschen (Sitzduschen), dann einweichen; das kleine Handtuch bleibt draußen.</p></div>
+      <div class="tip"><h4>Suica aufs Handy — vor der Reise</h4><p>Auf dem iPhone: Wallet → „+" → Nahverkehrskarte → Suica; mit Apple Pay aufladen, fertig. Damit zahlt ihr Bahn, Bus, Konbini und Automaten. <b>Ohne japanische Kreditkarte, funktioniert sofort.</b> Android (EU-Geräte) kann das meist nicht — dann am Flughafen eine „Welcome Suica"-Karte ziehen.</p></div>
+      <div class="tip"><h4>Bargeld ja, aber entspannt</h4><p>Japan ist Karten-freundlicher geworden, kleine Läden und Schreine wollen trotzdem Cash. <b>ATMs im 7-Eleven</b> nehmen deutsche Karten zuverlässig (auch Lawson/Post). 20.000–30.000 ¥ im Portemonnaie sind ein guter Puffer — plus Münzbeutel!</p></div>
+      <div class="tip"><h4>Tax-free ab 5.000 ¥</h4><p>In Läden mit „Tax-Free"-Logo ab 5.000 ¥ Einkauf: Reisepass zeigen, ~10 % sparen. Pass deshalb beim Shoppen dabeihaben (ist in Japan ohnehin Pflicht).</p></div>
+      <div class="tip"><h4>Konbini = Lebensretter</h4><p>7-Eleven, FamilyMart, Lawson — alle 200 m, rund um die Uhr: gutes Essen (Onigiri! Egg Sando!), ATM, WC, Kaffee, Regenschirme. Frühstück im Konbini ist kein Downgrade, sondern Kultur.</p></div>
+      <div class="tip"><h4>Strom &amp; Steckdosen</h4><p><b>Typ A</b> (US-Flachstecker), 100 V. Zwei Adapter + eine Mehrfach-USB-Ladestation einpacken. Geräte mit 100–240-V-Netzteil (Handy, Laptop, Kamera) laufen problemlos.</p></div>
+      <div class="tip"><h4>Internet: eSIM reicht völlig</h4><p>eSIM (z. B. Ubigi, Airalo, mobal) vor Abflug installieren, in Narita nur aktivieren. 10–20 GB für 3 Wochen sind günstig; Hotel-WLAN überall. Google Maps + Übersetzer offline zusätzlich sichern.</p></div>
+      <div class="tip"><h4>Gepäck einfach vorausschicken</h4><p><b>Takkyūbin</b> (Yamato, „Schwarze Katze"): Koffer im Hotel abgeben, am nächsten Tag wartet er im nächsten Hotel (~2.500 ¥). Für Hakone mit Ryokan-Nacht Gold wert — nur Tagesrucksack mitnehmen. Bahnhofs-Coinlocker (300–700 ¥) für Zwischenstopps wie Himeji.</p></div>
+      <div class="tip"><h4>Bahn fahren wie Profis</h4><p>Google Maps zeigt Gleis, Waggon und Preis exakt. Shinkansen-Tickets am Automaten (englisch) oder via SmartEX-App; Reservierung lohnt am Feiertagswochenende 21.–23.11. Rush Hour (7:30–9:00) in Tokio meiden — ihr habt Urlaub.</p></div>
+      <div class="tip"><h4>Essen finden: Tabelog schlägt Sterne</h4><p>Japaner bewerten streng: Auf <b>Tabelog</b> ist 3,5 bereits hervorragend. Mittags gibt's Spitzenküche als „Teishoku"-Set für 1.000–1.500 ¥. Plastik-Essen im Schaufenster = einfach draufzeigen.</p></div>
+      <div class="tip"><h4>Jetlag-Taktik (+8 Std)</h4><p>Im Flieger DOH→NRT schlafen (Ankunft 11:55): Am Ankunftstag draußen bleiben, viel Licht, erst ab 21 Uhr schlafen — dann seid ihr ab Tag 2 im Rhythmus. Rückflug nachts: durchschlafen, zu Hause bis abends wach bleiben.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NOTFALL ============ -->
+<section class="sec" id="notfall">
+  <div class="sec-head">
+    <p class="eyebrow"><span class="jp">緊急</span> Notfall</p>
+    <h2>Hoffentlich nie gebraucht</h2>
+    <p class="lede">Japan ist eines der sichersten Reiseländer der Welt. Falls doch etwas ist — hier steht alles Wichtige, auch offline abrufbar, wenn ihr die Seite einmal geladen habt.</p>
+  </div>
+  <div class="sos-grid">
+    <div class="sos hot"><h4>Polizei</h4><span class="sos-num">110</span><p>Kōban (Mini-Polizeiwachen) stehen an jeder Ecke — auch für Weg­fragen und Fundsachen. „Keisatsu" = Polizei.</p></div>
+    <div class="sos hot"><h4>Feuerwehr &amp; Rettung</h4><span class="sos-num">119</span><p>Ein Anruf für beides. „Kyūkyūsha" = Krankenwagen, „Byōin" = Krankenhaus.</p></div>
+    <div class="sos"><h4>Japan Visitor Hotline</h4><span class="sos-num num">050-3816-2787</span><p>JNTO-Touristen-Hotline, 24/7 auf Englisch — hilft bei Notfällen, Verspätungen, Verlorenem, Taifun-Fragen.</p></div>
+    <div class="sos"><h4>Deutsche Botschaft Tokio</h4><span class="sos-num num">+81 3 5791 7700</span><p>4-5-10 Minami-Azabu, Minato-ku. Bei Passverlust: Polizeibericht vom Kōban mitbringen. <a href="https://japan.diplo.de" target="_blank" rel="noopener">japan.diplo.de ↗</a></p></div>
+    <div class="sos"><h4>Karten sperren</h4><span class="sos-num num">+49 116 116</span><p>Deutscher Sperr-Notruf aus dem Ausland (mit Vorwahl). Kartendaten vorher als Foto/Notiz sichern — getrennt von der Karte.</p></div>
+    <div class="sos"><h4>Erdbeben — kurz &amp; ruhig</h4><span class="sos-num">グラッ!</span><p>Runter, unter den Tisch, weg von Fenstern; danach Infos via „Safety tips"-App (JNTO) oder NERV. Hotels sind erdbebensicher gebaut — Japaner bleiben gelassen, macht's genauso.</p></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-jp">行ってらっしゃい</p>
+    <p class="footer-sub">„Itterasshai — geht los und kommt gut wieder." Japan wartet auf euch.</p>
+    <div class="data-controls">
+      <button class="btn btn-ghost btn-sm" id="exportBtn" type="button">Daten exportieren (JSON)</button>
+      <label class="btn btn-ghost btn-sm" for="importFile" style="cursor:pointer">Daten importieren<input type="file" id="importFile" accept=".json,application/json" style="display:none"></label>
+      <button class="btn btn-ghost btn-sm" id="resetAll" type="button">Alles zurücksetzen</button>
+    </div>
+    <p class="footer-note">Notizen, Haken und Ausgaben speichert diese Seite nur lokal in eurem Browser (kein Server, kein Konto). Nutzt ihr sie auf Handy <em>und</em> Laptop, einfach per Export/Import synchronisieren.</p>
+    <p class="footer-fine">Handgebaut im Juli 2026 · Flugdaten aus dem Qatar-Airways-E-Ticket · Preise, Öffnungs- und Illuminationszeiten sind sorgfältige Richtwerte — kurz vor Ort prüfen.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+'use strict';
+(function(){
+/* ---------- Helfer ---------- */
+var $=function(s){return document.querySelector(s)};
+var esc=function(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+var fmtY=function(n){return '¥ '+Math.round(n).toLocaleString('de-DE')};
+var fmtE=function(n){return n.toLocaleString('de-DE',{maximumFractionDigits:n<100?2:0})+' €'};
+function toast(msg){var t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove('show')},2400)}
+
+/* ---------- Zustand ---------- */
+var KEY='japan2026';
+var DEFAULTS={v:1,notes:{},done:{},checks:{},custom:{},expenses:[],rate:184.49,target:null,food:{},factOffset:0,hotels:{}};
+var state=(function(){
+  try{var raw=localStorage.getItem(KEY);if(raw){var p=JSON.parse(raw);if(p&&p.v===1){for(var k in DEFAULTS){if(!(k in p))p[k]=DEFAULTS[k]}if(p.rate===170)p.rate=184.49;return p}}}catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULTS));
+})();
+var canStore=true;
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){if(canStore){canStore=false;toast('Hinweis: Speichern nicht möglich (privater Modus?)')}}}
+
+/* ---------- Zeit & Phasen ---------- */
+var DEP=Date.UTC(2026,10,6,8,15);      // 06.11. 09:15 MEZ — Abflug FRA
+var ARR_JP=Date.UTC(2026,10,7,2,55);   // 07.11. 11:55 JST — Landung NRT
+var DEP_JP=Date.UTC(2026,10,27,16,25); // 28.11. 01:25 JST — Abflug HND
+var ARR_HOME=Date.UTC(2026,10,28,12,20);// 28.11. 13:20 MEZ — Landung FRA
+var jstClockFmt=new Intl.DateTimeFormat('de-DE',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit'});
+var jstDateFmt=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'});
+function phaseOf(t){if(t<DEP)return 'pre';if(t<ARR_JP)return 'out';if(t<DEP_JP)return 'japan';if(t<ARR_HOME)return 'home';return 'after'}
+function jstToday(){return jstDateFmt.format(new Date())}
+function japanDayNo(){ // Reisetag in Japan: 07.11. = Tag 1
+  var d=jstToday().split('-'),utc=Date.UTC(+d[0],+d[1]-1,+d[2]);
+  return Math.round((utc-Date.UTC(2026,10,7))/86400000)+1;
+}
+var cd={D:$('#cdD'),H:$('#cdH'),M:$('#cdM'),S:$('#cdS')};
+function setCd(el,val,lbl){el.textContent=val;el.nextElementSibling.textContent=lbl;el.parentElement.style.display=''}
+function renderCountdownTo(target,now){
+  var diff=Math.max(0,target-now);
+  setCd(cd.D,Math.floor(diff/86400000),'Tage');
+  setCd(cd.H,String(Math.floor(diff/3600000)%24).padStart(2,'0'),'Stunden');
+  setCd(cd.M,String(Math.floor(diff/60000)%60).padStart(2,'0'),'Minuten');
+  setCd(cd.S,String(Math.floor(diff/1000)%60).padStart(2,'0'),'Sekunden');
+}
+var lastPhase=null;
+function tick(){
+  var now=Date.now(),ph=phaseOf(now);
+  $('#jstClock').textContent=jstClockFmt.format(new Date());
+  var line=$('#phaseLine');
+  if(ph==='pre'){
+    renderCountdownTo(DEP,now);
+    var days=Math.ceil((DEP-now)/86400000);
+    line.textContent=days>60?'…bis euer Flieger in Frankfurt abhebt. Genug Zeit, alles unten in Ruhe abzuhaken.':days>14?'Es wird ernst — Zeit für die Oktober-Checkliste!':'Endspurt! Koffer raus, Check-in ab dem 4.11., 09:15 Uhr.';
+  }else if(ph==='out'){
+    renderCountdownTo(ARR_JP,now);
+    line.textContent='Ihr seid unterwegs! Landung in Tokio-Narita: Samstag, 11:55 Uhr Ortszeit.';
+  }else if(ph==='japan'){
+    var n=Math.min(21,Math.max(1,japanDayNo()));
+    setCd(cd.D,n,'Reisetag');setCd(cd.H,21-n,'Tage übrig');
+    var jt=jstClockFmt.format(new Date());setCd(cd.M,jt,'Uhr in Tokio');
+    cd.S.parentElement.style.display='none';
+    var today=ITIN.find(function(x){return x.d===jstToday()});
+    line.textContent='Tag '+n+' von 21 · heute: '+(today?today.title:'euer Tag');
+  }else if(ph==='home'){
+    renderCountdownTo(ARR_HOME,now);
+    line.textContent='Auf dem Heimweg — Landung in Frankfurt um 13:20 Uhr. Okaeri!';
+  }else{
+    $('#countdown').style.display='none';
+    var tried=Object.keys(state.food).filter(function(k){return state.food[k]}).length;
+    line.textContent='おかえりなさい — 21 Tage Japan im Herzen, '+tried+' Gerichte probiert. Wann geht’s wieder los?';
+  }
+  if(ph!==lastPhase){lastPhase=ph;renderPlanHint(ph);$('#todayBtn').hidden=(ph!=='japan');}
+}
+
+/* ---------- Japan-Momente ---------- */
+var FACTS=[
+ 'Der Shinkansen hat eine durchschnittliche Verspätung von unter einer Minute pro Jahr — und wenn ein Zug 1 Minute zu spät ist, gibt es eine offizielle Entschuldigung.',
+ 'In Japan stehen rund 4 Millionen Getränkeautomaten — einer pro 30 Einwohner. Im November verkaufen sie heißen Dosen-Kaffee und heiße Zitronengetränke: warm aus dem Automaten.',
+ 'Verlieren ist in Japan halb so wild: Allein in Tokio werden pro Jahr Fundgelder in Milliarden-Yen-Höhe ehrlich bei Kōban-Polizeihäuschen abgegeben — Portemonnaies kommen meist samt Inhalt zurück.',
+ '„Momijigari" — die Ahornblatt-Jagd — ist seit über 1.200 Jahren japanischer Volkssport. Ihr reist genau zur Jagdsaison.',
+ 'Jeder Bahnhof in Tokio hat seine eigene Abfahrtsmelodie (Hassha Melody). Die von Ebisu ist die Titelmusik eines Whisky-Werbespots von 1994 — die Leute liebten sie so sehr, dass sie blieb.',
+ 'KitKat gibt es in Japan in über 300 Sorten (Matcha, Sake, Süßkartoffel …). Der Name klingt wie „Kitto Katsu" — „du wirst sicher gewinnen" — und ist deshalb ein beliebtes Glücksgeschenk.',
+ 'Über die Shibuya-Kreuzung gehen bei einer einzigen Grünphase bis zu 3.000 Menschen — und es funktioniert trotzdem völlig geräuschlos.',
+ 'Japan besteht offiziell aus 14.125 Inseln — erst 2023 wurde neu gezählt und die Zahl hat sich damit verdoppelt.',
+ 'Das japanische Bahnpersonal zeigt beim Prüfen mit dem Finger auf Signale und spricht laut mit sich selbst. „Shisa Kanko" senkt die Fehlerquote um bis zu 85 % — und sieht großartig aus.',
+ 'Die Putztrupps im Shinkansen reinigen einen kompletten Zug in 7 Minuten — inklusive Verbeugung vor den einsteigenden Fahrgästen. Man nennt es das „7-Minuten-Wunder".',
+ 'Tokio ist mit rund 37 Millionen Menschen im Großraum die größte Metropolregion der Welt — und gleichzeitig eine der leisesten Großstädte, die ihr je erleben werdet.',
+ 'Kyōto war über 1.000 Jahre Japans Hauptstadt. „Tōkyō" bedeutet schlicht „östliche Hauptstadt" — benannt, als der Kaiser 1868 umzog.',
+ 'Das große Torii von Miyajima „schwimmt" nur bei Flut. Bei Ebbe kann man zu Fuß hinlaufen und Münzen in die Ritzen der Pfeiler stecken. Gezeiten-Tabelle checken!',
+ 'In fast jedem Restaurant bekommt ihr ungefragt ein Oshibori (warmes Tuch) und Wasser oder grünen Tee — kostenlos, immer, überall.',
+ 'Japan hat über 27.000 heiße Quellen. Die Regel im Onsen: erst gründlich waschen, dann einweichen — und das kleine Handtuch kommt höchstens auf den Kopf.',
+ 'Der Fuji versteckt sich im Sommer fast täglich. Ab November beginnt die klare Saison — eure Chancen auf freie Sicht steigen mit jedem Reisetag.',
+ 'Die Ginkgo-Bäume der Meiji-Gaien-Allee in Tokio werden seit 1908 von Hand in ihre perfekte Tropfenform geschnitten — Ende November stehen alle 146 in Gold.',
+ 'Depachika — die Feinkost-Untergeschosse der Kaufhäuser — sind Kathedralen des Essens: 5.000-Yen-Melonen, perfekte Erdbeeren, Bentō-Kunstwerke. Kurz vor Ladenschluss gibt es Rabatte.',
+ 'In Utsunomiya (auf eurer Nikkō-Strecke) gibt es über 200 Gyōza-Läden — die Stadt streitet sich mit Hamamatsu jährlich um den Titel „Gyōza-Hauptstadt Japans".',
+ 'Karaoke ist in Japan eine Privatsache: Man mietet eine eigene Box mit Freunden, Getränke-Flatrate optional, Tambourin inklusive. Niemand außer euch hört mit.',
+ '100-Yen-Shops wie Daiso sind Souvenir-Goldgruben: Keramik, Hashi, Origami-Papier, Bento-Zubehör — alles für ~60 Cent.',
+ 'Im Herbst ziehen Yaki-imo-Trucks durch die Straßen und verkaufen im Ofen geröstete Süßkartoffeln — erkennbar am melancholischen Gesang „Yakiiiimooo~" aus dem Lautsprecher.',
+ 'Japanische Adressen haben (meist) keine Straßennamen — Blöcke sind nummeriert, und selbst Einheimische navigieren per Karte. Google Maps ist euer bester Freund.',
+ 'Der November ist statistisch einer der trockensten und sonnigsten Monate in Tokio und Kyōto — besser kann man ein Reisefenster kaum legen.',
+ 'Shinjuku Station ist mit über 3,5 Millionen Fahrgästen pro Tag der meistgenutzte Bahnhof der Welt — er hat mehr als 200 Ausgänge. Verlaufen gehört dazu.',
+ 'Ende November beginnt überall die Winter-Illumination: Millionen LEDs in Shibuya, Marunouchi und an Ōsakas Midōsuji-Boulevard — ihr erwischt die ersten Lichter-Nächte.'
+];
+function renderFact(){
+  var dayIdx=Math.floor(Date.now()/86400000);
+  var i=((dayIdx+state.factOffset)%FACTS.length+FACTS.length)%FACTS.length;
+  $('#factText').textContent=FACTS[i];
+}
+$('#factNext').addEventListener('click',function(){state.factOffset++;save();renderFact()});
+
+/* ---------- Reiseplan ---------- */
+var TAGC={Anreise:'#5E6880',Heimflug:'#5E6880',Tokio:'#C7402D','Kyōto':'#B98A1E',Hakone:'#2E4A72',Nara:'#5F7D54','Ōsaka':'#8A4E93',Hiroshima:'#3E7CA6',Miyajima:'#C26A2B',Himeji:'#64748B','Nikkō':'#2F7E56',Kamakura:'#2F7E7A','Kōyasan':'#7A5230'};
+var ITIN=[
+ {d:'2026-11-06',tag:'Anreise',title:'Abflug! Frankfurt → Doha → Tokio',plan:'09:15 ab Frankfurt (QR 70), 17:15 Ankunft Doha, 19:50 weiter nach Narita (QR 808). Im zweiten Flug konsequent schlafen — ihr landet mittags.',tip:'Bordkarten & Visit-Japan-Web-QR als Screenshots — offline verfügbar.'},
+ {d:'2026-11-07',tag:'Tokio',title:'Ankommen in Ikebukuro',plan:'11:55 Landung Narita: Einreise-QR, Koffer, eSIM an, Suica geladen? Skyliner nach Nippori (36 Min), dann Yamanote-Linie nach Ikebukuro — euer Airbnb liegt 30 Sekunden vom Ausgang Higashi-Ikebukuro. Check-in ab 16:00, dann locker ankommen: Sunshine City um die Ecke — das Pokémon Mega Center dort soll nach Renovierung ab ~September 2026 wieder öffnen (vor der Reise kurz checken; Plan B: Pokémon Center Shibuya am Tag 3). Abends dampfende Ramen bei Mutekiya oder gleich rüber nach Shinjuku (5 Min) in die Omoide Yokochō.',tip:'Bis ~21 Uhr wach bleiben — dann ist der Jetlag ab Tag 2 fast weg.'},
+ {d:'2026-11-08',tag:'Tokio',title:'Asakusa, Skytree & Akihabara',plan:'Sensō-ji vor 9 Uhr (magisch leer), Nakamise-Gasse, Sumida-Ufer mit Skytree-Blick; nachmittags Akihabara in voller Tiefe: Super Potato (Retro-Games!), GiGO- und Taito-Arcades, Gacha-Etagen, Animate.',tip:'Omikuji ziehen! Ein schlechtes Los knotet man einfach ans Gestell — Glück resettet.'},
+ {d:'2026-11-09',tag:'Tokio',title:'Meiji-Schrein, Harajuku & Shibuya',plan:'Morgens durch den Schrein-Wald des Meiji Jingū, dann Harajuku (Takeshita-dōri, Omotesandō, Cat Street); nachmittags im Shibuya PARCO: Nintendo TOKYO & Pokémon Center! Abends Shibuya Crossing von oben und unten — Sonnenuntergang vom Shibuya Sky.',tip:'Shibuya-Sky-Slot ~16:00 vorbuchen: Sonnenuntergang 16:35, mit etwas Glück steht der Fuji im Abendrot.'},
+ {d:'2026-11-10',tag:'Tokio',title:'Tsukiji, Ginza & teamLab',plan:'Frühstück auf dem Tsukiji Outer Market (Tamagoyaki, Thunfisch-Spieße), Spaziergang Hamarikyū-Garten, Mittag in Ginza; nachmittags teamLab Planets in Toyosu.',tip:'teamLab: Hosen zum Hochkrempeln — ihr watet durch knietiefes Wasser.'},
+ {d:'2026-11-11',tag:'Kamakura',title:'Ausflug: Kamakura & Enoshima',plan:'~1 Std JR: Großer Buddha (13,4 m Bronze), Hase-dera mit Meerblick-Terrasse, Snack-Bummel auf der Komachi-dōri; zum Sonnenuntergang rüber nach Enoshima.',tip:'Mit der Enoden-Straßenbahn an der Küste entlang — die Slam-Dunk-Kreuzung ist Kult.'},
+ {d:'2026-11-12',tag:'Nikkō',title:'Ausflug: Nikkō',plan:'Früh los (Tobu-Express ab Asakusa, ~2 Std): Tōshō-gū mit den drei Affen und dem schlafenden Kätzchen, Shinkyō-Brücke, Jizō-Reihe am Kanmangafuchi-Abgrund.',tip:'Den 7:30-Zug nehmen und Tobu-„Nikko Pass" kaufen — deckt Zug + Busse.'},
+ {d:'2026-11-13',tag:'Hakone',title:'Hakone: Schwefel-Seilbahn & Balkon-Onsen',plan:'Große Koffer morgens am Konbini per Takkyūbin direkt nach Kyōto schicken (das Airbnb hat keinen Desk — 7-Eleven/FamilyMart machen das am Schalter)! Zug nach Odawara, Hakone Freepass: Bergbahn nach Gōra, Seilbahn über die dampfenden Schwefelfelder von Ōwakudani bis Tōgendai, kurzer Bus zum Shinanoki (Haltestelle direkt am Haus). Ab 16 Uhr: einchecken, Yukata aussuchen, Kaiseki-Abendessen (vegetarisch für sie angefragt, Sashimi plus Extra-Thunfischteller für dich) — und danach euer eigenes Open-Air-Bad auf dem Balkon.',tip:'In Ōwakudani ein schwarzes Onsen-Ei essen — verlängert der Legende nach das Leben um 7 Jahre. Und abends: Gratis-Getränkebar & Eis am Stiel nach dem Bad!'},
+ {d:'2026-11-14',tag:'Kyōto',title:'Piratenschiff, Fuji-Torii, dann Kyōto',plan:'Die zweite Rundkurs-Hälfte am Morgen: Bus nach Tōgendai, Piratenschiff über den Ashi-See nach Moto-Hakone, das rote See-Torii des Hakone-Schreins — dahinter (bei klarem Morgen) der Fuji. Mittags Bus nach Odawara, Shinkansen nach Kyōto (~2 Std), Check-in im TAVINOS; abends erstes Gion-Flanieren zwischen Teehäusern.',tip:'Geishas (Geiko/Maiko) sieht man in Gion ab ~17:45 — respektvoll Abstand halten, nicht verfolgen.'},
+ {d:'2026-11-15',tag:'Kyōto',title:'Fushimi Inari & Tōfuku-ji',plan:'6:30 an den 10.000 roten Toriis — ihr habt den Berg fast für euch. Geht die komplette Bergrunde (2,5–3 Std): Ab dem Yotsutsuji-Aussichtspunkt drehen 90 % um, danach gehören die Torii-Tunnel, der Bambuswald und der Kyōto-Blick euch — die beste „Gratis-Wanderung" Japans. Danach Tōfuku-ji, Kyōtos Momiji-Ikone mit dem Ahornmeer unter der Brücke. Abends Pontochō-Gasse zum Essen.',tip:'Heute ist Shichi-Go-San: überall Kinder im Festtags-Kimono. Sonntag + Momiji = volle Tempel, der Frühstart ist Gold wert.'},
+ {d:'2026-11-16',tag:'Kyōto',title:'Arashiyama & Goldener Pavillon',plan:'Bambushain vor 8 Uhr, Tenryū-ji-Garten in Herbstfarben, Togetsukyō-Brücke, wer mag: Affenpark mit Stadtblick. Nachmittags Kinkaku-ji (Gold!) und Ryōan-ji-Steingarten; abends Illumination am Kiyomizu-dera.',tip:'In Arashiyama: %Arabica-Kaffee am Fluss — mit die schönste Kaffee-Warteschlange der Welt.'},
+ {d:'2026-11-17',tag:'Kyōto',title:'Philosophenweg & Eikan-dō bei Nacht',plan:'Ginkaku-ji (Silberner Pavillon), dann den Philosophenweg unter Ahorn und Ginkgo entlang: Hōnen-in, Nanzen-ji mit Backstein-Aquädukt, Heian-Schrein. Mittags Nishiki-Markt („Kyōtos Küche"). Abends: Eikan-dō-Illumination — der Höhepunkt der Momiji-Nächte.',tip:'Eikan-dō abends wird voll: gegen 17:15 anstehen, wenn es öffnet.'},
+ {d:'2026-11-18',tag:'Nara',title:'Ausflug: Nara & Uji (+ Nintendo Museum?)',plan:'45 Min nach Nara: die verbeugenden Hirsche, Tōdai-ji mit dem 15-m-Buddha in der größten Holzhalle der Welt, Laternenweg zur Kasuga-Taisha. Nachmittags Stopp in Uji: Byōdō-in (der Tempel von der 10-Yen-Münze), Matcha-Softeis — und falls ihr die Ticket-Lotterie gewonnen habt: das Nintendo Museum!',tip:'Nintendo-Museum-Lotterie läuft ~3 Monate vorher über euren Nintendo-Account — steht auf der Checkliste (August!).'},
+ {d:'2026-11-19',tag:'Ōsaka',title:'Umzug nach Ōsaka & Dōtonbori',plan:'30 Min Zug, Koffer ins Hotel. Ōsaka-Burg mit Park in Herbstfarben, Mittag auf dem Kuromon-Markt; abends das Neon-Delirium: Dōtonbori, Glico-Man, die stille Hōzen-ji-Gasse — Takoyaki für dich, Yaki-Onigiri & Gemüse-Kushikatsu für sie.',tip:'Ōsakas Motto „Kuidaore": sich durch die Stadt essen, bis nichts mehr geht. Genau dafür seid ihr hier.'},
+ {d:'2026-11-20',tag:'Ōsaka',title:'Super Nintendo World!',plan:'Früher Wecker: 60–90 Min vor Türöffnung am USJ-Gate sein, in der App sofort den Timed-Entry für Super Nintendo World ziehen (oder entspannt mit Express Pass). Power-Up-Band ans Handgelenk, Koopa-Challenge, Mario-Kart-Ride — und danach ist der Rest des Parks (Harry Potter!) auch noch da.',tip:'Freitag statt Samstag = spürbar kürzere Schlangen und meist eine günstigere Preisstufe. Ein Express Pass 4 mit „Mario Kart: Koopa’s Challenge" (nur die enthalten den Nintendo-Zutritt) macht es trotzdem königlich. Kinopio’s Café hat vegetarische Optionen.'},
+ {d:'2026-11-21',tag:'Ōsaka',title:'Retro-Ōsaka & Skyline',plan:'Ausschlafen nach dem Park-Tag, dann Shinsekai mit Tsūtenkaku-Turm (Retro-Japan pur), Shitennō-ji, Bummel durch Amerikamura und Orange Street; zum Sonnenuntergang aufs Umeda Sky Building mit der schwebenden Gartenterrasse. Nicht zu spät ins Bett — morgen früh geht es auf den heiligen Berg.',tip:'Kushikatsu in Shinsekai: Renkon, Aubergine, Käse und Shiitake sind die vegetarischen Spieß-Stars — nur: niemals doppelt dippen!'},
+ {d:'2026-11-22',tag:'Kōyasan',title:'Kōyasan: Nacht im Fukuchi-in',plan:'Morgens ab Namba mit Nankai-Bahn und Standseilbahn auf den heiligen Berg (~2,5 Std; Koffer vorher per Takkyūbin vom Ōsaka-Hotel direkt nach Hiroshima schicken — hier reicht der Tagesrucksack). Nachmittags Danjō Garan und Kongōbu-ji, ab ~16 Uhr einchecken im Fukuchi-in — dem einzigen Tempel am Berg mit echter heißer Quelle. Shōjin-Ryōri-Abendessen (komplett vegetarisch — ihr Heimspiel!), nach dem Abendessen (~18:30) auf eigene Faust in den nächtlichen Okunoin: 2 km Laternenweg unter 700 Jahre alten Zedern, vorbei an 200.000 Gräbern bis zur Gobyō-Brücke — der Selbstführer mit allen Legenden steht im Guide-Teil. Danach ins Onsen. Gänsehaut und heiße Quelle an einem Abend.',tip:'⚠ Türen zu um 21:00 — auf eigene Faust kein Problem: 18:30 los, ~19:45 an der Gobyō-Brücke umdrehen, 20:30 zurück (zur Not: Rückbus ab Okunoin-mae 20:35 → Senjuinbashi 20:41). Handylampe fürs Seitliche, warm anziehen (nachts ~0 °C) — und frühes Abendessen (~17:15) beim Check-in erbitten.'},
+ {d:'2026-11-23',tag:'Hiroshima',title:'Morgenandacht, dann Hiroshima',plan:'Früh zur Morgenandacht der Mönche im Fukuchi-in — und wer mag: noch ein Morgenbad in der Quelle. Danach nochmal kurz Okunoin im Morgenlicht. Gegen 10 Uhr hinunter: Nankai bis Namba, Shinkansen ab Shin-Ōsaka (~4,5 Std gesamt, Ankunft ~15 Uhr). Später Nachmittag Friedenspark: Genbaku-Dom, Kinder-Friedensmonument, Friedensmuseum — bewegend, Zeit lassen. Abends Hiroshima-Okonomiyaki im Okonomimura: für sie „yasai" ohne Speck und ohne Katsuobushi.',tip:'Feiertag: Shinkansen-Sitzplätze vorab reservieren. Museum am späten Nachmittag = am ruhigsten (geöffnet bis 18 Uhr, Einlass bis 17:30).'},
+ {d:'2026-11-24',tag:'Miyajima',title:'Miyajima in Ruhe',plan:'Vor 9 übersetzen (JR-Fähre ab Miyajimaguchi): Itsukushima-Schrein mit dem schwimmenden Torii, dann Seilbahn Richtung Misen-Gipfel (oben noch ~30 Min Fußweg, 535 m, Blick über die Seto-Inlandsee). Der schönste Rückweg: zu Fuß bergab durchs Momijidani-Tal — ~1,5 Std durch den Ahornwald in Vollfarbe, maximale Momiji-Dichte pro Schweißtropfen. Dienstag nach dem Feiertag: Die Insel gehört fast euch, abends wird das Torii angestrahlt.',tip:'Gezeiten checken: Flut = Torii schwimmt (Foto!), Ebbe = bis ans Torii laufen. Momiji-Manjū frisch von der Backform probieren.'},
+ {d:'2026-11-25',tag:'Himeji',title:'Weiße Burg, abends Tokio',plan:'Auschecken, Shinkansen mit Zwischenstopp Himeji: Koffer in den Bahnhofs-Locker, 15 Min zu Fuß zur Reiher-Burg — Japans schönster Originalburg — plus Kōko-en-Garten nebenan. Nachmittags weiter nach Tokio (~3 Std), letztes Hotel beziehen; abends locker in Shinjuku.',tip:'Bequemer: Koffer morgens per Takkyūbin ab Hiroshima direkt ins Tokio-Hotel schicken und nur mit Rucksack reisen.'},
+ {d:'2026-11-26',tag:'Tokio',title:'Ginkgo-Gold & Pokémon-Café',plan:'Meiji Jingū Gaien: die goldene Ginkgo-Allee am Peak, dann (wenn die Reservierung geklappt hat) Mittag im Pokémon-Café; nachmittags Shopping: Shibuya, Don Quijote (tax-free!), Hands — oder Ghibli-Museum, falls die Oktober-Lotterie es hergab. Abends Momiji-Illumination im Rikugien.',tip:'Das ist euer Puffertag — alles hier ist verschiebbar. Pokémon-Café-Reservierung öffnet exakt 31 Tage vorher (26.10.).'},
+ {d:'2026-11-27',tag:'Tokio',title:'Sayōnara, Tokio',plan:'Ausschlafen, letzte Besorgungen, Koffer wiegen (25 kg!). Früh und gut zu Abend essen, dann ~21:30 ab ins Hotel-Gepäck holen und Richtung Haneda — Check-in für QR 813 öffnet abends, Abflug 01:25.',tip:'Restmünzen am Flughafen in Gacha-Kapseln verwandeln — die besten kleinen Mitbringsel.'},
+ {d:'2026-11-28',tag:'Heimflug',title:'01:25 ab Haneda — Okaeri!',plan:'QR 813 nach Doha (der perfekte Schlaf-Flug), 09:00 weiter mit QR 67, Landung Frankfurt 13:20. Sonntag bleibt zum Ankommen, Wäsche, Fotos — und zum ersten Japan-Vermissen.',tip:'Zu Hause bis abends wach bleiben — dann sitzt der Rhythmus nach 2 Tagen wieder.'}
+];
+var WD=['So','Mo','Di','Mi','Do','Fr','Sa'];
+function mapsUrl(q){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q)}
+var POIS={
+ '2026-11-07':['Sunshine City Ikebukuro','Pokemon Center Mega Tokyo Ikebukuro','Omoide Yokocho Shinjuku'],
+ '2026-11-08':['Sensoji Asakusa','Tokyo Skytree','Akihabara Electric Town'],
+ '2026-11-09':['Meiji Jingu','Takeshita Street Harajuku','Nintendo TOKYO Shibuya PARCO','Shibuya Sky'],
+ '2026-11-10':['Tsukiji Outer Market','Hamarikyu Gardens','teamLab Planets Toyosu'],
+ '2026-11-11':['Kotoku-in Kamakura','Hasedera Kamakura','Enoshima'],
+ '2026-11-12':['Toshogu Shrine Nikko','Shinkyo Bridge Nikko','Kanmangafuchi Abyss'],
+ '2026-11-13':['Owakudani Hakone','Ichinoyu Shinanoki Hakone'],
+ '2026-11-14':['Lake Ashi Pirate Ship Hakone','Hakone Shrine','Gion Kyoto'],
+ '2026-11-15':['Fushimi Inari Taisha','Tofukuji Kyoto','Pontocho Alley Kyoto'],
+ '2026-11-16':['Arashiyama Bamboo Grove','Kinkakuji Kyoto','Kiyomizudera Kyoto'],
+ '2026-11-17':['Ginkakuji Kyoto','Philosophers Path Kyoto','Eikando Zenrinji Kyoto','Nishiki Market Kyoto'],
+ '2026-11-18':['Nara Park','Todaiji Nara','Nintendo Museum Uji','Byodoin Uji'],
+ '2026-11-19':['Osaka Castle','Kuromon Ichiba Market Osaka','Dotonbori Osaka'],
+ '2026-11-20':['Universal Studios Japan Osaka','Super Nintendo World Osaka'],
+ '2026-11-21':['Shinsekai Osaka','Shitennoji Osaka','Umeda Sky Building Osaka'],
+ '2026-11-22':['Fukuchiin Temple Koyasan','Okunoin Koyasan','Danjo Garan Koyasan'],
+ '2026-11-23':['Hiroshima Peace Memorial Museum','Atomic Bomb Dome Hiroshima','Okonomimura Hiroshima'],
+ '2026-11-24':['Itsukushima Shrine Miyajima','Momijidani Park Miyajima','Miyajima Ropeway'],
+ '2026-11-25':['Himeji Castle','Kokoen Garden Himeji'],
+ '2026-11-26':['Meiji Jingu Gaien Ginkgo Avenue','Pokemon Cafe Nihombashi Tokyo','Rikugien Gardens Tokyo'],
+ '2026-11-27':['Haneda Airport Terminal 3','Don Quijote Shibuya']
+};
+var POI_STRIP=/ (Tokyo|Kyoto|Osaka|Hiroshima|Miyajima|Nikko|Kamakura|Hakone|Nara|Uji|Shinjuku|Asakusa|Harajuku|Toyosu|Mitaka|Himeji|Koyasan|Ikebukuro)$/;
+function poiRow(d){
+  var ps=POIS[d];if(!ps)return '';
+  return '<div class="poi-row">'+ps.map(function(q){
+    return '<a class="poi" href="'+mapsUrl(q)+'" target="_blank" rel="noopener">📍 '+esc(q.replace(POI_STRIP,''))+'</a>';
+  }).join('')+'</div>';
+}
+function renderPlan(){
+  var today=jstToday(),ph=phaseOf(Date.now());
+  $('#planList').innerHTML=ITIN.map(function(it,i){
+    var dt=new Date(it.d+'T12:00:00'),c=TAGC[it.tag]||'#5E6880';
+    var isToday=(it.d===today)&&(ph==='japan'||ph==='out'||ph==='home');
+    var done=!!state.done[it.d],note=state.notes[it.d]||'';
+    return '<article class="day'+(done?' done':'')+(isToday?' today':'')+'" style="--tagc:'+c+'" data-d="'+it.d+'">'
+      +'<div class="day-date"><span class="dd-num num">'+dt.getDate()+'.</span><span class="dd-wd">'+WD[dt.getDay()]+'</span><span class="dd-idx num">Tag '+(i+1)+'</span>'+(isToday?'<span class="today-badge">HEUTE</span>':'')+'</div>'
+      +'<div class="day-main"><div class="day-top"><span class="tag">'+esc(it.tag)+'</span><span class="day-title">'+esc(it.title)+'</span>'
+      +'<label class="day-done-toggle"><input type="checkbox" data-done="'+it.d+'"'+(done?' checked':'')+'> erlebt ✓</label></div>'
+      +'<p class="day-plan">'+esc(it.plan)+'</p>'
+      +poiRow(it.d)
+      +(it.tip?'<p class="day-tip">💡 '+esc(it.tip)+'</p>':'')
+      +'<textarea class="day-note" data-note="'+it.d+'" rows="1" placeholder="Eure Notizen: Hotel, Tickets, Ideen …">'+esc(note)+'</textarea>'
+      +'</div></article>';
+  }).join('');
+  document.querySelectorAll('.day-note').forEach(function(t){if(t.value)autosize(t)});
+}
+function autosize(t){t.style.height='auto';t.style.height=(t.scrollHeight+2)+'px'}
+function renderPlanHint(ph){
+  var h=$('#planHint');
+  if(ph==='pre')h.textContent='Kyōto ✓ Kōyasan ✓ Hakone ✓ Tokio I ✓ Tokio II ✓ — noch: Ōsaka, Hiroshima & Nintendo-Lotterie (Aug).';
+  else if(ph==='japan')h.textContent='Haken setzen, Notizen machen — die Seite merkt sich alles.';
+  else if(ph==='after')h.textContent='Eure Notizen sind euer Reisetagebuch geworden.';
+  else h.textContent='';
+}
+$('#planList').addEventListener('change',function(e){
+  var d=e.target.getAttribute('data-done');
+  if(d){
+    state.done[d]=e.target.checked;save();
+    var card=e.target.closest('.day');
+    card.classList.toggle('done',e.target.checked);
+    card.classList.remove('stamp-anim');
+    if(e.target.checked){void card.offsetWidth;card.classList.add('stamp-anim');
+      var r=e.target.getBoundingClientRect();burstLeaves(r.left+r.width/2,r.top+r.height/2,6)}
+  }
+});
+$('#planList').addEventListener('input',function(e){
+  var d=e.target.getAttribute('data-note');
+  if(d!=null){state.notes[d]=e.target.value;autosize(e.target);clearTimeout(renderPlan._t);renderPlan._t=setTimeout(save,400)}
+});
+$('#todayBtn').addEventListener('click',function(){var el=document.querySelector('.day.today');if(el)el.scrollIntoView({behavior:'smooth',block:'center'})});
+$('#planReset').addEventListener('click',function(){
+  if(confirm('Alle Notizen und „erlebt"-Haken im Reiseplan löschen?')){state.notes={};state.done={};save();renderPlan();toast('Reiseplan zurückgesetzt')}
+});
+
+/* ---------- Buchungs-Tresor (im Public-Build verschluesselt) ---------- */
+var VAULT_DATA=null;
+var VAULT_CIPHER={it:310000,salt:'qV2VeXmNOkzTkHJrYnpQ0w==',iv:'So/CmNoySplfkttc',ct:'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'};
+
+/* ---------- Unterkünfte ---------- */
+var STAYS=[
+ {id:'tokio1',city:'Tokio',span:'07.–13.11. · 6 Nächte im Airbnb',q:'Tokyo',bk:1,bn:'Airbnb „TOKYO SUNSHINE STAY", Zimmer 303 (Host: Uki)'},
+ {id:'hakone',city:'Hakone',span:'13.–14.11. · 1 Nacht im Ryokan mit Balkon-Onsen',q:'Hakone',bk:1,bn:'Ichinoyu Shinanoki (Sengokuhara)'},
+ {id:'kyoto',city:'Kyōto',span:'14.–19.11. · 5 Nächte',q:'Kyoto',bk:1,bn:'HOTEL TAVINOS Kyoto'},
+ {id:'osaka',city:'Ōsaka',span:'19.–22.11. · 3 Nächte',q:'Osaka'},
+ {id:'koyasan',city:'Kōyasan',span:'22.–23.11. · 1 Nacht im Onsen-Shukubō',q:'Koyasan',bk:1,bn:'Fukuchi-in (Onsen-Shukubō)'},
+ {id:'hiroshima',city:'Hiroshima',span:'23.–25.11. · 2 Nächte',q:'Hiroshima'},
+ {id:'tokio2',city:'Tokio',span:'25.–27.11. · 2 Nächte, Auschecken am Abreiseabend',q:'Tokyo',bk:1,bn:'Dormy Inn PREMIUM Kanda „Myōjin no Yu"'}
+];
+function vaultLocked(){return !!VAULT_CIPHER&&!VAULT_DATA}
+function pnr(){return VAULT_DATA&&VAULT_DATA.flug?VAULT_DATA.flug.ref:null}
+function renderPnr(){
+  var r=pnr(),tx=VAULT_DATA&&VAULT_DATA.flug?VAULT_DATA.flug.tix:null;
+  [].forEach.call(document.querySelectorAll('.pnr-slot'),function(el){el.textContent=r||'🔒'});
+  [].forEach.call(document.querySelectorAll('.pnr-copy'),function(b){b.setAttribute('data-copy',r||'');b.style.display=r?'':'none'});
+  [].forEach.call(document.querySelectorAll('.tix-slot'),function(el){el.textContent=tx||'🔒'});
+  [].forEach.call(document.querySelectorAll('.tix-copy'),function(b){b.setAttribute('data-copy',tx||'');b.style.display=tx?'':'none'});
+}
+function renderCosts(){
+  var el=$('#fixCosts');if(!el)return;
+  if(!VAULT_DATA){el.innerHTML='<p class="sum-sub">🔒 Die Beträge sind passwortgeschützt — bei „Unterkünfte" im Reiseplan entsperren, dann erscheinen sie hier.</p>';return}
+  var K=VAULT_DATA.kosten||[],sum=0,due=0;
+  var rows=K.map(function(k){sum+=k.e;due+=(k.due||0);
+    return '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:10px 0;border-bottom:1px solid rgba(60,40,30,.1)">'
+      +'<span>'+esc(k.t)+'<small style="display:block;opacity:.65">'+esc(k.s)+'</small></span>'
+      +'<span class="num" style="white-space:nowrap">'+fmtE(k.e)+'</span></div>';
+  }).join('');
+  el.innerHTML=rows
+    +'<div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:12px 0 4px"><b>Summe gebucht</b><b class="num">'+fmtE(sum)+'</b></div>'
+    +'<p class="sum-sub" style="margin:4px 0 0">Davon noch fällig: '+fmtE(due)+' — der Rest ist bereits bezahlt. Noch nicht gebucht: Ōsaka 19.–22. (grob 240–300 €) und Hiroshima 23.–25. (grob 160–220 €).</p>';
+}
+function applyVault(){if(!VAULT_DATA)return;STAYS.forEach(function(s){if(VAULT_DATA[s.id])s.booked=VAULT_DATA[s.id]});renderPnr();renderCosts()}
+applyVault();renderPnr();renderCosts();
+function renderHotels(){
+  var lockBox=vaultLocked()
+    ?'<div class="hotel-row booked"><div class="h-city">🔒<small>Privat</small></div>'
+      +'<div class="h-bk"><b>Buchungsdetails sind passwortgeschützt</b>'
+      +'<span class="h-sub">Flug-Buchungsnummer, Hotel-Buchungsnummern, Adressen und Storno-/Verwaltungslinks erscheinen nach Eingabe des Passworts — dieses Gerät merkt es sich dann.</span>'
+      +'<span class="h-links"><input type="password" id="vaultPw" placeholder="Passwort" autocomplete="off" style="min-width:150px">'
+      +'<button type="button" id="vaultBtn" class="poi show" style="cursor:pointer;border:0;font:inherit">Entsperren</button>'
+      +'<span id="vaultMsg" class="h-sub"></span></span></div></div>'
+    :'';
+  $('#hotelList').innerHTML=lockBox+STAYS.map(function(s){
+    if(s.bk&&!s.booked){
+      return '<div class="hotel-row booked"><div class="h-city">'+s.city+'<small>'+s.span+'</small></div>'
+        +'<div class="h-bk"><b>✓ Gebucht: '+esc(s.bn)+'</b><span class="h-sub">🔒 Details (Buchungsnr., Adresse, Storno-Links) sind passwortgeschützt — oben entsperren.</span></div>'
+        +'<a class="poi show" href="'+mapsUrl(s.bn+' '+s.q)+'" target="_blank" rel="noopener">Maps ↗</a></div>';
+    }
+    if(s.booked){var b=s.booked;
+      return '<div class="hotel-row booked"><div class="h-city">'+s.city+'<small>'+s.span+'</small></div>'
+        +'<div class="h-bk"><b>✓ Gebucht: '+esc(b.name)+'</b><span class="h-sub">'+esc(b.addr)+'</span><span class="h-sub">'+esc(b.info)+'</span>'
+        +(b.mail?'<span class="h-sub">📧 '+esc(b.mail)+'</span>':'')
+        +'<span class="h-ref">Buchungsnr. '+esc(b.ref)+'</span>'
+        +(b.links?'<span class="h-links">'+b.links.map(function(l){return '<a class="poi show" href="'+l.u+'" target="_blank" rel="noopener">'+esc(l.t)+'</a>'}).join('')+'</span>':'')
+        +'</div>'
+        +'<a class="poi show" href="'+mapsUrl(b.name)+'" target="_blank" rel="noopener">Maps ↗</a></div>';
+    }
+    var h=state.hotels[s.id]||{};
+    var hasName=!!(h.n&&h.n.trim());
+    return '<div class="hotel-row"><div class="h-city">'+s.city+'<small>'+s.span+'</small></div>'
+      +'<input type="text" data-hname="'+s.id+'" placeholder="Hotel / Ryokan" value="'+esc(h.n||'')+'" maxlength="80" aria-label="Hotelname '+s.city+'">'
+      +'<input type="text" data-haddr="'+s.id+'" placeholder="Adresse / Buchungsnr. (optional)" value="'+esc(h.a||'')+'" maxlength="140" aria-label="Adresse '+s.city+'">'
+      +'<a class="poi'+(hasName?' show':'')+'" data-hmap="'+s.id+'" href="'+(hasName?mapsUrl(h.n+' '+s.q):'#')+'" target="_blank" rel="noopener">Maps ↗</a></div>';
+  }).join('');
+}
+$('#hotelList').addEventListener('input',function(e){
+  var nid=e.target.getAttribute('data-hname'),aid=e.target.getAttribute('data-haddr');
+  var key=nid||aid;if(!key)return;
+  if(!state.hotels[key])state.hotels[key]={n:'',a:''};
+  if(nid)state.hotels[key].n=e.target.value;else state.hotels[key].a=e.target.value;
+  var st=STAYS.find(function(s){return s.id===key});
+  var link=document.querySelector('a[data-hmap="'+key+'"]');
+  if(link&&st){var n=(state.hotels[key].n||'').trim();link.classList.toggle('show',!!n);link.href=n?mapsUrl(n+' '+st.q):'#'}
+  clearTimeout(renderHotels._t);renderHotels._t=setTimeout(save,400);
+});
+
+/* ---------- Tresor entsperren (nur im Public-Build aktiv) ---------- */
+function vaultUnlock(pw,cb){
+  if(!VAULT_CIPHER||!window.crypto||!crypto.subtle){cb&&cb(false);return}
+  var enc=new TextEncoder();
+  function b64(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
+  crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveKey']).then(function(k){
+    return crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(VAULT_CIPHER.salt),iterations:VAULT_CIPHER.it,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['decrypt'])
+  }).then(function(key){
+    return crypto.subtle.decrypt({name:'AES-GCM',iv:b64(VAULT_CIPHER.iv)},key,b64(VAULT_CIPHER.ct))
+  }).then(function(buf){
+    VAULT_DATA=JSON.parse(new TextDecoder().decode(buf));applyVault();
+    try{localStorage.setItem('japan2026vault',pw)}catch(e){}
+    renderHotels();cb&&cb(true)
+  }).catch(function(){cb&&cb(false)})
+}
+$('#hotelList').addEventListener('click',function(e){
+  if(e.target.id!=='vaultBtn')return;
+  var inp=document.getElementById('vaultPw'),msg=document.getElementById('vaultMsg');
+  var pw=(inp&&inp.value)||'';if(!pw)return;
+  if(msg)msg.textContent='…';
+  vaultUnlock(pw,function(ok){
+    if(ok){toast('Buchungsdetails entsperrt ✓')}
+    else if(msg){msg.textContent='Falsches Passwort';if(inp)inp.value=''}
+  })
+});
+$('#hotelList').addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&e.target.id==='vaultPw'){e.preventDefault();var b=document.getElementById('vaultBtn');if(b)b.click()}
+});
+if(vaultLocked()){try{var _vpw=localStorage.getItem('japan2026vault');if(_vpw)vaultUnlock(_vpw)}catch(e){}}
+
+/* ---------- PWA (nur Public-Build: offline-fähig, aufs Homescreen installierbar) ---------- */
+if(VAULT_CIPHER&&'serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){
+  try{navigator.serviceWorker.register('./sw.js')}catch(e){}
+}
+
+/* ---------- Karte ---------- */
+var MAP_STOPS=[
+ {id:'tokio',n:'Tokio',x:864,y:219,t:'stay',day:'2026-11-07',dates:'07.–13. & 25.–28.11.',lx:850,ly:210,an:'end',sub:'',lines:[
+   '🏠 Teil 1: Airbnb „TOKYO SUNSHINE STAY", Higashi-Ikebukuro (gebucht) · Teil 2 (25.–27.11.): Dormy Inn PREMIUM Kanda mit Onsen-Großbad (gebucht) — Akihabara 6 Min zu Fuß',
+   '🛬 Ankunft: Sa 7.11., 11:55 in Narita → Skyliner + Yamanote, Check-in ab 16:00',
+   '🚄 Weiter: Fr 13.11., ~8:30 Richtung Hakone (Koffer vorher per Takkyūbin nach Kyōto)',
+   '🛫 Finale: Fr 27.11., ~21:00 nach Haneda — Abflug Sa 28.11., 1:25']},
+ {id:'hakone',n:'Hakone',x:804,y:270,t:'stay',day:'2026-11-13',dates:'13.–14.11.',lx:804,ly:292,an:'middle',sub:'',lines:[
+   '♨ Ichinoyu Shinanoki, Sengokuhara (gebucht) — Zimmer mit Open-Air-Bad auf dem Balkon',
+   '🚡 An: Fr 13.11. über Rundkurs-Hälfte 1 — Bergbahn, Seilbahn, Ōwakudani; ~15:30 am Haus, Check-in 16:00, Abendessen früh (vegetarisch angefragt)',
+   '⛵ Ab: Sa 14.11. — Piratenschiff über den Ashi-See, Hakone-Schrein, mittags ab Odawara mit dem Shinkansen nach Kyōto (~2 Std)']},
+ {id:'kyoto',n:'Kyōto',x:460,y:295,t:'stay',day:'2026-11-14',dates:'14.–19.11.',lx:460,ly:267,an:'middle',sub:'Momiji-Peak',lines:[
+   '🏨 HOTEL TAVINOS, Kawaramachi (gebucht, vorausbezahlt)',
+   '📅 5 Nächte mitten im Momiji-Peak: Fushimi-Bergrunde, Arashiyama, Illuminationen — Ausflug Nara + Uji am 18.11.',
+   '🚄 Ab: Do 19.11. vormittags nach Ōsaka (30 Min)']},
+ {id:'osaka',n:'Ōsaka',x:433,y:332,t:'stay',day:'2026-11-19',dates:'19.–22.11.',lx:419,ly:330,an:'end',sub:'USJ am 20.',lines:[
+   '🏨 Hotel noch offen — Empfehlung: Namba (Dōtonbori zu Fuß, direkte Bahn zu USJ und Kōyasan)',
+   '🎮 Fr 20.11.: Super Nintendo World — 60–90 Min vor Türöffnung am Gate, Express Pass ab September kaufen',
+   '⛰ Ab: So 22.11. morgens ab Namba zum Kōyasan (Nankai + Standseilbahn, ~2,5 Std; Koffer per Takkyūbin nach Hiroshima)']},
+ {id:'koyasan',n:'Kōyasan',x:442,y:386,t:'stay',day:'2026-11-22',dates:'22.–23.11.',lx:442,ly:408,an:'middle',sub:'',lines:[
+   '🏮 Fukuchi-in (gebucht, bezahlt) — der Onsen-Tempel: Shōjin-Ryōri komplett vegetarisch',
+   '🌙 19:00 Okunoin bei Nacht auf eigene Faust — 20:30 zurück sein, Türen schließen um 21:00!',
+   '🚄 Ab: Mo 23.11. (Feiertag) ~10:00 — über Namba und Shin-Ōsaka nach Hiroshima, Ankunft ~15:00 (Sitzplätze reservieren)']},
+ {id:'hiroshima',n:'Hiroshima',x:119,y:365,t:'stay',day:'2026-11-23',dates:'23.–25.11.',lx:119,ly:338,an:'middle',sub:'',lines:[
+   '🏨 Hotel noch offen — Nähe Bahnhof oder Friedenspark',
+   '🕊 Mo ab ~15:30: Friedenspark, Genbaku-Dom, Museum (bis 18 Uhr) · Di 24.11.: Miyajima',
+   '🚄 Ab: Mi 25.11. vormittags — Himeji-Stopp, abends in Tokio (~4 Std Fahrzeit)']},
+ {id:'himeji',n:'Himeji · 25.11.',x:349,y:316,t:'via',day:'2026-11-25',dates:'Zwischenstopp',lx:349,ly:302,an:'middle',sub:'',lines:[
+   '🏯 Mi 25.11.: Koffer in den Bahnhofs-Locker, 15 Min zu Fuß zur Weißen-Reiher-Burg + Kōko-en-Garten, dann weiter nach Tokio']},
+ {id:'nikko',n:'Nikkō · 12.11.',x:857,y:97,t:'trip',day:'2026-11-12',dates:'Tagesausflug',lx:869,ly:101,an:'start',sub:'',lines:[
+   '⛩ Do 12.11.: früh los (~7:30) — Tōshō-gū-Tempelberg, Shinkyō-Brücke, Kanmangafuchi-Schlucht im Herbstlaub (~2 Std pro Strecke)']},
+ {id:'kamakura',n:'Kamakura · 11.11.',x:850,y:260,t:'trip',day:'2026-11-11',dates:'Tagesausflug',lx:858,ly:277,an:'start',sub:'',lines:[
+   '🗿 Mi 11.11.: Großer Buddha, Hase-dera mit Meerblick, nachmittags Enoshima zum Sonnenuntergang (~1 Std pro Strecke)']},
+ {id:'nara',n:'Nara & Uji · 18.11.',x:468,y:332,t:'trip',day:'2026-11-18',dates:'Tagesausflug',lx:480,ly:336,an:'start',sub:'',lines:[
+   '🦌 Mi 18.11.: verbeugende Hirsche, Tōdai-ji, Kasuga-Laternenweg; nachmittags Uji — Byōdō-in, Matcha und (mit Lotterie-Glück) das Nintendo Museum (45 Min pro Strecke)']},
+ {id:'miyajima',n:'Miyajima · 24.11.',x:105,y:376,t:'trip',day:'2026-11-24',dates:'Tagesausflug',lx:105,ly:396,an:'middle',sub:'',lines:[
+   '⛩ Di 24.11.: vor 9 Uhr übersetzen — Itsukushima-Schrein, Momijidani in Vollfarbe, Misen-Gipfel, zu Fuß bergab; abends leuchtet das Torii (JR + Fähre ~45 Min)']},
+ {id:'nrt',n:'Narita ✈',x:936,y:209,t:'air',day:'2026-11-07',dates:'Ankunft',lx:936,ly:196,an:'middle',sub:'',lines:[
+   '🛬 Sa 7.11., 11:55 Uhr (QR808 aus Doha) — Visit-Japan-QR bereithalten, dann Skyliner nach Nippori (~50 Min)']},
+ {id:'hnd',n:'Haneda ✈',x:876,y:246,t:'air',day:'2026-11-27',dates:'Abflug',lx:888,ly:252,an:'start',sub:'',lines:[
+   '🛫 Abflug Sa 28.11., 1:25 Uhr (QR813) — am Fr 27.11. Gepäck bis ~20:30 im Hotel lagern, gegen 21:00 zum Terminal 3']}
+];
+var MAP_RANGES=[['2026-11-06','tokio'],['2026-11-13','hakone'],['2026-11-14','kyoto'],['2026-11-19','osaka'],['2026-11-22','koyasan'],['2026-11-23','hiroshima'],['2026-11-25','tokio']];
+function mapStopForToday(){
+  var d=new Date();
+  var t=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
+  if(t<'2026-11-06'||t>'2026-11-28')return null;
+  var cur=null;
+  MAP_RANGES.forEach(function(r){if(t>=r[0])cur=r[1]});
+  return cur;
+}
+function renderMap(){
+  var g=document.getElementById('mapStops');if(!g)return;
+  var NS='http://www.w3.org/2000/svg';
+  MAP_STOPS.forEach(function(s){
+    var grp=document.createElementNS(NS,'g');
+    grp.setAttribute('class','mstop t-'+s.t);
+    grp.setAttribute('data-stop',s.id);
+    grp.setAttribute('tabindex','0');
+    grp.setAttribute('role','button');
+    grp.setAttribute('aria-label',s.n+' — '+s.dates);
+    var ring=document.createElementNS(NS,'circle');
+    ring.setAttribute('class','now-ring');ring.setAttribute('cx',s.x);ring.setAttribute('cy',s.y);ring.setAttribute('r',s.t==='stay'?12:9);
+    grp.appendChild(ring);
+    var dot=document.createElementNS(NS,'circle');
+    dot.setAttribute('class','dot');dot.setAttribute('cx',s.x);dot.setAttribute('cy',s.y);
+    dot.setAttribute('r',s.t==='stay'?9:(s.t==='air'?4.5:6));
+    grp.appendChild(dot);
+    var hit=document.createElementNS(NS,'circle');
+    hit.setAttribute('class','hit');hit.setAttribute('cx',s.x);hit.setAttribute('cy',s.y);hit.setAttribute('r',18);
+    grp.appendChild(hit);
+    var tx=document.createElementNS(NS,'text');
+    tx.setAttribute('x',s.lx);tx.setAttribute('y',s.ly);tx.setAttribute('text-anchor',s.an);
+    tx.textContent=s.n;grp.appendChild(tx);
+    if(s.t==='stay'){
+      var sb=document.createElementNS(NS,'text');
+      sb.setAttribute('class','sub');sb.setAttribute('x',s.lx);sb.setAttribute('y',s.ly+14);sb.setAttribute('text-anchor',s.an);
+      sb.textContent=s.dates+(s.sub?' · '+s.sub:'');grp.appendChild(sb);
+    }
+    grp.addEventListener('click',function(){selectStop(s.id)});
+    grp.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();selectStop(s.id)}});
+    g.appendChild(grp);
+  });
+  var now=mapStopForToday();
+  if(now){var el=g.querySelector('[data-stop="'+now+'"]');if(el)el.classList.add('now')}
+  selectStop(now||'tokio',true);
+}
+function selectStop(id,quiet){
+  document.querySelectorAll('.mstop').forEach(function(m){m.classList.toggle('sel',m.getAttribute('data-stop')===id)});
+  var s=MAP_STOPS.find(function(x){return x.id===id});if(!s)return;
+  var p=document.getElementById('mapPanel');
+  p.innerHTML='<h3>'+esc(s.n)+'</h3><span class="mp-dates">'+esc(s.dates)+'</span><ul>'
+    +s.lines.map(function(l){return '<li>'+esc(l)+'</li>'}).join('')
+    +'</ul><button class="mp-jump" type="button" data-day="'+s.day+'">Zum Tag im Reiseplan ↓</button>';
+  p.querySelector('.mp-jump').addEventListener('click',function(){jumpToDay(s.day)});
+}
+function jumpToDay(d){
+  var el=document.querySelector('.day[data-d="'+d+'"]');if(!el)return;
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+  el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');
+}
+renderMap();
+
+/* ---------- Karte 2.0: Zoom & Pan ---------- */
+(function(){
+  var svg=document.querySelector('.jmap');if(!svg)return;
+  var VB={x:0,y:0,w:1000,h:500},MINW=240;
+  function apply(){
+    svg.setAttribute('viewBox',VB.x+' '+VB.y+' '+VB.w+' '+VB.h);
+    var z=VB.w<998;svg.classList.toggle('zoomed',z);svg.style.touchAction=z?'none':'';
+  }
+  function clamp(){
+    VB.w=Math.max(MINW,Math.min(1000,VB.w));VB.h=VB.w/2;
+    VB.x=Math.max(0,Math.min(1000-VB.w,VB.x));
+    VB.y=Math.max(0,Math.min(500-VB.h,VB.y));
+  }
+  function toSvg(cx,cy){var r=svg.getBoundingClientRect();return{x:VB.x+(cx-r.left)/r.width*VB.w,y:VB.y+(cy-r.top)/r.height*VB.h}}
+  function zoomAt(f,cx,cy){
+    var c=toSvg(cx,cy),nw=Math.max(MINW,Math.min(1000,VB.w*f));
+    f=nw/VB.w;
+    VB.x=c.x-(c.x-VB.x)*f;VB.y=c.y-(c.y-VB.y)*f;VB.w=nw;clamp();apply();
+  }
+  function center(){var r=svg.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2}}
+  document.getElementById('mapZin').addEventListener('click',function(){var c=center();zoomAt(0.68,c.x,c.y)});
+  document.getElementById('mapZout').addEventListener('click',function(){var c=center();zoomAt(1/0.68,c.x,c.y)});
+  document.getElementById('mapZreset').addEventListener('click',function(){VB={x:0,y:0,w:1000,h:500};apply()});
+  svg.addEventListener('wheel',function(e){
+    if(VB.w>=998&&!e.ctrlKey)return;
+    e.preventDefault();zoomAt(e.deltaY>0?1.16:0.86,e.clientX,e.clientY);
+  },{passive:false});
+  svg.addEventListener('dblclick',function(e){
+    e.preventDefault();
+    if(VB.w<998){VB={x:0,y:0,w:1000,h:500};apply()}else zoomAt(0.45,e.clientX,e.clientY);
+  });
+  var ptrs={},panStart=null,moved=false,lastDist=null;
+  function pcount(){return Object.keys(ptrs).length}
+  function pdist(){var k=Object.keys(ptrs),a=ptrs[k[0]],b=ptrs[k[1]];return Math.hypot(a.x-b.x,a.y-b.y)}
+  function pmid(){var k=Object.keys(ptrs),a=ptrs[k[0]],b=ptrs[k[1]];return{x:(a.x+b.x)/2,y:(a.y+b.y)/2}}
+  svg.addEventListener('pointerdown',function(e){
+    ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+    if(pcount()===1&&VB.w<998){
+      panStart={x:e.clientX,y:e.clientY,vx:VB.x,vy:VB.y};moved=false;
+      try{svg.setPointerCapture(e.pointerId)}catch(err){}
+      svg.classList.add('grabbing');
+    }
+    if(pcount()===2){panStart=null;lastDist=pdist()}
+  });
+  svg.addEventListener('pointermove',function(e){
+    if(!ptrs[e.pointerId])return;
+    ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+    if(pcount()===2&&lastDist){
+      var d=pdist();if(d>8){var m=pmid();zoomAt(lastDist/d,m.x,m.y);lastDist=d}
+      return;
+    }
+    if(panStart&&VB.w<998){
+      var dx=e.clientX-panStart.x,dy=e.clientY-panStart.y;
+      if(Math.abs(dx)+Math.abs(dy)>4)moved=true;
+      var r=svg.getBoundingClientRect();
+      VB.x=panStart.vx-dx/r.width*VB.w;VB.y=panStart.vy-dy/r.height*VB.h;clamp();apply();
+    }
+  });
+  function pup(e){
+    delete ptrs[e.pointerId];
+    if(pcount()<2)lastDist=null;
+    if(pcount()===0){panStart=null;svg.classList.remove('grabbing')}
+  }
+  svg.addEventListener('pointerup',pup);svg.addEventListener('pointercancel',pup);
+  svg.addEventListener('click',function(e){if(moved){e.stopPropagation();e.preventDefault();moved=false}},true);
+})();
+
+/* ---------- Karte 2.0: Routen-Animation ---------- */
+function nextFrame(cb){
+  var done=false;
+  var id=requestAnimationFrame(function(ts){if(done)return;done=true;cb(ts)});
+  setTimeout(function(){if(done)return;done=true;try{cancelAnimationFrame(id)}catch(e){}cb(performance.now())},50);
+}
+var animBusy=false;
+function playRoute(){
+  if(animBusy)return;animBusy=true;
+  var svg=document.querySelector('.jmap'),btn=document.getElementById('mapPlay');
+  btn.disabled=true;
+  var segs=[{id:'r0',stop:'hakone'},{id:'r1',stop:'kyoto'},{id:'r2',stop:'osaka'},{id:'r3',stop:'koyasan'},{id:'r4',stop:'hiroshima'},{id:'rb1',stop:'himeji'},{id:'rb2',stop:'tokio'}];
+  var paths=segs.map(function(s){return document.getElementById(s.id)});
+  var trips=document.getElementById('tripLines');
+  paths.forEach(function(p){var L=p.getTotalLength();p.style.strokeDasharray=L+' '+L;p.style.strokeDashoffset=L});
+  trips.style.transition='opacity .5s';trips.style.opacity='0';
+  document.querySelectorAll('.jmap .mstop.pop, .jmap .deco.pop').forEach(function(el){el.classList.remove('pop')});
+  svg.classList.add('anim');
+  var NS='http://www.w3.org/2000/svg';
+  var train=document.createElementNS(NS,'text');
+  train.setAttribute('font-size','17');train.setAttribute('text-anchor','middle');train.textContent='🚄';
+  document.getElementById('trainG').appendChild(train);
+  function pop(id){
+    var st=document.querySelector('.mstop[data-stop="'+id+'"]');if(st)st.classList.add('pop');
+    var dc=document.querySelector('.deco[data-deco="'+id+'"]');if(dc)dc.classList.add('pop');
+  }
+  pop('tokio');pop('nrt');
+  var i=0;
+  function nextSeg(){
+    if(i>=segs.length){finish();return}
+    var p=paths[i],L=p.getTotalLength(),dur=Math.max(700,L*2.1),t0=null;
+    function step(ts){
+      if(t0===null)t0=ts;
+      var k=Math.min(1,(ts-t0)/dur);
+      var e=k<0.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+      p.style.strokeDashoffset=L*(1-e);
+      var pt=p.getPointAtLength(L*e);
+      train.setAttribute('x',pt.x);train.setAttribute('y',pt.y-8);
+      if(k<1)nextFrame(step);
+      else{pop(segs[i].stop);i++;setTimeout(nextSeg,280)}
+    }
+    nextFrame(step);
+  }
+  function finish(){
+    ['nikko','kamakura','nara','miyajima','hnd'].forEach(pop);
+    trips.style.opacity='';
+    setTimeout(function(){
+      svg.classList.remove('anim');
+      paths.forEach(function(p){p.style.strokeDasharray='';p.style.strokeDashoffset=''});
+      train.remove();
+      document.querySelectorAll('.jmap .mstop.pop, .jmap .deco.pop').forEach(function(el){el.classList.remove('pop')});
+      btn.disabled=false;animBusy=false;
+    },1100);
+  }
+  nextSeg();
+}
+(function(){
+  var btn=document.getElementById('mapPlay');if(!btn)return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){btn.style.display='none';return}
+  btn.addEventListener('click',playRoute);
+})();
+
+/* ---------- Scroll-Reveal ---------- */
+(function(){
+  if(!('IntersectionObserver' in window))return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var sel='.sec-head,.fact-card,.flight-card,.map-legend,.map-wrap,.map-panel,#planList,.check-grid,.guide-block,#phraseList,#foodGrid,.tip-grid,.sos-grid,.weather-strip';
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}});
+  },{threshold:0.06,rootMargin:'0px 0px -6% 0px'});
+  [].forEach.call(document.querySelectorAll(sel),function(el){
+    var r=el.getBoundingClientRect();
+    if(r.top<window.innerHeight&&r.bottom>0)return;
+    el.classList.add('rv');io.observe(el);
+  });
+})();
+
+/* ---------- Hero-Parallax ---------- */
+(function(){
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var scene=document.querySelector('.hero-scene'),vert=document.querySelector('.hero-vert'),hero=document.querySelector('.hero');
+  if(!scene||!hero)return;
+  var ticking=false;
+  function onScroll(){
+    if(ticking)return;ticking=true;
+    nextFrame(function(){
+      var y=Math.min(window.scrollY||0,hero.offsetHeight||600);
+      scene.style.transform='translateY('+(y*0.28)+'px)';
+      if(vert)vert.style.transform='translateY('+(y*0.45)+'px)';
+      ticking=false;
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+
+/* ---------- Checklisten ---------- */
+var GROUPS=[
+ {id:'now',title:'Sofort-Paket',when:'Jetzt — Juli & August',items:[
+   {id:'pass',txt:'Reisepässe checken: gültig & unbeschädigt?',sub:'Für Japan reicht Gültigkeit bis Reiseende — Puffer schadet nie. Kein Visum nötig (bis 90 Tage).',dl:'diese Woche',hot:1},
+   {id:'hotels',txt:'Hotels sichern — Kyōto ✓ Tokio I ✓ Tokio II ✓, noch: Ōsaka, Hiroshima',sub:'Gebucht: TAVINOS Kyōto, Airbnb Ikebukuro, Dormy Inn Kanda (Details bei Unterkünfte). Übrig sind die zwei unkritischen: Ōsaka 19.–22. (Namba!), Hiroshima 23.–25. Stornierbar sichern bis August.',dl:'Juli/Aug',hot:1},
+   {id:'ryokan',txt:'Hakone ✓ gebucht — Ichinoyu Shinanoki mit Balkon-Onsen!',sub:'258,99 € bezahlt, Halbpension, Details bei Unterkünfte. Noch offen: die Mail-Bestätigung fürs vegetarische Dinner (falls bis Ende Juli nichts kommt: freundlich nachfassen). Und falls noch Backup-Buchungen gehalten werden (Fukuzumiro o. Ä.): jetzt stornieren!',dl:'erledigt 🎉'},
+   {id:'shukubo',txt:'Kōyasan komplett ✓ — Fukuchi-in gebucht, Okunoin auf eigene Faust',sub:'Fukuchi-in ist fix (¥46.400, bezahlt), Anfrage KO00021134 storniert, und den nächtlichen Okunoin erkundet ihr selbst (kostenlos, 24 h offen — Selbstführer im Guide). Falls ihr doch die geführte Tour wollt: awesometours.rezio.shop, ¥7.000 p. P., bis 8 Tage vorher stornierbar.',dl:'erledigt 🎉'},
+   {id:'card',txt:'Kreditkarte ohne Auslandsgebühren besorgen',sub:'Fürs Yen-Abheben am 7-Eleven-ATM und kontaktloses Zahlen.',dl:'August'},
+   {id:'insur',txt:'Auslandskrankenversicherung prüfen/abschließen',dl:'August'},
+   {id:'seats',txt:'Sitzplätze wählen (Qatar-App — Buchungsnr. steht oben bei Flüge)',dl:'entspannt'}
+ ]},
+ {id:'org',title:'Orga-Paket',when:'August bis Oktober',items:[
+   {id:'nintendomuseum',txt:'Nintendo-Museum-Lotterie (Besuch 18.11., Uji)',sub:'Bewerbung über den Nintendo-Account ~3 Monate vorher — im August für November mitmachen!',dl:'August',hot:1},
+   {id:'usj',txt:'USJ-Ticket + Express Pass für Fr, 20.11.',sub:'Datiertes Studio-Ticket + Express Pass 4 — auf usjticketing.com die Variante wählen, deren Attraktionsliste „Mario Kart: Koopa’s Challenge" enthält (z. B. „…Mario Kart & Fun"): Nur Varianten mit Nintendo-Attraktion enthalten den garantierten Area-Zutritt! Ideal, wenn zusätzlich Donkey Kong oder Harry Potter Forbidden Journey drinsteht. Freitag = weniger voll & meist günstigere Preisstufe als Samstag. Verkauf ~2 Monate vorher.',dl:'September',hot:1},
+   {id:'legs',txt:'Zugstrecken festlegen (JR-Rechner im Budget-Teil)',sub:'Einzeltickets + Kansai-Hiroshima-Pass reichen — Details unten.',dl:'September'},
+   {id:'ghibli',txt:'Ghibli-Museum: Verkauf 10. Okt, 10 Uhr JST',sub:'= 3 Uhr nachts deutscher Zeit. Für alle November-Termine, schnell ausverkauft. Optionaler Slot: euer Puffertag 26.11.',dl:'10. Okt',hot:1},
+   {id:'pokecafe',txt:'Pokémon-Café Tokio reservieren — für Do, 26.11.',sub:'Reservierung öffnet exakt 31 Tage vorher = 26. Oktober. Wecker stellen, die Slots sind in Minuten weg.',dl:'26. Okt',hot:1},
+   {id:'tickets',txt:'teamLab Planets + Shibuya Sky vorbuchen',sub:'Slots öffnen rollierend ~4–6 Wochen vorher.',dl:'Anfang Okt'},
+   {id:'illum',txt:'Illuminations-Termine prüfen (Eikan-dō, Kiyomizu, Rikugien)',dl:'Oktober'},
+   {id:'esim',txt:'eSIM kaufen & installieren (aktivieren erst in Japan)',sub:'z. B. Ubigi, Airalo, mobal — 10–20 GB reichen.',dl:'Ende Okt'},
+   {id:'suica',txt:'Suica in Apple Wallet anlegen + ~2.000 ¥ laden',sub:'iPhone: Wallet → „+" → Nahverkehrskarte → Suica. Android-EU: Welcome Suica am Flughafen.',dl:'Oktober'},
+   {id:'vjw',txt:'Visit Japan Web ausfüllen → Einreise- & Zoll-QR',sub:'Pro Person ein Account; QRs als Screenshot sichern.',dl:'ab Ende Okt',hot:1},
+   {id:'resto',txt:'1–2 besondere Restaurants reservieren (muss nicht teuer sein)',sub:'Vegetarisch glänzen z. B. Shigetsu (Shōjin-Ryōri im Tenryū-ji, Arashiyama) oder Yudōfu am Nanzen-ji — beides Mittags-Budget.',dl:'Oktober'}
+ ]},
+ {id:'pack',title:'Packliste',when:'November-tauglich, 25 kg frei',items:[
+   {id:'layers',txt:'Zwiebellook: T-Shirts, Pullis, eine warme Jacke',sub:'7–17 °C — mittags mild, abends richtig kalt.'},
+   {id:'shoes',txt:'Eingelaufene Schuhe + dicke Socken ohne Löcher',sub:'20.000 Schritte am Tag — und ständig Schuhe ausziehen (Tatami!).'},
+   {id:'adapter',txt:'2× Steckdosen-Adapter Typ A + USB-Mehrfachlader',sub:'100 V — Handy/Laptop-Netzteile können das alle.'},
+   {id:'powerbank',txt:'Powerbank (gehört ins Handgepäck!)'},
+   {id:'meds',txt:'Reiseapotheke — auf verbotene Wirkstoffe prüfen',sub:'Pseudoephedrin (z. B. Aspirin Complex) ist in Japan illegal; Standard-Ibu/Paracetamol ok.'},
+   {id:'deo',txt:'Deo & Zahnpasta von zu Hause',sub:'Japanische Deos sind … zurückhaltend.'},
+   {id:'towel',txt:'Kleines Schnelltrocken-Handtuch',sub:'Für Onsen, Tempel-Waschbecken, Regen.'},
+   {id:'umbrella',txt:'Mini-Regenschirm',sub:'November ist trocken — aber sicher ist sicher.'},
+   {id:'scale',txt:'Kofferwaage + Platz im Koffer lassen',sub:'25 kg Freigepäck pro Person — Souvenirs wollen mit.'},
+   {id:'coins',txt:'Münzbörse',sub:'Japan ist Münzland: 1 bis 500 Yen klimpern ordentlich.'},
+   {id:'copies',txt:'Passkopien + E-Ticket-PDF offline aufs Handy'}
+ ]},
+ {id:'final',title:'Countdown-Paket',when:'Die letzten 48 Stunden',items:[
+   {id:'airbnbreg',txt:'Airbnb-Gäste-Registrierung: BEIDE einzeln ausfüllen',sub:'Pflicht laut Toshima Ward — Google-Formular (Link im Unterkünfte-Eintrag), ein Durchgang pro Person, also du UND Lea getrennt. Danach Uki kurz Bescheid geben („all guests registered"). Frist: 5 Tage vor Check-in = spätestens 2.11. — macht es einfach früher.',dl:'bis ~1. Nov',hot:1},
+   {id:'klarna',txt:'Klarna Max aktivieren (Lounge-Hack) + Kündigungs-Wecker',sub:'2× 44,99 € für einen Monat = unbegrenzt LoungeKey: Doha ×2 (Al Maha), Haneda (TIAT Lounge vorm Nachtflug!), evtl. FRA. Direkt nach Abschluss: Kündigung zum Monatsende einstellen & in der App checken, welche Lounges an euren Airports gelistet sind.',dl:'4./5. Nov'},
+   {id:'checkin',txt:'Online-Check-in Hinflug',sub:'Öffnet Mi, 4.11., 09:15 Uhr — Sitzplätze nochmal prüfen.',dl:'4. Nov',hot:1},
+   {id:'qr',txt:'Visit-Japan-Web-QRs als Screenshots',dl:'vor Abflug',hot:1},
+   {id:'offline',txt:'Offline-Pakete laden',sub:'Google-Maps-Karten (Tokio, Kyōto, Ōsaka, Hiroshima) + DeepL/Google-Übersetzer Japanisch offline.'},
+   {id:'wallet',txt:'Bordkarten in die Wallet, Hotels in Maps gespeichert'},
+   {id:'transfer',txt:'Transfer ab Narita klären',sub:'N’EX nach Shinjuku (~80 Min) oder Skyliner→Ueno; Suica zahlt beides nicht — Ticket am Schalter/Automat.'},
+   {id:'cash',txt:'Kein Geld in Deutschland tauschen',sub:'Erste Yen einfach am ATM in Narita ziehen — besserer Kurs.'},
+   {id:'home',txt:'Zuhause-Modus: Kühlschrank, Heizung, Nachbarn, Blumen'},
+   {id:'return',txt:'Erinnerung: Rückflug-Check-in ab 26.11., 01:25 JST',sub:'= Mi, 25.11., 17:25 Uhr deutscher Zeit.'}
+ ]}
+];
+function renderChecks(){
+  $('#checkGrid').innerHTML=GROUPS.map(function(g){
+    var customs=state.custom[g.id]||[];
+    var total=g.items.length+customs.length;
+    var done=g.items.filter(function(it){return state.checks[g.id+'.'+it.id]}).length
+            +customs.filter(function(c){return state.checks[g.id+'.'+c.id]}).length;
+    var pct=total?Math.round(done/total*100):0;
+    var rows=g.items.map(function(it){
+      var k=g.id+'.'+it.id,ck=!!state.checks[k];
+      return '<div class="citem'+(ck?' done':'')+'"><input type="checkbox" id="ck-'+k+'" data-check="'+k+'"'+(ck?' checked':'')+'><label for="ck-'+k+'">'+esc(it.txt)+(it.sub?'<small>'+esc(it.sub)+'</small>':'')+'</label>'+(it.dl?'<span class="deadline'+(it.hot?' hot':'')+'">'+esc(it.dl)+'</span>':'')+'</div>';
+    }).join('')+customs.map(function(c){
+      var k=g.id+'.'+c.id,ck=!!state.checks[k];
+      return '<div class="citem'+(ck?' done':'')+'"><input type="checkbox" id="ck-'+k+'" data-check="'+k+'"'+(ck?' checked':'')+'><label for="ck-'+k+'">'+esc(c.txt)+'</label><button class="rm" data-rmcheck="'+g.id+'|'+c.id+'" aria-label="Eintrag entfernen">×</button></div>';
+    }).join('');
+    return '<div class="card clist"><div class="clist-head"><span class="clist-when">'+esc(g.when)+'</span><h3>'+esc(g.title)+'</h3></div>'
+      +'<div class="progress"><i style="width:'+pct+'%"></i></div><span class="pct num">'+done+' / '+total+' erledigt</span>'
+      +rows
+      +'<div class="add-row"><input type="text" data-add="'+g.id+'" placeholder="Eigenen Punkt ergänzen …" maxlength="120"><button class="btn btn-line btn-sm" data-addbtn="'+g.id+'">+</button></div></div>';
+  }).join('');
+}
+$('#checkGrid').addEventListener('change',function(e){
+  var k=e.target.getAttribute('data-check');
+  if(k){
+    var r=e.target.getBoundingClientRect(),card=e.target.closest('.clist');
+    var cr=card?card.getBoundingClientRect():null;
+    state.checks[k]=e.target.checked;save();
+    if(e.target.checked){
+      burstLeaves(r.left+r.width/2,r.top+r.height/2,7);
+      var gid=k.split('.')[0],g=GROUPS.find(function(x){return x.id===gid});
+      if(g){
+        var all=g.items.every(function(it){return state.checks[gid+'.'+it.id]})
+          &&(state.custom[gid]||[]).every(function(c){return state.checks[gid+'.'+c.id]});
+        if(all&&cr){burstLeaves(cr.left+cr.width/2,cr.top+90,22);toast('„'+g.title+'" komplett — お疲れさま! 🎉')}
+      }
+    }
+    renderChecks();
+  }
+});
+function burstLeaves(x,y,n){
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var EM=['🍁','🍂','✨','🍁'];
+  for(var i=0;i<n;i++){
+    var s=document.createElement('span');s.className='leafbit';s.textContent=EM[i%EM.length];
+    var a=Math.random()*Math.PI*2,d=34+Math.random()*74;
+    s.style.left=x+'px';s.style.top=y+'px';
+    s.style.setProperty('--dx',(Math.cos(a)*d)+'px');
+    s.style.setProperty('--dy',(Math.sin(a)*d-46)+'px');
+    s.style.setProperty('--rr',(Math.random()*720-360)+'deg');
+    s.style.animationDelay=(Math.random()*0.14)+'s';
+    document.body.appendChild(s);
+    (function(el){setTimeout(function(){el.remove()},1500)})(s);
+  }
+}
+$('#checkGrid').addEventListener('click',function(e){
+  var rm=e.target.getAttribute('data-rmcheck');
+  if(rm){var p=rm.split('|');state.custom[p[0]]=(state.custom[p[0]]||[]).filter(function(c){return c.id!==p[1]});delete state.checks[p[0]+'.'+p[1]];save();renderChecks();return}
+  var g=e.target.getAttribute('data-addbtn');
+  if(g){addCustom(g)}
+});
+$('#checkGrid').addEventListener('keydown',function(e){
+  if(e.key==='Enter'){var g=e.target.getAttribute('data-add');if(g){e.preventDefault();addCustom(g)}}
+});
+function addCustom(g){
+  var inp=document.querySelector('input[data-add="'+g+'"]');
+  var v=(inp.value||'').trim();if(!v)return;
+  if(!state.custom[g])state.custom[g]=[];
+  state.custom[g].push({id:'c'+Date.now().toString(36),txt:v});
+  save();renderChecks();toast('Hinzugefügt');
+  var ni=document.querySelector('input[data-add="'+g+'"]');if(ni)ni.focus();
+}
+
+/* ---------- JR-Rechner ---------- */
+function renderJR(){
+  var sum=0;
+  document.querySelectorAll('#jrLegs input[type=checkbox]').forEach(function(cb){if(cb.checked)sum+=parseInt(cb.getAttribute('data-price'),10)});
+  $('#jrSum').textContent=fmtY(sum);
+  var msg;
+  if(sum<50000)msg='<b>Einzeltickets gewinnen klar.</b> Selbst der kleinste Pass (7 Tage, ¥ 50.000) lohnt nicht — eure Fahrten verteilen sich über 12 Tage, und der Kōyasan (Nankai) wäre eh nicht abgedeckt. Spar-Trick: Für den Block Ōsaka → Hiroshima → Himeji (21.–25.11.) den <b>JR Kansai-Hiroshima Area Pass</b> (5 Tage, ~¥ 17.000) nehmen — deckt sogar die Miyajima-Fähre ab und spart ~¥ 2.000 p. P.';
+  else if(sum<80000)msg='Knapper Fall: Ein 7-Tage-Pass (¥ 50.000) könnte sich lohnen, wenn ihr die großen Fahrten in ein 7-Tage-Fenster schiebt — sonst bleiben Einzeltickets + Kansai-Hiroshima Area Pass die entspannteste Wahl.';
+  else msg='Bei diesem Volumen lohnt sich ein Pass — rechnet 14 Tage (¥ 80.000) gegen euer Fahrtfenster.';
+  $('#jrMsg').innerHTML=msg;
+}
+document.querySelectorAll('#jrLegs input').forEach(function(cb){cb.addEventListener('change',renderJR)});
+
+/* ---------- Sprache ---------- */
+var PHRASES=[
+ {c:'Basics',de:'Hallo / Guten Tag',jp:'こんにちは',ro:'Konnichiwa'},
+ {c:'Basics',de:'Guten Morgen',jp:'おはようございます',ro:'Ohayō gozaimasu'},
+ {c:'Basics',de:'Guten Abend',jp:'こんばんは',ro:'Konbanwa'},
+ {c:'Basics',de:'Vielen Dank',jp:'ありがとうございます',ro:'Arigatō gozaimasu'},
+ {c:'Basics',de:'Entschuldigung / Hallo? / Danke',jp:'すみません',ro:'Sumimasen'},
+ {c:'Basics',de:'Bitte (um etwas bitten)',jp:'お願いします',ro:'Onegai shimasu'},
+ {c:'Basics',de:'Ja / Nein',jp:'はい / いいえ',ro:'Hai / Iie'},
+ {c:'Basics',de:'Alles gut, kein Problem',jp:'大丈夫です',ro:'Daijōbu desu'},
+ {c:'Unterwegs',de:'Wo ist …?',jp:'…はどこですか？',ro:'… wa doko desu ka?'},
+ {c:'Unterwegs',de:'Wo ist der Bahnhof?',jp:'駅はどこですか？',ro:'Eki wa doko desu ka?'},
+ {c:'Unterwegs',de:'Wo ist die Toilette?',jp:'トイレはどこですか？',ro:'Toire wa doko desu ka?'},
+ {c:'Unterwegs',de:'Was ist das?',jp:'これは何ですか？',ro:'Kore wa nan desu ka?'},
+ {c:'Unterwegs',de:'Sprechen Sie Englisch?',jp:'英語を話せますか？',ro:'Eigo o hanasemasu ka?'},
+ {c:'Unterwegs',de:'Ich verstehe (es) nicht',jp:'分かりません',ro:'Wakarimasen'},
+ {c:'Unterwegs',de:'Ich spreche nur wenig Japanisch',jp:'日本語は少しだけです',ro:'Nihongo wa sukoshi dake desu'},
+ {c:'Unterwegs',de:'Ich habe mich verlaufen',jp:'道に迷いました',ro:'Michi ni mayoimashita'},
+ {c:'Restaurant',de:'Ein Tisch für zwei, bitte',jp:'二人です',ro:'Futari desu'},
+ {c:'Restaurant',de:'Das hier, bitte',jp:'これをください',ro:'Kore o kudasai'},
+ {c:'Restaurant',de:'Was empfehlen Sie?',jp:'おすすめは何ですか？',ro:'Osusume wa nan desu ka?'},
+ {c:'Restaurant',de:'Guten Appetit (vor dem Essen)',jp:'いただきます',ro:'Itadakimasu'},
+ {c:'Restaurant',de:'Lecker!',jp:'おいしい！',ro:'Oishii!'},
+ {c:'Restaurant',de:'Danke für das Essen (danach)',jp:'ごちそうさまでした',ro:'Gochisōsama deshita'},
+ {c:'Restaurant',de:'Die Rechnung, bitte',jp:'お会計お願いします',ro:'Okaikei onegai shimasu'},
+ {c:'Restaurant',de:'Ein Wasser, bitte',jp:'お水をください',ro:'Omizu o kudasai'},
+ {c:'Restaurant',de:'Prost!',jp:'乾杯！',ro:'Kanpai!'},
+ {c:'Restaurant',de:'Sie ist Vegetarierin',jp:'彼女はベジタリアンです',ro:'Kanojo wa bejitarian desu'},
+ {c:'Restaurant',de:'Ohne Fleisch und Fisch, bitte',jp:'肉と魚なしでお願いします',ro:'Niku to sakana nashi de onegai shimasu'},
+ {c:'Restaurant',de:'Dashi-Brühe ist in Ordnung',jp:'出汁は大丈夫です',ro:'Dashi wa daijōbu desu'},
+ {c:'Restaurant',de:'Gibt es etwas Vegetarisches?',jp:'ベジタリアン料理はありますか？',ro:'Bejitarian ryōri wa arimasu ka?'},
+ {c:'Einkaufen',de:'Wie viel kostet das?',jp:'いくらですか？',ro:'Ikura desu ka?'},
+ {c:'Einkaufen',de:'Kann ich mit Karte zahlen?',jp:'カードで払えますか？',ro:'Kādo de haraemasu ka?'},
+ {c:'Einkaufen',de:'Ich schaue nur',jp:'見ているだけです',ro:'Mite iru dake desu'},
+ {c:'Einkaufen',de:'Ich brauche keine Tüte',jp:'袋は要りません',ro:'Fukuro wa irimasen'},
+ {c:'Einkaufen',de:'Geht das tax-free?',jp:'免税できますか？',ro:'Menzei dekimasu ka?'},
+ {c:'Einkaufen',de:'Als Geschenk einpacken, bitte',jp:'プレゼント用にお願いします',ro:'Purezento-yō ni onegai shimasu'},
+ {c:'Notfall',de:'Hilfe!',jp:'助けて！',ro:'Tasukete!'},
+ {c:'Notfall',de:'Wo ist ein Krankenhaus?',jp:'病院はどこですか？',ro:'Byōin wa doko desu ka?'},
+ {c:'Notfall',de:'Rufen Sie bitte die Polizei',jp:'警察を呼んでください',ro:'Keisatsu o yonde kudasai'},
+ {c:'Notfall',de:'Mir ist schlecht',jp:'気分が悪いです',ro:'Kibun ga warui desu'},
+ {c:'Notfall',de:'Ich habe meinen Pass verloren',jp:'パスポートをなくしました',ro:'Pasupōto o nakushimashita'}
+];
+var P_CATS=['Alle','Basics','Unterwegs','Restaurant','Einkaufen','Notfall'],pcat='Alle';
+function renderPhraseCats(){
+  $('#phraseCats').innerHTML=P_CATS.map(function(c){return '<button type="button" class="pcat'+(c===pcat?' on':'')+'" data-pcat="'+c+'">'+c+'</button>'}).join('');
+}
+function renderPhrases(){
+  var items=PHRASES.filter(function(p){return pcat==='Alle'||p.c===pcat});
+  $('#phraseList').innerHTML=items.map(function(p,i){
+    return '<div class="phrase" role="button" tabindex="0" aria-label="'+esc(p.de)+' — Karte umdrehen für Japanisch">'
+      +'<div class="ph-inner">'
+      +'<div class="ph-face ph-front"><div class="ph-de">'+esc(p.de)+'</div><span class="ph-flip-hint">Japanisch ⤾</span></div>'
+      +'<div class="ph-face ph-back"><div class="ph-txt"><div class="ph-de">'+esc(p.de)+'</div><div class="ph-jp" lang="ja">'+esc(p.jp)+'</div><div class="ph-ro">'+esc(p.ro)+'</div></div><button class="say-btn" type="button" data-say="'+esc(p.jp)+'" aria-label="Auf Japanisch vorlesen: '+esc(p.de)+'">🔊</button></div>'
+      +'</div></div>';
+  }).join('');
+}
+$('#phraseList').addEventListener('keydown',function(e){
+  if((e.key==='Enter'||e.key===' ')&&e.target.classList.contains('phrase')){e.preventDefault();e.target.classList.toggle('flip')}
+});
+$('#phraseCats').addEventListener('click',function(e){
+  var c=e.target.getAttribute('data-pcat');
+  if(c){pcat=c;renderPhraseCats();renderPhrases()}
+});
+var jaVoice=null;
+function pickVoice(){
+  if(!('speechSynthesis' in window))return;
+  var vs=speechSynthesis.getVoices().filter(function(v){return /^ja/i.test(v.lang)});
+  jaVoice=vs.find(function(v){return /Kyoko|O-?Ren|Google 日本語|Nanami|Ayumi/i.test(v.name)})||vs[0]||null;
+}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice}
+else{$('#speechNote').textContent='Sprachausgabe wird von diesem Browser leider nicht unterstützt — die Rōmaji-Zeile hilft beim Vorlesen.'}
+$('#phraseList').addEventListener('click',function(e){
+  var btn=e.target.closest('.say-btn');
+  if(!btn){var card=e.target.closest('.phrase');if(card)card.classList.toggle('flip');return}
+  var txt=btn.getAttribute('data-say');
+  if(!('speechSynthesis' in window)){toast('Keine Sprachausgabe verfügbar');return}
+  speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(txt);
+  u.lang='ja-JP';if(jaVoice)u.voice=jaVoice;u.rate=0.85;
+  document.querySelectorAll('.say-btn.playing').forEach(function(b){b.classList.remove('playing')});
+  btn.classList.add('playing');
+  u.onend=u.onerror=function(){btn.classList.remove('playing')};
+  speechSynthesis.speak(u);
+});
+
+/* ---------- Essen ---------- */
+var FOODS=[
+ {id:'ramen',e:'🍜',n:'Ramen',jp:'ラーメン',d:'Dampfende Schüssel, laut schlürfen erlaubt — Pflicht.',w:'Afuri (Yuzu), Ichiran für dich, überall',vg:'Veggie-Ramen: T’s Tantan (Tokyo Station) & Afuri Vegan — Ichiran ist Schweinebrühe.'},
+ {id:'yudofu',e:'🫕',n:'Yudōfu',jp:'湯豆腐',d:'Kyōtos Zen-Klassiker: seidiger Tofu im heißen Kombu-Sud — das vegetarische Novembergericht schlechthin.',w:'Nanzen-ji-Viertel & Arashiyama (17.11.!)',nov:1,vg:'Komplett vegetarisch — sogar die Brühe (Kombu-Alge).'},
+ {id:'sushi',e:'🍣',n:'Sushi & Kaitenzushi',jp:'寿司',d:'Vom Laufband oder frisch vom Meister.',w:'Kura/Sushiro fürs Laufband, Tsukiji für frisch',vg:'Für sie: Kappa-Maki, Tamago, Inari, Ume-Shiso, Avocado — am Laufband easy.'},
+ {id:'okono',e:'🍳',n:'Hiroshima-Okonomiyaki',jp:'お好み焼き',d:'Geschichtet statt gemischt, mit Nudeln — Lokalstolz.',w:'Okonomimura, Hiroshima (23.11.)',vg:'„Yasai" bestellen: ohne Speck, ohne Katsuobushi-Flocken — Soße & Teig passen.'},
+ {id:'tako',e:'🐙',n:'Takoyaki',jp:'たこ焼き',d:'Oktopusbällchen, außen knusprig, innen Lava. Vorsicht: heiß!',w:'Dōtonbori, Ōsaka',vg:'Dein Solo-Programm — Oktopus ist nun mal Oktopus.'},
+ {id:'kaiseki',e:'🍱',n:'Kaiseki & Shōjin-Ryōri',jp:'会席・精進料理',d:'Japans hohe Küche in kleinen Kunstwerken — im Kloster als rein pflanzliche Tempelküche.',w:'Ryokan Hakone (13.11.) & Kōyasan (22.11.)',vg:'Shōjin-Ryōri ist 100 % vegetarisch; im Ryokan die Veggie-Variante vorbestellen.'},
+ {id:'onigiri',e:'🍙',n:'Onigiri',jp:'おにぎり',d:'Das perfekte Reisdreieck für 150 Yen.',w:'Jeder Konbini',vg:'Ume (Pflaume), Kombu & Wakame sind vegetarisch — Tuna-Mayo für dich.'},
+ {id:'sando',e:'🥪',n:'Tamago-Sando',jp:'たまごサンド',d:'Das legendäre Konbini-Eiersandwich — fluffig wie eine Wolke.',w:'7-Eleven, Lawson, FamilyMart',vg:'Vegetarisch ✓ — ihr Konbini-Frühstück ist gesichert.'},
+ {id:'tonkatsu',e:'🐷',n:'Tonkatsu',jp:'とんかつ',d:'Paniertes Schnitzel mit Kraut, Sesam selbst mörsern.',w:'Maisen (Tokio), Katsukura (Kyōto)',vg:'Katsukura hat Gemüse-Katsu-Sets — sonst dein Gericht.'},
+ {id:'curry',e:'🍛',n:'Katsu-Karē',jp:'カツカレー',d:'Japanisches Curry — mild, tief, süchtig machend.',w:'CoCo Ichibanya (Schärfegrad wählbar)',vg:'CoCo Ichi hat eine offizielle vegetarische Curry-Karte — gleiche Soße, ohne Tier.'},
+ {id:'gyoza',e:'🥟',n:'Gyōza',jp:'餃子',d:'Knusprig gebratene Teigtaschen zum Bier.',w:'Utsunomiya (bei Nikkō) ist Gyōza-Hauptstadt',vg:'Yasai-Gyōza (Gemüse) gibt es oft — kurz nachfragen.'},
+ {id:'yakitori',e:'🍢',n:'Yakitori',jp:'焼き鳥',d:'Spieße überm Holzkohlegrill, Rauch inklusive.',w:'Omoide Yokochō, Shinjuku (Tag 1!)',vg:'Für sie mitbestellen: Shiitake, Negi (Lauch), Shishitō, Käse-Spieße.'},
+ {id:'tempura',e:'🍤',n:'Tempura',jp:'天ぷら',d:'Federleicht frittiert — als Teishoku-Set mittags günstig.',w:'Überall; Tendon = auf Reis',vg:'Yasai-Tempura (Kürbis, Süßkartoffel, Renkon, Shiso) = vegetarischer Volltreffer.'},
+ {id:'soba',e:'🥢',n:'Soba & Udon',jp:'そば・うどん',d:'Buchweizen fein, Weizen dick — im Stehen am Gleis am besten.',w:'Kyōto: Nishin-Soba; Bahnhofs-Stände',vg:'Zaru Soba (kalt) ist safe; warme Brühe = Dashi, für euch ok. Kitsune-Udon = mit süßem Tōfu.'},
+ {id:'unagi',e:'🍚',n:'Unagi-Don',jp:'うなぎ丼',d:'Glasierter Aal auf Reis — teuer, aber unvergesslich.',w:'Spezialisierte Unagi-Häuser',vg:'Deins. Sie nimmt derweil das beste Tamagoyaki der Stadt.'},
+ {id:'wagyu',e:'🥩',n:'Wagyū / Yakiniku',jp:'和牛',d:'Schmilzt. Einfach: schmilzt.',w:'Yakiniku-Grill in Ōsaka',vg:'Am Tischgrill grillt sie Pilze, Kürbis & Mais mit — funktioniert erstaunlich gut.'},
+ {id:'nabe',e:'🍲',n:'Nabe & Shabu-Shabu',jp:'鍋',d:'Der Novembertopf: Brühe, Gemüse, hauchdünnes Fleisch.',w:'Izakaya überall — Saison läuft!',nov:1,vg:'Yasai- oder Kinoko-Nabe (Pilz) bestellen — oder gleich Yudōfu (eigene Karte).'},
+ {id:'oden',e:'♨️',n:'Oden',jp:'おでん',d:'Wintereintopf von der Konbini-Kasse: Daikon, Ei, Tōfu.',w:'7-Eleven-Kasse, ab November',nov:1,vg:'Daikon, Ei, Tōfu, Konnyaku — Brühe ist Dashi, für euch ok.'},
+ {id:'yakiimo',e:'🍠',n:'Yaki-imo',jp:'焼き芋',d:'Geröstete Süßkartoffel, warm in Papier — Herbstsound inklusive.',w:'Straßen-Trucks & Supermärkte',nov:1},
+ {id:'kaki',e:'🍊',n:'Kaki & Mikan',jp:'柿・みかん',d:'Herbstfrüchte vom Markt — Kaki hängen jetzt an jedem Baum.',w:'Märkte, Supermärkte, Nara',nov:1},
+ {id:'momiji',e:'🍁',n:'Momiji-Manjū',jp:'もみじ饅頭',d:'Ahornblatt-Küchlein mit Füllung, frisch aus der Backform.',w:'Miyajima (24.11.) — das Original',nov:1},
+ {id:'matcha',e:'🍵',n:'Matcha in Uji',jp:'抹茶',d:'Softeis, Latte, Parfait — im Mutterland des Tees.',w:'Uji (18.11.), Nakamura Tōkichi'},
+ {id:'taiyaki',e:'🐟',n:'Taiyaki',jp:'たい焼き',d:'Fischförmige Waffel mit Anko oder Custard — Handwärmer & Snack.',w:'Straßenstände, Asakusa'},
+ {id:'melonpan',e:'🍞',n:'Melonpan',jp:'メロンパン',d:'Knusperbrötchen, warm am besten — schmeckt nicht nach Melone, egal.',w:'Kagetsudō, Asakusa'},
+ {id:'dango',e:'🍡',n:'Dango & Mochi',jp:'団子',d:'Reisbällchen am Spieß — Mitarashi (süß-salzig) zuerst.',w:'Tempel-Zugänge, Arashiyama'},
+ {id:'purin',e:'🍮',n:'Konbini-Purin',jp:'プリン',d:'Der beste 200-Yen-Pudding eures Lebens.',w:'Lawson „Premium Roll" gleich mitnehmen'},
+ {id:'sake',e:'🍶',n:'Sake-Verkostung',jp:'日本酒',d:'Herbst = Hiyaoroshi-Saison, der gereifte Herbst-Sake.',w:'Fushimi (Kyōto), Izakaya',nov:1},
+ {id:'highball',e:'🥃',n:'Highball & Izakaya-Abend',jp:'ハイボール',d:'Whisky-Soda, dazu kleine Teller quer durch die Karte.',w:'Jede Izakaya — „Toriaezu nama!" = erstmal ein Bier',vg:'Ihre Izakaya-Basics: Edamame, Hiyayakko (kalter Tōfu), Tsukemono, Onigiri, Käse-Kartoffel.'},
+ {id:'depachika',e:'🛍️',n:'Depachika-Tour',jp:'デパ地下',d:'Food-Untergeschoss der Kaufhäuser — Bentō-Kunst & Kostproben.',w:'Isetan Shinjuku, Daimaru Kyōto',vg:'Riesige vegetarische Auswahl: Gemüse-Bentō, Obst-Kunstwerke, Wagashi.'}
+];
+function renderFood(){
+  var done=0;
+  $('#foodGrid').innerHTML=FOODS.map(function(f){
+    var ck=!!state.food[f.id];if(ck)done++;
+    return '<div class="food-card'+(ck?' checked':'')+'" data-food="'+f.id+'" role="checkbox" aria-checked="'+ck+'" tabindex="0"><span class="f-emoji" aria-hidden="true">'+f.e+'</span><h4>'+esc(f.n)+' <span class="f-jp" lang="ja">'+esc(f.jp)+'</span>'+(f.nov?' <span class="nov-badge">November!</span>':'')+'</h4><p>'+esc(f.d)+'</p><span class="f-where">→ '+esc(f.w)+'</span>'+(f.vg?'<span class="f-vg">🌱 '+esc(f.vg)+'</span>':'')+'</div>';
+  }).join('');
+  $('#foodDone').textContent=done;$('#foodTotal').textContent=FOODS.length;
+}
+$('#foodGrid').addEventListener('click',function(e){
+  var el=e.target.closest('.food-card');if(!el)return;
+  var id=el.getAttribute('data-food');state.food[id]=!state.food[id];save();renderFood();
+});
+$('#foodGrid').addEventListener('keydown',function(e){
+  if(e.key===' '||e.key==='Enter'){var el=e.target.closest('.food-card');if(el){e.preventDefault();el.click()}}
+});
+
+/* ---------- ICS-Export ---------- */
+function icsEv(sum,desc,s,e,loc,alarm){
+  return ['BEGIN:VEVENT','UID:'+s+'-'+sum.replace(/[^A-Za-z0-9]/g,'').slice(0,20)+'@japan2026','DTSTAMP:20260707T000000Z','DTSTART:'+s,'DTEND:'+e,'SUMMARY:'+sum,'DESCRIPTION:'+desc,'LOCATION:'+(loc||''),'BEGIN:VALARM','TRIGGER:'+(alarm||'-PT30M'),'ACTION:DISPLAY','DESCRIPTION:Erinnerung','END:VALARM','END:VEVENT'].join('\r\n');
+}
+function icsWrap(events){return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Japan2026//Reisebegleiter//DE'].concat(events,['END:VCALENDAR']).join('\r\n')}
+$('#icsBtn').addEventListener('click',function(){
+  var ics=icsWrap([
+   icsEv('QR 70 · Frankfurt → Doha','Qatar Airways QR70 · Buchung '+(pnr()||'(s. Reisebegleiter)')+' · FRA Terminal 3 → DOH · Gepäck 25kg','20261106T081500Z','20261106T141500Z','Flughafen Frankfurt Terminal 3','-PT3H'),
+   icsEv('QR 808 · Doha → Tokio-Narita','Qatar Airways QR808 · Buchung '+(pnr()||'(s. Reisebegleiter)')+' · Ankunft NRT Terminal 2 11:55 Ortszeit','20261106T165000Z','20261107T025500Z','Hamad International Airport Doha','-PT2H'),
+   icsEv('QR 813 · Tokio-Haneda → Doha','Qatar Airways QR813 · Buchung '+(pnr()||'(s. Reisebegleiter)')+' · Abflug HND Terminal 3 01:25 Ortszeit','20261127T162500Z','20261128T034000Z','Tokyo Haneda Terminal 3','-PT4H'),
+   icsEv('QR 67 · Doha → Frankfurt','Qatar Airways QR67 · Buchung '+(pnr()||'(s. Reisebegleiter)')+' · Landung FRA 13:20','20261128T060000Z','20261128T122000Z','Hamad International Airport Doha','-PT2H')
+  ]);
+  download(new Blob([ics],{type:'text/calendar'}),'japan-2026-fluege.ics');
+  toast('Flug-Kalender erstellt');
+});
+$('#remBtn').addEventListener('click',function(){
+  var ics=icsWrap([
+   icsEv('Ghibli-Museum-Tickets kaufen!','Verkauf für alle November-Termine startet 10:00 JST = 3:00 nachts deutscher Zeit. ghibli-museum.jp — sehr schnell ausverkauft. Alternative: am Vorabend Wecker stellen.','20261010T010000Z','20261010T020000Z','','-PT10H'),
+   icsEv('Visit Japan Web ausfüllen','Einreise + Zoll für beide anlegen (visitjapanweb.digital.go.jp) → QR-Codes als Screenshots sichern.','20261023T160000Z','20261023T170000Z','','-PT0M'),
+   icsEv('Online-Check-in Hinflug öffnet','Qatar Airways QR 70, Buchung '+(pnr()||'(s. Reisebegleiter)')+' — ab jetzt einchecken (Abflug 6.11., 09:15, FRA T3).','20261104T081500Z','20261104T091500Z','','-PT0M'),
+   icsEv('Online-Check-in Rückflug öffnet','QR 813 ab Haneda, Buchung '+(pnr()||'(s. Reisebegleiter)')+' — öffnet 01:25 JST am 26.11. = 17:25 deutscher Zeit am 25.11.','20261125T162500Z','20261125T172500Z','','-PT0M')
+  ]);
+  download(new Blob([ics],{type:'text/calendar'}),'japan-2026-deadlines.ics');
+  toast('Deadline-Kalender erstellt');
+});
+function download(blob,name){
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},400);
+}
+
+/* ---------- Kopieren ---------- */
+document.querySelectorAll('[data-copy]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var v=btn.getAttribute('data-copy');
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v).then(function(){toast('Kopiert: '+v)},function(){toast(v)})}
+    else{toast(v)}
+  });
+});
+
+/* ---------- Export / Import / Reset ---------- */
+$('#exportBtn').addEventListener('click',function(){
+  download(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),'japan2026-daten.json');
+  toast('Daten exportiert');
+});
+$('#importFile').addEventListener('change',function(){
+  var f=this.files&&this.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(){
+    try{
+      var p=JSON.parse(r.result);
+      if(!p||p.v!==1)throw new Error('bad');
+      if(!confirm('Gespeicherte Daten mit der Import-Datei überschreiben?'))return;
+      state=p;for(var k in DEFAULTS){if(!(k in state))state[k]=DEFAULTS[k]}
+      save();renderAll();toast('Daten importiert ✓');
+    }catch(e){toast('Das ist keine gültige Japan-2026-Datei')}
+  };
+  r.readAsText(f);this.value='';
+});
+$('#resetAll').addEventListener('click',function(){
+  if(confirm('Wirklich ALLES zurücksetzen? Notizen, Haken, Ausgaben — alles weg.')){
+    try{localStorage.removeItem(KEY)}catch(e){}
+    state=JSON.parse(JSON.stringify(DEFAULTS));renderAll();toast('Alles zurückgesetzt');
+  }
+});
+
+/* ---------- Blätter-Canvas ---------- */
+(function(){
+  var canvas=document.getElementById('leafCanvas');
+  if(!canvas||!canvas.getContext)return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var ctx=canvas.getContext('2d'),W=0,H=0,DPR=Math.min(2,window.devicePixelRatio||1),leaves=[];
+  var COLORS=['#C7402D','#D9622F','#E0AE4A','#B98A1E','#9E2F20'];
+  function resize(){
+    var r=canvas.parentElement.getBoundingClientRect();
+    W=r.width;H=r.height;canvas.width=W*DPR;canvas.height=H*DPR;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    var n=Math.min(34,Math.max(14,Math.round(W/38)));
+    while(leaves.length<n)leaves.push(mk(true));
+    leaves.length=n;
+  }
+  function mk(anywhere){
+    return {x:Math.random()*W,y:anywhere?Math.random()*H:-20,s:5+Math.random()*6,
+      vy:0.25+Math.random()*0.55,ph:Math.random()*Math.PI*2,amp:16+Math.random()*26,
+      rot:Math.random()*Math.PI*2,vr:(Math.random()-0.5)*0.02,
+      c:COLORS[Math.floor(Math.random()*COLORS.length)],gingko:Math.random()<0.45,a:0.5+Math.random()*0.45};
+  }
+  function drawLeaf(l,t){
+    var x=l.x+Math.sin(t*0.0006+l.ph)*l.amp;
+    ctx.save();ctx.translate(x,l.y);ctx.rotate(l.rot);ctx.globalAlpha=l.a;ctx.fillStyle=l.c;
+    if(l.gingko){
+      ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,l.s*1.5,Math.PI*0.62,Math.PI*0.38+Math.PI,false);ctx.closePath();ctx.fill();
+      ctx.strokeStyle=l.c;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,l.s*0.9);ctx.stroke();
+    }else{
+      ctx.beginPath();
+      for(var i=0;i<5;i++){
+        var a=-Math.PI/2+i*(Math.PI*2/5);
+        ctx.lineTo(Math.cos(a)*l.s*1.35,Math.sin(a)*l.s*1.35);
+        var a2=a+Math.PI/5;
+        ctx.lineTo(Math.cos(a2)*l.s*0.55,Math.sin(a2)*l.s*0.55);
+      }
+      ctx.closePath();ctx.fill();
+    }
+    ctx.restore();
+  }
+  var running=true,rafId=null;
+  function frame(t,advance){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<leaves.length;i++){
+      var l=leaves[i];
+      if(advance){l.y+=l.vy;l.rot+=l.vr;if(l.y>H+24)leaves[i]=mk(false)}
+      drawLeaf(l,t);
+    }
+  }
+  function loop(t){
+    rafId=null;
+    if(!running)return;
+    frame(t,true);
+    rafId=requestAnimationFrame(loop);
+  }
+  function start(){if(running&&rafId===null)rafId=requestAnimationFrame(loop)}
+  var io=('IntersectionObserver' in window)?new IntersectionObserver(function(en){
+    running=en[0].isIntersecting;
+    start();
+  }):null;
+  if(io)io.observe(canvas);
+  window.addEventListener('resize',resize);
+  document.addEventListener('visibilitychange',start);
+  resize();frame(0,false);start();
+})();
+
+/* ---------- Start ---------- */
+function renderAll(){
+  renderFact();renderPlan();renderHotels();renderChecks();renderJR();
+  renderPhraseCats();renderPhrases();renderFood();
+  lastPhase=null;tick();
+}
+renderAll();
+setInterval(tick,1000);
+})();
+</script>
+
+</body>
+</html>
