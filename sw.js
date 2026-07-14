@@ -1,5 +1,5 @@
-// Auto-generiert von build-check.js — Version e8d9479d47
-const CACHE='japan2026-e8d9479d47';
+// Auto-generiert von build-check.js — Version 0936664e3a
+const CACHE='japan2026-0936664e3a';
 const ASSETS=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-180.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
