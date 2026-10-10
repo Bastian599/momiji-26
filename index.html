@@ -537,12 +537,82 @@ input,select,textarea{font-family:inherit;font-size:1rem;color:var(--ink);accent
 .cost-sum.total{border-bottom:none;border-top:2px solid var(--line);padding-top:14px;font-weight:700}
 @media (max-width:860px){.cost-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:680px){.cost-row{grid-template-columns:minmax(0,1fr) auto;gap:6px 12px}.cost-row .cost-date{grid-column:1/-1}.cost-row .cst{grid-column:1/-1;justify-self:start}.cost-kpi{padding:14px 16px}.cost-kpi .k-val{font-size:1.3rem}}
+
+/* ============ BUCHUNGSKALENDER ============ */
+.bk-next{background:linear-gradient(135deg,var(--night) 0%,var(--night-2) 60%,var(--horizon) 100%);color:var(--on-night);border-radius:var(--r);padding:22px 24px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px 24px;align-items:center;box-shadow:var(--shadow-lg);margin-bottom:22px}
+.bk-next-lbl{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-bright);font-weight:700}
+.bk-next h3{font-size:1.35rem;color:var(--on-night);margin-top:6px}
+.bk-next p{color:var(--on-night-dim);font-size:.9rem;margin-top:4px}
+.bk-next p b{color:var(--on-night);font-weight:600}
+.bk-cd{display:flex;gap:8px}
+.bk-cd span{background:rgba(237,231,217,.07);border:1px solid rgba(237,231,217,.14);border-radius:10px;padding:8px 10px 6px;min-width:58px;text-align:center}
+.bk-cd b{display:block;font-family:var(--serif);font-size:1.6rem;line-height:1;font-variant-numeric:tabular-nums;color:var(--on-night)}
+.bk-cd small{display:block;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--on-night-faint);margin-top:5px}
+.bk-next .bk-open{grid-column:1/-1;font-size:.85rem;color:var(--on-night-dim);border-top:1px solid rgba(237,231,217,.1);padding-top:12px}
+.bk-next .bk-open b{color:var(--gold-bright)}
+.bk-months{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px;margin-bottom:12px}
+.bk-month{padding:18px 18px 14px}
+.bk-month h3{font-size:1.1rem;margin-bottom:10px}
+.bk-wd,.bk-days{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.bk-wd span{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);text-align:center;padding-bottom:4px}
+.bk-day{position:relative;height:44px;border:0;background:transparent;border-radius:9px;font-size:.86rem;color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:0;font-variant-numeric:tabular-nums;cursor:default}
+.bk-day.past{color:var(--ink-faint)}
+.bk-day.trip{background:var(--gold-soft)}
+.bk-day.trip.ts{border-radius:9px 2px 2px 9px}
+.bk-day.trip.te{border-radius:2px 9px 9px 2px}
+.bk-day.today{box-shadow:inset 0 0 0 2px var(--ink);font-weight:700}
+.bk-day.has{cursor:pointer;background:var(--washi-2)}
+.bk-day.has.trip{background:var(--gold-soft)}
+.bk-day.has:hover,.bk-day.sel{background:var(--ink);color:var(--washi)}
+.bk-dots{display:flex;gap:2px;height:5px}
+.bk-dots i{width:5px;height:5px;border-radius:50%;background:var(--momiji)}
+.bk-dots i.todo{background:var(--indigo)}
+.bk-dots i.done{background:var(--matcha)}
+.bk-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.78rem;color:var(--ink-soft);margin:4px 2px 22px}
+.bk-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px;background:var(--momiji)}
+.bk-legend i.todo{background:var(--indigo)}.bk-legend i.done{background:var(--matcha)}
+.bk-legend i.trip{background:var(--gold-soft);border-radius:2px;width:14px;border:1px solid var(--gold)}
+.bk-h{font-size:1.05rem;margin:6px 2px 10px;display:flex;align-items:baseline;gap:10px}
+.bk-h small{font-family:var(--sans);font-size:.78rem;font-weight:500;color:var(--ink-faint)}
+.bk-list{padding:4px 22px;margin-bottom:22px}
+.bk-row{display:grid;grid-template-columns:118px minmax(0,1fr) auto;gap:6px 18px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line-soft);transition:background .4s}
+.bk-row:last-child{border-bottom:0}
+.bk-row.flash{background:var(--gold-soft);border-radius:8px}
+.bk-when{font-weight:700;font-size:.92rem;line-height:1.3;font-variant-numeric:tabular-nums}
+.bk-when small{display:block;font-weight:500;font-size:.75rem;color:var(--ink-soft)}
+.bk-when .bk-in{color:var(--momiji-deep);font-weight:700}
+.bk-t{font-weight:600;line-height:1.35}
+.bk-t small{display:block;font-weight:400;font-size:.83rem;color:var(--ink-soft);margin-top:2px}
+.bk-tag{display:inline-block;font-size:.64rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:99px;padding:2px 8px;margin-right:6px;vertical-align:2px;background:var(--momiji-soft);color:var(--momiji-deep)}
+.bk-tag.todo{background:var(--indigo-soft);color:var(--indigo)}
+.bk-tag.opt{background:var(--washi-2);color:var(--ink-soft)}
+.bk-act{display:flex;align-items:center;gap:10px;justify-self:end}
+.bk-go{font-size:.78rem;font-weight:700;text-decoration:none;background:var(--ink);color:var(--washi);border-radius:99px;padding:6px 12px;white-space:nowrap}
+.bk-go:hover,.bk-go:focus-visible{background:var(--momiji)}
+.bk-ck{display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--ink-soft);white-space:nowrap;cursor:pointer}
+.bk-ck input{width:18px;height:18px;margin:0}
+.bk-row.done .bk-t{color:var(--ink-faint);text-decoration:line-through;text-decoration-color:var(--line)}
+.bk-row.done .bk-when{color:var(--ink-faint)}
+.bk-done summary{cursor:pointer;font-family:var(--serif);font-weight:600;font-size:1.05rem;margin:6px 2px 10px}
+.bk-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:4px}
+.bk-tools small{color:var(--ink-faint);font-size:.8rem}
+@media (max-width:680px){
+  .bk-next{grid-template-columns:1fr;padding:18px}
+  .bk-cd span{min-width:0;flex:1}
+  .bk-list{padding:2px 16px}
+  .bk-row{grid-template-columns:minmax(0,1fr) auto;gap:6px 12px}
+  .bk-row .bk-when{grid-column:1/-1}
+  .bk-row .bk-t{grid-column:1/-1}
+  .bk-row .bk-act{grid-column:1/-1;justify-self:start}
+  .bk-month{padding:14px 12px 10px}
+}
+@media print{.bk-tools,.bk-go,.bk-ck{display:none !important}.bk-next{box-shadow:none}}
 </style>
 <nav class="nav" aria-label="Hauptnavigation">
   <div class="nav-inner">
     <a class="brand" href="#top">日本<b>2026</b><span>NOV</span></a>
     <div class="nav-links">
-      <a href="#fluege">Flüge</a><a href="#karte">Karte</a><a href="#plan">Reiseplan</a><a href="#listen">Checklisten</a><a href="#kosten">Kosten</a><a href="#budget">Bahn</a><a href="#sprache">Sprache</a><a href="#essen">Essen</a><a href="#goshuin">Goshuin</a><a href="#guide">Guide</a><a href="#notfall">Notfall</a>
+      <a href="#fluege">Flüge</a><a href="#karte">Karte</a><a href="#plan">Reiseplan</a><a href="#listen">Checklisten</a><a href="#buchen">Buchen</a><a href="#kosten">Kosten</a><a href="#budget">Bahn</a><a href="#sprache">Sprache</a><a href="#essen">Essen</a><a href="#goshuin">Goshuin</a><a href="#guide">Guide</a><a href="#notfall">Notfall</a>
     </div>
     <span class="jst-chip" title="Aktuelle Uhrzeit in Japan"><span class="jst-dot"></span><span class="jst-city">Tokio</span><b id="jstClock">--:--</b></span>
   </div>
@@ -789,6 +859,16 @@ input,select,textarea{font-family:inherit;font-size:1rem;color:var(--ink);accent
     <p class="lede">Vier Listen mit echten Deadlines — von „am besten diese Woche" bis zur Nacht vor dem Abflug. Haken setzen, eigene Punkte ergänzen; der Stand bleibt gespeichert.</p>
   </div>
   <div class="check-grid" id="checkGrid"></div>
+</section>
+
+<!-- ============ BUCHUNGSKALENDER ============ -->
+<section class="sec" id="buchen">
+  <div class="sec-head">
+    <p class="eyebrow"><span class="jp">予約</span> Buchungskalender</p>
+    <h2>Wann ihr was buchen müsst</h2>
+    <p class="lede">Alle Verkaufsstarts und Fristen bis zur Abreise auf einen Blick, in deutscher Zeit mit japanischer Uhrzeit daneben. Auf einen markierten Tag tippen springt zum Eintrag. Abhaken hier hakt auch die Checkliste ab.</p>
+  </div>
+  <div id="bookCal"></div>
 </section>
 
 <!-- ============ BUDGET ============ -->
@@ -2155,9 +2235,172 @@ $('#resetAll').addEventListener('click',function(){
   resize();frame(0,false);start();
 })();
 
+
+/* ---------- Buchungskalender ---------- */
+// ck = Checklisten-Schlüssel (Gruppe.Punkt): Haken hier und in den Checklisten sind derselbe Zustand.
+// at = Verkaufsstart/Frist als UTC; ohne at gilt der ganze Tag d (deutsche Zeit).
+var BOOK_CAL=[
+ {ck:'tix.hakonepass',k:'buchen',d:'2026-09-28',t:'Hakone Freepass (2 Tage, digital)',n:'Fr 13.–Sa 14.11. · ~¥ 14.200 für euch zwei · nur am Handy über EMot',u:'https://www.emot-tickets.jp/detail-purchase?language=en&masterBookId=1&set=true&site='},
+ {ck:'tix.koyaticket',k:'buchen',d:'2026-09-28',t:'Kōyasan World Heritage Ticket',n:'So 22.11. · ~¥ 6.160 für zwei · digital',u:'https://www.howto-osaka.com/en/ticket/wh/'},
+ {ck:'tix.subway72',k:'buchen',opt:1,d:'2026-10-01',t:'Tokyo Subway Ticket 72 h',n:'Für die Tokio-Tage 2–4 · ¥ 1.500 p. P. · lohnt ab ~5 Metro-Fahrten am Tag'},
+ {ck:'tix.peacemuseum',k:'buchen',opt:1,d:'2026-10-01',t:'Friedensmuseum Hiroshima, Zeitfenster',n:'Mo 23.11. ~16:30 · ¥ 200 p. P. · spart am Feiertag die Schlange'},
+ {ck:'org.resto',k:'buchen',opt:1,d:'2026-10-01',t:'Vegetarisches Mittagessen in Kyōto',n:'Shigetsu im Tenryū-ji oder Yudōfu am Nanzen-ji'},
+ {ck:'tix.skyliner',k:'buchen',d:'2026-10-08',t:'Skyliner Narita → Nippori (E-Ticket)',n:'Sa 7.11. nach der Landung · ~¥ 4.600 für zwei',u:'https://www.keisei.co.jp/keisei/tetudou/skyliner/e-ticket/en/'},
+ {ck:'tix.romancecar',k:'buchen',hot:1,d:'2026-10-13',at:'2026-10-13T01:00:00Z',t:'Romancecar Shinjuku → Hakone-Yumoto',n:'Fr 13.11., Zug ~8:30–9:00 · Verkauf startet 10:00 Uhr japanischer Zeit',u:'https://odakyu-global.com/passes/romancecar/'},
+ {ck:'tix.smartex1',k:'buchen',hot:1,d:'2026-10-14',at:'2026-10-14T01:00:00Z',t:'Shinkansen Odawara → Kyōto (SmartEX)',n:'Sa 14.11. · ~¥ 23.500 für zwei',u:'https://smart-ex.jp/en/'},
+ {ck:'tix.jrpass',k:'buchen',hot:1,d:'2026-10-23',at:'2026-10-23T01:00:00Z',t:'JR Kansai-Hiroshima Area Pass + Sitzplätze',n:'Mo 23.11. ist Feiertag: Sitze gleich mitreservieren · ~¥ 34.000 für zwei',u:'https://www.westjr.co.jp/travel-information/en/tickets-passes/jrwest-rail-pass/kansai_hiroshima/'},
+ {ck:'org.vjw',k:'todo',d:'2026-10-23',t:'Visit Japan Web ausfüllen',n:'Pro Person ein Account · Einreise- und Zoll-QR als Screenshot sichern'},
+ {ck:'tix.smartex2',k:'buchen',d:'2026-10-25',t:'Shinkansen Himeji → Tokio (SmartEX)',n:'Mi 25.11. · ~¥ 31.600 für zwei',u:'https://smart-ex.jp/en/'},
+ {ck:'org.shibuyasky',k:'buchen',hot:1,d:'2026-10-25',at:'2026-10-25T15:00:00Z',t:'Shibuya Sky, Sonnenuntergangs-Slot',n:'Mo 9.11., Slot ~16:00 · die Slots sind in Stunden weg',u:'https://www.shibuya-scramble-square.com/sky/ticket/'},
+ {ck:'org.esim',k:'todo',d:'2026-10-30',lbl:'bis Ende Okt.',t:'eSIM kaufen & installieren',n:'Ubigi, Airalo oder mobal · 10–20 GB · erst in Japan aktivieren'},
+ {ck:'final.airbnbreg',k:'todo',hot:1,d:'2026-11-01',t:'Airbnb-Gäste-Registrierung (beide einzeln)',n:'Pflicht für Ikebukuro · offizielle Frist 2.11. · danach Yuqi Bescheid geben'},
+ {ck:'final.checkin',k:'todo',hot:1,d:'2026-11-04',at:'2026-11-04T08:15:00Z',t:'Online-Check-in Hinflug + Sitze',n:'QR 70 · freie Standardsitze sind jetzt gratis · beide zusammen einchecken',u:'https://www.qatarairways.com/en/manage-booking.html'},
+ {ck:'final.return',k:'todo',hot:1,d:'2026-11-25',at:'2026-11-25T15:25:00Z',t:'Online-Check-in Rückflug + Sitze',n:'QR 813 ab Haneda · ihr seid dann in Tokio, öffnet 00:25 Uhr japanischer Zeit',u:'https://www.qatarairways.com/en/manage-booking.html'}
+];
+var BK_TRIP=['2026-11-06','2026-11-28'];
+var BK_MONTHS=[[2026,9],[2026,10]]; // Oktober, November (Monat 0-basiert)
+var bkSel=null;
+var bkFmtDay=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Berlin',year:'numeric',month:'2-digit',day:'2-digit'});
+var bkFmtDE=new Intl.DateTimeFormat('de-DE',{timeZone:'Europe/Berlin',hour:'2-digit',minute:'2-digit'});
+var bkFmtJP=new Intl.DateTimeFormat('de-DE',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit'});
+function bkToday(){return bkFmtDay.format(new Date())}
+function bkDone(b){return !!state.checks[b.ck]}
+function bkTime(b){return b.at?new Date(b.at).getTime():new Date(b.d+'T00:00:00').getTime()}
+function bkIsOpen(b,now){return b.at?new Date(b.at).getTime()<=now:b.d<=bkToday()}
+function bkDays(iso){return Math.round((new Date(iso+'T00:00:00')-new Date(bkToday()+'T00:00:00'))/864e5)}
+function bkWhen(b,now){
+  var html=dShort(b.d);
+  html+='<small>'+(b.at?bkFmtDE.format(new Date(b.at))+' Uhr · '+bkFmtJP.format(new Date(b.at))+' JST':esc(b.lbl||'ganzer Tag'))+'</small>';
+  if(bkDone(b))return html;
+  if(bkIsOpen(b,now)){
+    var ago=-bkDays(b.d);
+    html+='<small class="bk-in">'+(ago<=0?'jetzt buchbar':'buchbar seit '+(ago===1?'gestern':ago+' Tagen'))+'</small>';
+  }else{
+    var n=bkDays(b.d);
+    html+='<small class="bk-in">'+(n>1?'in '+n+' Tagen':n===1?'morgen':'heute')+'</small>';
+  }
+  return html;
+}
+function bkRow(b,now){
+  var dn=bkDone(b);
+  var tag=b.opt?'<span class="bk-tag opt">optional</span>':b.k==='todo'?'<span class="bk-tag todo">Frist</span>':'<span class="bk-tag">buchen</span>';
+  return '<div class="bk-row'+(dn?' done':'')+'" data-bkd="'+b.d+'">'
+    +'<div class="bk-when">'+bkWhen(b,now)+'</div>'
+    +'<div class="bk-t">'+tag+esc(b.t)+'<small>'+esc(b.n)+'</small></div>'
+    +'<div class="bk-act">'+(b.u&&!dn?'<a class="bk-go" href="'+b.u+'" target="_blank" rel="noopener">'+(b.k==='todo'?'Öffnen':'Buchen')+' ↗</a>':'')
+    +'<label class="bk-ck"><input type="checkbox" data-bk="'+b.ck+'"'+(dn?' checked':'')+'>'+(b.k==='todo'?'erledigt':'gebucht')+'</label></div></div>';
+}
+function bkMonth(y,m,today){
+  var MN=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  var first=new Date(y,m,1),len=new Date(y,m+1,0).getDate(),lead=(first.getDay()+6)%7;
+  var cells='';for(var i=0;i<lead;i++)cells+='<span></span>';
+  for(var d=1;d<=len;d++){
+    var iso=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    var ev=BOOK_CAL.filter(function(b){return b.d===iso});
+    var cls='bk-day'+(iso<today?' past':'')+(iso===today?' today':'')
+      +(iso>=BK_TRIP[0]&&iso<=BK_TRIP[1]?' trip':'')+(iso===BK_TRIP[0]?' ts':'')+(iso===BK_TRIP[1]?' te':'')
+      +(ev.length?' has':'')+(iso===bkSel?' sel':'');
+    var dots=ev.slice(0,4).map(function(b){return '<i class="'+(bkDone(b)?'done':b.k==='todo'?'todo':'')+'"></i>'}).join('');
+    var lbl=d+'. '+MN[m]+(ev.length?': '+ev.map(function(b){return b.t}).join(', '):'');
+    cells+=ev.length
+      ?'<button type="button" class="'+cls+'" data-bkday="'+iso+'" aria-label="'+esc(lbl)+'">'+d+'<span class="bk-dots">'+dots+'</span></button>'
+      :'<span class="'+cls+'">'+d+'<span class="bk-dots"></span></span>';
+  }
+  return '<div class="card bk-month"><h3>'+MN[m]+' '+y+'</h3><div class="bk-wd"><span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span></div><div class="bk-days">'+cells+'</div></div>';
+}
+function bkNextHtml(now){
+  var open=BOOK_CAL.filter(function(b){return !bkDone(b)&&!b.opt&&bkIsOpen(b,now)});
+  var next=BOOK_CAL.filter(function(b){return !bkDone(b)&&!bkIsOpen(b,now)})
+    .sort(function(a,b){return bkTime(a)-bkTime(b)})[0];
+  var openTxt=open.length?'<div class="bk-open"><b>'+open.length+'</b> '+(open.length===1?'Buchung ist':'Buchungen sind')+' schon offen und noch nicht erledigt: '+open.map(function(b){return esc(b.t)}).join(' · ')+'</div>':'';
+  if(!next)return '<div class="bk-next"><div><span class="bk-next-lbl">Buchungskalender</span><h3>Alles gebucht 🎉</h3><p>Keine offenen Verkaufsstarts oder Fristen mehr.</p></div>'+openTxt+'</div>';
+  var cd='';
+  if(next.at){
+    var ms=Math.max(0,new Date(next.at).getTime()-now),dd=Math.floor(ms/864e5),hh=Math.floor(ms%864e5/36e5),mm=Math.floor(ms%36e5/6e4);
+    cd='<div class="bk-cd"><span><b>'+dd+'</b><small>Tage</small></span><span><b>'+hh+'</b><small>Std</small></span><span><b>'+mm+'</b><small>Min</small></span></div>';
+  }else{
+    var n=bkDays(next.d);cd='<div class="bk-cd"><span><b>'+n+'</b><small>'+(n===1?'Tag':'Tage')+'</small></span></div>';
+  }
+  var when=dShort(next.d)+(next.at?', '+bkFmtDE.format(new Date(next.at))+' Uhr':'');
+  var alarm=next.at&&+bkFmtDE.format(new Date(next.at)).slice(0,2)<7?' · Wecker stellen!':'';
+  return '<div class="bk-next"><div><span class="bk-next-lbl">Als Nächstes'+(next.k==='todo'?' fällig':' buchbar')+'</span><h3>'+esc(next.t)+'</h3><p><b>'+when+'</b>'+alarm+'</p></div>'+cd+openTxt+'</div>';
+}
+function renderBookCal(){
+  var el=$('#bookCal');if(!el)return;
+  var now=Date.now(),today=bkToday();
+  var list=BOOK_CAL.slice().sort(function(a,b){return bkTime(a)-bkTime(b)});
+  var open=list.filter(function(b){return !bkDone(b)&&bkIsOpen(b,now)});
+  open.sort(function(a,b){return (a.opt||0)-(b.opt||0)||bkTime(a)-bkTime(b)});
+  var soon=list.filter(function(b){return !bkDone(b)&&!bkIsOpen(b,now)});
+  var done=list.filter(bkDone);
+  var html='<div id="bkNext">'+bkNextHtml(now)+'</div>'
+    +'<div class="bk-months">'+BK_MONTHS.map(function(x){return bkMonth(x[0],x[1],today)}).join('')+'</div>'
+    +'<div class="bk-legend"><span><i></i>buchen</span><span><i class="todo"></i>Frist / Formular</span><span><i class="done"></i>erledigt</span><span><i class="trip"></i>Reise 6.–28.11.</span></div>';
+  if(open.length)html+='<h3 class="bk-h">Jetzt buchbar<small>'+open.length+' offen</small></h3><div class="card bk-list">'+open.map(function(b){return bkRow(b,now)}).join('')+'</div>';
+  if(soon.length)html+='<h3 class="bk-h">Demnächst<small>nach Datum</small></h3><div class="card bk-list">'+soon.map(function(b){return bkRow(b,now)}).join('')+'</div>';
+  if(done.length)html+='<details class="bk-done"'+(bkSel&&done.some(function(b){return b.d===bkSel})?' open':'')+'><summary>Erledigt ('+done.length+')</summary><div class="card bk-list">'+done.map(function(b){return bkRow(b,now)}).join('')+'</div></details>';
+  html+='<div class="bk-tools"><button type="button" class="btn btn-light btn-sm" id="bkIcs">🔔 Offene Termine in den Kalender (.ics)</button><small>mit Erinnerung am Vorabend und 15 Min vorher</small></div>';
+  el.innerHTML=html;
+}
+function bkTick(){var n=$('#bkNext');if(n)n.innerHTML=bkNextHtml(Date.now())}
+$('#bookCal').addEventListener('click',function(e){
+  var day=e.target.closest('[data-bkday]');
+  if(day){
+    bkSel=day.getAttribute('data-bkday');renderBookCal();
+    var rows=document.querySelectorAll('#bookCal .bk-row[data-bkd="'+bkSel+'"]');
+    if(rows.length){
+      rows[0].scrollIntoView({behavior:'smooth',block:'center'});
+      [].forEach.call(rows,function(r){r.classList.add('flash');setTimeout(function(){r.classList.remove('flash')},1800)});
+    }
+    return;
+  }
+  if(e.target.id==='bkIcs')bkExport();
+});
+$('#bookCal').addEventListener('change',function(e){
+  var k=e.target.getAttribute('data-bk');if(!k)return;
+  state.checks[k]=e.target.checked;save();
+  if(e.target.checked){var r=e.target.getBoundingClientRect();burstLeaves(r.left+r.width/2,r.top+r.height/2,9);toast('Abgehakt ✓ (auch in den Checklisten)')}
+  renderChecks();renderBookCal();
+});
+$('#checkGrid').addEventListener('change',function(e){if(e.target.getAttribute('data-check'))renderBookCal()});
+function bkIcsTxt(s){return String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n')}
+function bkStamp(ms){return new Date(ms).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'')}
+function bkBerlinOffset(ms){ // Minuten, um die Berlin der UTC voraus ist
+  var p=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Berlin',hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).formatToParts(new Date(ms));
+  var g={};p.forEach(function(x){g[x.type]=+x.value});
+  return Math.round((Date.UTC(g.year,g.month-1,g.day,g.hour,g.minute)-Math.floor(ms/6e4)*6e4)/6e4);
+}
+function bkExport(){
+  var now=Date.now(),stamp=bkStamp(now);
+  var evs=BOOK_CAL.filter(function(b){return !bkDone(b)&&(b.at?new Date(b.at).getTime()>now:b.d>=bkToday())}).map(function(b){
+    var head=['BEGIN:VEVENT','UID:bk-'+b.ck.replace('.','-')+'@japan2026','DTSTAMP:'+stamp,'SUMMARY:'+bkIcsTxt((b.k==='todo'?'⏰ ':'🎫 ')+b.t),'DESCRIPTION:'+bkIcsTxt(b.n)+(b.u?'\\n'+bkIcsTxt(b.u):'')];
+    if(b.u)head.push('URL:'+b.u);
+    var body;
+    if(b.at){
+      var s=new Date(b.at).getTime();
+      // Vorabend 20:00 deutscher Zeit
+      var dayBefore=new Date(new Date(b.d+'T12:00:00Z').getTime()-864e5).toISOString().slice(0,10);
+      var eve=Date.UTC(+dayBefore.slice(0,4),+dayBefore.slice(5,7)-1,+dayBefore.slice(8,10),20,0)-bkBerlinOffset(s-864e5)*6e4;
+      body=['DTSTART:'+bkStamp(s),'DTEND:'+bkStamp(s+30*6e4),
+        'BEGIN:VALARM','TRIGGER;VALUE=DATE-TIME:'+bkStamp(eve),'ACTION:DISPLAY','DESCRIPTION:Nicht vergessen: '+bkIcsTxt(b.t),'END:VALARM',
+        'BEGIN:VALARM','TRIGGER:-PT15M','ACTION:DISPLAY','DESCRIPTION:'+bkIcsTxt(b.t),'END:VALARM'];
+    }else{
+      var d0=b.d.replace(/-/g,''),d1=new Date(new Date(b.d+'T12:00:00Z').getTime()+864e5).toISOString().slice(0,10).replace(/-/g,'');
+      body=['DTSTART;VALUE=DATE:'+d0,'DTEND;VALUE=DATE:'+d1,'TRANSP:TRANSPARENT',
+        'BEGIN:VALARM','TRIGGER:-PT4H','ACTION:DISPLAY','DESCRIPTION:Nicht vergessen: '+bkIcsTxt(b.t),'END:VALARM',
+        'BEGIN:VALARM','TRIGGER:PT9H','ACTION:DISPLAY','DESCRIPTION:'+bkIcsTxt(b.t),'END:VALARM'];
+    }
+    return head.concat(body,['END:VEVENT']).join('\r\n');
+  });
+  if(!evs.length){toast('Keine offenen Termine mehr 🎉');return}
+  download(new Blob([icsWrap(evs)],{type:'text/calendar'}),'japan-2026-buchungen.ics');
+  toast(evs.length+' Termine als Kalender exportiert');
+}
+setInterval(bkTick,30000);
+
 /* ---------- Start ---------- */
 function renderAll(){
-  renderFact();renderPlan();renderHotels();renderChecks();renderJR();
+  renderFact();renderPlan();renderHotels();renderChecks();renderBookCal();renderJR();
   renderPhraseCats();renderPhrases();renderFood();renderGoshuin();
   lastPhase=null;tick();
 }
