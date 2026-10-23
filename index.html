@@ -608,6 +608,40 @@ input,select,textarea{font-family:inherit;font-size:1rem;color:var(--ink);accent
 }
 @media print{.bk-tools,.bk-go,.bk-ck{display:none !important}.bk-next{box-shadow:none}}
 
+/* ============ TICKETS ============ */
+.tk-lock{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 20px;margin-bottom:18px}
+.tk-lock p{margin:0;color:var(--ink-soft);font-size:.9rem;flex:1 1 260px}
+.tk-lock input{flex:1 1 180px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--washi)}
+.tk-list{padding:4px 22px}
+.tk-row{display:grid;grid-template-columns:92px minmax(0,1fr);gap:4px 18px;padding:16px 0;border-bottom:1px solid var(--line-soft)}
+.tk-row:last-child{border-bottom:none}
+.tk-row.past{opacity:.5}
+.tk-row.next{background:linear-gradient(90deg,var(--gold-soft),transparent 70%);margin:0 -22px;padding-left:22px;padding-right:22px}
+.tk-when{font-weight:700;font-size:.9rem;line-height:1.3}
+.tk-when small{display:block;font-weight:500;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.tk-t{font-weight:700;line-height:1.35}
+.tk-w{color:var(--ink-soft);font-size:.88rem;margin-top:2px}
+.tk-src{font-size:.86rem;margin-top:6px}
+.tk-src b{font-weight:600}
+.tk-st{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.04em;padding:2px 8px;border-radius:99px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+.tk-st.ok{background:var(--matcha-soft);color:var(--matcha)}
+.tk-st.todo{background:var(--gold-soft);color:#8A6A1B}
+.tk-st.open{background:var(--indigo-soft);color:var(--indigo)}
+.tk-st.nx{background:var(--momiji);color:#FFF8F0}
+.tk-acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tk-acts a{font-size:.78rem;font-weight:700;text-decoration:none;border:1px solid var(--line);color:var(--ink);border-radius:99px;padding:5px 11px;white-space:nowrap;background:var(--card)}
+.tk-acts a:hover,.tk-acts a:focus-visible{border-color:var(--ink)}
+.tk-acts a.pv{background:var(--ink);color:var(--washi);border-color:var(--ink)}
+.tk-priv{margin-top:8px;padding:8px 12px;border-radius:10px;background:var(--washi-2);font-size:.85rem}
+.tk-priv b{font-family:var(--mono);font-weight:600;font-size:.84rem;word-break:break-all}
+.tk-edit{margin-top:22px;padding:16px 20px}
+.tk-edit summary{cursor:pointer;font-weight:700}
+.tk-edit textarea{width:100%;min-height:140px;margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:.78rem;background:var(--washi)}
+.tk-edit .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center}
+.tk-edit p{font-size:.86rem;color:var(--ink-soft);margin-top:8px}
+@media (max-width:600px){.tk-row{grid-template-columns:1fr}.tk-when{display:flex;gap:8px;align-items:baseline}.tk-when small{display:inline}}
+@media print{.tk-edit,.tk-lock{display:none !important}}
+
 /* ============ REISE-FILM ============ */
 .film{position:fixed;inset:0;z-index:200;background:#07080D;color:#F3EEE3;display:none;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;--lb:0px;--sh:56%;--rh:100vh}
 .film.open{display:block}
@@ -724,7 +758,7 @@ input,select,textarea{font-family:inherit;font-size:1rem;color:var(--ink);accent
   <div class="nav-inner">
     <a class="brand" href="#top">日本<b>2026</b><span>NOV</span></a>
     <div class="nav-links">
-      <a href="#fluege">Flüge</a><a href="#karte">Karte</a><a href="#plan">Reiseplan</a><a href="#listen">Checklisten</a><a href="#buchen">Buchen</a><a href="#kosten">Kosten</a><a href="#budget">Bahn</a><a href="#sprache">Sprache</a><a href="#essen">Essen</a><a href="#goshuin">Goshuin</a><a href="#guide">Guide</a><a href="#notfall">Notfall</a>
+      <a href="#fluege">Flüge</a><a href="#tickets">Tickets</a><a href="#karte">Karte</a><a href="#plan">Reiseplan</a><a href="#listen">Checklisten</a><a href="#buchen">Buchen</a><a href="#kosten">Kosten</a><a href="#budget">Bahn</a><a href="#sprache">Sprache</a><a href="#essen">Essen</a><a href="#goshuin">Goshuin</a><a href="#guide">Guide</a><a href="#notfall">Notfall</a>
     </div>
     <span class="jst-chip" title="Aktuelle Uhrzeit in Japan"><span class="jst-dot"></span><span class="jst-city">Tokio</span><b id="jstClock">--:--</b></span>
   </div>
@@ -843,6 +877,16 @@ input,select,textarea{font-family:inherit;font-size:1rem;color:var(--ink);accent
     <a class="btn btn-line btn-sm" href="https://www.qatarairways.com/en/manage-booking.html" target="_blank" rel="noopener">Manage Booking ↗</a>
   </div>
   <p class="checkin-note"><b>Online-Check-in</b> öffnet 48 h vorher: Hinflug ab <b>Mi, 4.11., 09:15 Uhr</b> · Rückflug ab <b>Do, 26.11., 00:25 Uhr JST</b> (= Mi, 25.11., 16:25 Uhr dt. Zeit). Am Flugtag ~3 h vorher da sein — Frankfurt fliegt laut Ticket vom <b>neuen Terminal 3</b> ab, Anfahrt kurz vorher prüfen. Der Rückflug geht um 00:25 nachts (Qatar hat QR 813 am 11.08. um eine Stunde vorverlegt, Ankunft Doha jetzt 06:50): Am 27.11. gegen 20:30 Uhr ab Tokio-Zentrum Richtung Haneda aufbrechen.</p>
+</section>
+
+<!-- ============ TICKETS ============ -->
+<section class="sec" id="tickets">
+  <div class="sec-head">
+    <p class="eyebrow"><span class="jp">切符</span> Tickets</p>
+    <h2>Alle Tickets, griffbereit</h2>
+    <p class="lede">Jede Buchung mit Datum, Plätzen und dem Ort, an dem das Ticket oder der QR-Code liegt: App, Portal oder Bestätigungsmail. Die Links führen nur auf die offiziellen Seiten oder in eure Gmail-Suche und funktionieren nur mit eurem Login. Buchungsnummern und persönliche Ticket-Links stehen verschlüsselt im Tresor.</p>
+  </div>
+  <div id="ticketBox"></div>
 </section>
 
 <!-- ============ KARTE ============ -->
@@ -1571,7 +1615,7 @@ function vaultUnlock(pw,cb){
   }).then(function(buf){
     VAULT_DATA=JSON.parse(new TextDecoder().decode(buf));applyVault();
     try{localStorage.setItem('japan2026vault',pw)}catch(e){}
-    renderHotels();cb&&cb(true)
+    renderHotels();ticketsUnlock(pw);cb&&cb(true)
   }).catch(function(){cb&&cb(false)})
 }
 $('#hotelList').addEventListener('click',function(e){
@@ -1921,7 +1965,7 @@ var GROUPS=[
    {id:'resto',txt:'Shigetsu (Tenryū-ji) bestätigt ✓ — Mo 16.11., 11:30, 2 P., Menü Yuki',sub:'Bestätigung per Mail am 13.10. (Nr. im Tresor). ¥ 3.800 p. P., Zahlung vor Ort; Garten ¥ 500 p. P. nur bar am Garteneingang. Storno am selben Tag oder Personenzahl ändern = 100 %. Alles rein pflanzlich (Shōjin-Ryōri), Tatami, 60 Min.',dl:'erledigt 🎉'}
  ]},
  {id:'tix',title:'Fahrten & Tickets — Vorab-Buchungsplan',when:'Strategie: alles von zu Hause klären, vor Ort nur noch einsteigen',items:[
-   {id:'jrpass',txt:'JR Kansai-Hiroshima Area Pass gekauft ✓ — Sakura 797 reserviert (Wagen 5, 9-A + 9-B), noch offen: Mizuho 600',sub:'Am 23.10. online gekauft (¥ 34.000 für zwei), gültig Mo 23.–Fr 27.11. Noch ist KEIN Zug festgelegt: in JR-WEST ONLINE TRAIN RESERVATION unter „Reservation Lookup/Changes/Refunds“ die Plätze nachtragen. Mo 23.11. Sakura 797 Shin-Ōsaka 13:47 → Hiroshima 15:11 ist erledigt ✓ (Wagen 5, Plätze 9-A + 9-B, Bestätigung vom 24.10.). Fehlt noch: Mi 25.11. Mizuho 600 Hiroshima 8:56 → Himeji 9:52 (ab 25.10., 10:00 JST = 2 Uhr bei uns, dann gilt schon Winterzeit). Abholen in Kyōto (bei der Buchung festgelegt), am besten gleich bei der Ankunft am 14.11.: Schalter oder Automat außerhalb der Sperre, mit beiden Reisepässen, derselben Visa-Karte und der 4-stelligen ID. Spätestens am 23.11., danach verfällt die Abholung. Zug und Plätze lassen sich bis zur Abholung beliebig ändern.',dl:'Mizuho: 25. Okt',hot:1},
+   {id:'jrpass',txt:'JR Kansai-Hiroshima Area Pass gekauft ✓ — Sakura 797 reserviert (Wagen 5, 9-A + 9-B), noch offen: Mizuho 600',sub:'Am 23.10. online gekauft (¥ 34.000 für zwei), gültig Mo 23.–Fr 27.11. Plätze trägt man in JR-WEST ONLINE TRAIN RESERVATION unter „Reservation Lookup/Changes/Refunds“ nach. Mo 23.11. Sakura 797 Shin-Ōsaka 13:47 → Hiroshima 15:11 ist erledigt ✓ (Wagen 5, Plätze 9-A + 9-B, Bestätigung vom 24.10.). Fehlt noch: Mi 25.11. Mizuho 600 Hiroshima 8:56 → Himeji 9:52 (ab 25.10., 10:00 JST = 2 Uhr bei uns, dann gilt schon Winterzeit). Abholen in Kyōto (bei der Buchung festgelegt), am besten gleich bei der Ankunft am 14.11.: Schalter oder Automat außerhalb der Sperre, mit beiden Reisepässen, derselben Visa-Karte und der 4-stelligen ID. Spätestens am 23.11., danach verfällt die Abholung. Zug und Plätze lassen sich bis zur Abholung beliebig ändern.',dl:'Mizuho: 25. Okt',hot:1},
    {id:'smartex1',txt:'SmartEX: Hikari 649 gebucht ✓ — Sa 14.11., Odawara 16:07 → Kyōto 18:12, Wagen 6, Plätze 8-D + 8-E',sub:'Plätze am 14.10. festgelegt: genau die Zweierseite, E = Fenster auf der Fuji-Seite. Noch offen: in SmartEX unter „My trips" die Einstiegsart festlegen (Suica hinterlegen oder Papierticket am Automaten). Umbuchen bis zur Abfahrt kostenlos.',dl:'Einstieg festlegen'},
    {id:'smartex2',txt:'SmartEX: Nozomi 98 gebucht ✓ — Mi 25.11., Himeji 14:59 → Tokio 17:57, 2 Erw.',sub:'Am 13.10. vorab gebucht (¥ 32.740). Zug und Plätze werden am So 25.10. ab 8:00 JST (= 1:00 Uhr bei uns) festgelegt, Mail kommt. Danach in SmartEX im Sitzplan D+E wählen. Wer in Himeji früher fertig ist, bucht kostenlos auf den 13:59 (Nozomi 96) um.',dl:'25.10.: Plätze D+E',hot:1},
    {id:'skyliner',txt:'Skyliner Narita → Nippori: gekauft ✓ — Sa 7.11., 2 Erw.',sub:'Gutschein, noch kein Platz: nach der Landung am Skyliner-Schalter im Bahnhof Terminal 2·3 (Untergeschoss) den QR aus der Keisei-Mail „Purchase Completed“ zeigen, dann bekommt ihr Tickets für einen konkreten Zug mit Sitzplatz. Alternative ohne Schlange: vorher Face Check in Go registrieren (Link in der Mail). Umtausch-Nr. im Tresor, Gutschein gilt bis 12.11. In Nippori in die JR-Yamanote-Linie Richtung Ikebukuro umsteigen (Suica).',dl:'erledigt 🎉'},
@@ -2512,6 +2556,133 @@ function bkExport(){
 }
 setInterval(bkTick,30000);
 
+
+/* ---------- Tickets ---------- */
+// Öffentlich: nur was, wann, wo das Ticket liegt. Keine Nummern, keine persönlichen Links!
+// st: ok = gebucht · todo = gebucht, aber noch etwas zu tun · open = noch nicht gebucht
+// L: öffentliche Portal-Links · q: Gmail-Suche (öffnet nur mit eigenem Login)
+var TICKETS=[
+ {id:'qatar',d:'2026-11-06',tm:'09:15',ic:'✈️',t:'Hinflug QR 70 + QR 808',w:'Frankfurt 09:15 → Doha → Narita, an Sa 11:55',src:'Qatar-App bzw. „Manage Booking“. Bordkarten nach dem Online-Check-in (ab Mi 4.11., 9:15 Uhr) in die Wallet',L:[['Manage Booking','https://www.qatarairways.com/en/manage-booking.html']],q:'from:qatarairways.com.qa Buchungsbestätigung',st:'todo',stl:'Check-in 4.11.'},
+ {id:'vjw',d:'2026-11-07',tm:'11:55',ic:'🛂',t:'Visit Japan Web: Einreise + Zoll',w:'beide registriert, je ein QR-Code',src:'Screenshot auf dem eigenen Handy, Original auf vjw.digital.go.jp',L:[['Visit Japan Web','https://vjw.digital.go.jp/']],st:'ok'},
+ {id:'skyliner',d:'2026-11-07',tm:'~13:00',ic:'🚆',t:'Skyliner Narita T2·3 → Nippori',w:'2 Erw. · Gutschein gilt bis 12.11.',src:'QR-Code als Bild in der Keisei-Mail „Purchase Completed“: am Skyliner-Schalter im Bahnhof T2·3 gegen Platzkarten tauschen',q:'from:info@keisei.co.jp "Purchase Completed"',st:'ok'},
+ {id:'shibuyasky',d:'2026-11-09',tm:'~16:00',ic:'🌇',t:'Shibuya Sky (Sonnenuntergang)',w:'Verkauf So 25.10., 16:00 Uhr deutscher Zeit',src:'noch nicht gebucht',L:[['Tickets','https://www.shibuya-scramble-square.com/sky/ticket/']],st:'open',stl:'buchen 25.10.'},
+ {id:'gonpachi',d:'2026-11-09',tm:'19:00',ic:'🍶',t:'Gonpachi Nishi-Azabu',w:'2 P., bis 21:00 · mehr als 15 Min zu spät ohne Anruf = Tisch weg',src:'Bestätigungsmail (Toreta) zeigen',q:'from:noreply@toreta.info',st:'ok'},
+ {id:'planets',d:'2026-11-10',tm:'13:30',ic:'💧',t:'teamLab Planets',w:'2 Erw., Einlass 13:30–14:00 · bis 3× umbuchbar',src:'QR-Code ab 0:00 Uhr am Besuchstag unter „My Tickets“ (Link in der DMM-Mail)',q:'from:info@mail.dmm.com "Purchase Completion"',st:'ok'},
+ {id:'hakonepass',d:'2026-11-13',tm:'10:00',ic:'🗻',t:'Hakone Freepass, 2 Tage ab Shinjuku',w:'13.–14.11., 2 Erw. · Odakyu, Bergbahn, Seilbahn, Piratenschiff, Busse',src:'EMot (Login mit Google). Beide Tickets liegen auf Bastians Handy, also immer zusammen durch die Sperre',L:[['EMot My Tickets','https://www.emot-tickets.jp/my-tickets?language=en']],q:'from:no-reply@maasjapan.net Freepass',st:'ok'},
+ {id:'romancecar',d:'2026-11-13',tm:'10:00',ic:'🚃',t:'Romancecar Hakone 3, Shinjuku → Hakone-Yumoto',w:'an 11:27 · Wagen 7, hinterer Aussichtsraum, 14C + 14D',src:'EMot, wie der Freepass. Nur Zuschlag, der Fahrpreis läuft über den Freepass',L:[['EMot My Tickets','https://www.emot-tickets.jp/my-tickets?language=en']],q:'from:no-reply@maasjapan.net Romancecar',st:'ok'},
+ {id:'hikari',d:'2026-11-14',tm:'16:07',ic:'🚄',t:'Hikari 649, Odawara → Kyōto',w:'an 18:12 · Wagen 6, 8-D + 8-E (Fuji-Fenster)',src:'SmartEX-App. Einstiegsart unter „My trips“ noch festlegen (Suica oder Papierticket)',L:[['SmartEX','https://smart-ex.jp/en/']],q:'from:yoyaku@expy.jp HIKARI',st:'todo',stl:'Einstieg festlegen'},
+ {id:'jrpass',d:'2026-11-14',tm:'18:15',ic:'🎫',t:'JR Kansai-Hiroshima-Pass abholen (Kyōto)',w:'gilt 23.–27.11. · Abholung spätestens 23.11.',src:'Schalter oder Automat AUSSERHALB der Sperre im Bahnhof Kyōto: beide Reisepässe, Visa-Karte vom Kauf, 4-stellige ID',L:[['JR-West Buchung','https://www.westjr.co.jp/travel-information/en/tickets-passes/']],q:'from:westjr@jr-odekake.net "Reservation Complete"',st:'todo',stl:'abholen'},
+ {id:'biovortex',d:'2026-11-15',tm:'18:00',ic:'✨',t:'teamLab Biovortex Kyoto',w:'2 Erw., Einlass 18:00–18:30 · Turnschuhe',src:'Ticket-Link in der teamLab-Mail „Ticket purchase completed“',q:'from:info@kyoto.tickets.teamlab.art "purchase completed"',st:'ok'},
+ {id:'shigetsu',d:'2026-11-16',tm:'11:30',ic:'🥢',t:'Shigetsu im Tenryū-ji (Shōjin-Ryōri)',w:'2 P., Menü Yuki · Zahlung vor Ort, Garten ¥ 500 p. P. nur bar',src:'Bestätigungsmail von Shigetsu',q:'from:shigetsu@tenryuji.com',st:'ok'},
+ {id:'nintendo',d:'2026-11-18',tm:'14:30',ic:'🍄',t:'Nintendo Museum (Uji)',w:'2 Erw., Einlass 14:30–15:00',src:'QR-Codes ab Di 17.11., 14:00 Uhr in Japan (= 6:00 Uhr bei uns) auf der Nintendo-Seite abholen. Danach nicht mehr stornierbar',L:[['My Ticket','https://check.museum-tickets.nintendo.com/myticket']],q:'from:noreply@museum-tickets.nintendo.com "purchase is complete"',st:'todo',stl:'QR ab 17.11.'},
+ {id:'koyasan',d:'2026-11-22',tm:'10:00',ic:'⛰️',t:'Kōyasan-Ticket + Limited Express Kōya 5',w:'Namba 10:00 → Gokurakubashi 11:31 · Wagen 1, Plätze 11 + 12 · gilt 2 Tage',src:'Nankai Digital Ticket unter „Purchased Ticket“. „Start using“ erst an der Sperre in Namba antippen',L:[['Nankai Digital Ticket','https://nk-digital-ticket.nankai.co.jp/']],q:'from:no-reply@mail.nk-digital-ticket.nankai.co.jp',st:'ok'},
+ {id:'sakura',d:'2026-11-23',tm:'13:47',ic:'🚄',t:'Sakura 797, Shin-Ōsaka → Hiroshima',w:'an 15:11 · Wagen 5, 9-A + 9-B',src:'Die Platzkarten bekommt ihr zusammen mit dem JR-Pass bei der Abholung in Kyōto',q:'from:westjr@jr-odekake.net "Train Reservation Complete"',st:'ok'},
+ {id:'museum',d:'2026-11-23',tm:'16:30',ic:'🕊️',t:'Friedensmuseum Hiroshima',w:'2 Erw. · Einlass während der Öffnungszeit jederzeit',src:'Voucher in der Klook-App unter „Buchungen“',L:[['Klook','https://www.klook.com/']],q:'from:support-noreply@klook.com Friedensdenkmalmuseum',st:'ok'},
+ {id:'mizuho',d:'2026-11-25',tm:'08:56',ic:'🚄',t:'Mizuho 600, Hiroshima → Himeji',w:'an 9:52 · im JR-Pass enthalten',src:'Plätze noch nicht reserviert: ab So 25.10., 2:00 Uhr in der JR-Pass-Buchung nachtragen',L:[['JR-West Buchung','https://www.westjr.co.jp/travel-information/en/tickets-passes/']],st:'open',stl:'Plätze 25.10.'},
+ {id:'nozomi',d:'2026-11-25',tm:'14:59',ic:'🚄',t:'Nozomi 98, Himeji → Tokio',w:'an 17:57 · 2 Erw.',src:'SmartEX-App. Plätze werden am 25.10. festgelegt, dann im Sitzplan D + E wählen',L:[['SmartEX','https://smart-ex.jp/en/']],q:'from:yoyaku@expy.jp NOZOMI',st:'todo',stl:'Plätze 25.10.'},
+ {id:'pokecafe',d:'2026-11-26',tm:'12:45',ic:'⚡',t:'Pokémon Café Tokio',w:'2 P., Sitz Typ A, 90 Min · spätestens 12:30 vor der Tür',src:'Bestätigungsmail („予約確定“) am Handy zeigen',q:'from:info@mail-pokemon-cafe.jp 予約確定',st:'ok'},
+ {id:'qatar2',d:'2026-11-28',tm:'00:25',ic:'✈️',t:'Rückflug QR 813 + QR 67',w:'Haneda 0:25 → Doha → Frankfurt, an 13:20',src:'Qatar-App. Online-Check-in Mi 25.11., 16:25 Uhr deutscher Zeit',L:[['Manage Booking','https://www.qatarairways.com/en/manage-booking.html']],q:'from:qatarairways.com.qa Buchungsbestätigung',st:'todo',stl:'Check-in 25.11.'}
+];
+var TK_ST={ok:'gebucht',todo:'gebucht',open:'noch offen'};
+// Verschlüsselte Ticketdaten (Buchungsnummern, persönliche Links). Wird in der App erzeugt: Tresor entsperren → „Tresor-Tickets aktualisieren“.
+// Format entschlüsselt: {v:1,t:{<ticket-id>:{ref:'…',links:[['Name','https://…']],note:'…'}}}
+var VAULT_TICKETS=null;
+var TK_DATA=null,TK_PW=null,tkMsg='';
+function tkB64d(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
+function tkB64e(u){var s='';for(var i=0;i<u.length;i+=8192)s+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(s)}
+function tkKey(pw,salt,it,use){
+  return crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']).then(function(k){
+    return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:it,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,[use])});
+}
+function tkDecrypt(pw){
+  if(!VAULT_TICKETS||!window.crypto||!crypto.subtle)return Promise.reject();
+  return tkKey(pw,tkB64d(VAULT_TICKETS.salt),VAULT_TICKETS.it,'decrypt').then(function(key){
+    return crypto.subtle.decrypt({name:'AES-GCM',iv:tkB64d(VAULT_TICKETS.iv)},key,tkB64d(VAULT_TICKETS.ct))
+  }).then(function(buf){return JSON.parse(new TextDecoder().decode(buf))});
+}
+function tkEncrypt(pw,obj){
+  var salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12)),it=310000;
+  return tkKey(pw,salt,it,'encrypt').then(function(key){
+    return crypto.subtle.encrypt({name:'AES-GCM',iv:iv},key,new TextEncoder().encode(JSON.stringify(obj)))
+  }).then(function(ct){return{it:it,salt:tkB64e(salt),iv:tkB64e(iv),ct:tkB64e(new Uint8Array(ct))}});
+}
+function ticketsUnlock(pw){
+  TK_PW=pw;
+  if(!VAULT_TICKETS){renderTickets();return}
+  tkDecrypt(pw).then(function(d){TK_DATA=d;renderTickets()},function(){TK_DATA=null;renderTickets()});
+}
+function tkGmail(q){return 'https://mail.google.com/mail/u/0/#search/'+encodeURIComponent(q)}
+function tkPrivate(x){
+  var parts=[],p=TK_DATA&&TK_DATA.t?TK_DATA.t[x.id]:null;
+  if(/^qatar/.test(x.id)&&VAULT_DATA&&VAULT_DATA.flug&&VAULT_DATA.flug.ref)parts.push('Buchung <b>'+esc(VAULT_DATA.flug.ref)+'</b>');
+  if(p&&p.ref)parts.push('<b>'+esc(p.ref)+'</b>');
+  if(p&&p.note)parts.push(esc(p.note));
+  var links=p&&p.links?p.links.filter(function(l){return /^https:\/\//.test(l[1])}):[];
+  if(!parts.length&&!links.length)return '';
+  return '<div class="tk-priv">🔐 '+parts.join(' · ')
+    +(links.length?'<div class="tk-acts">'+links.map(function(l){return '<a class="pv" href="'+esc(l[1])+'" target="_blank" rel="noopener noreferrer">'+esc(l[0])+' ↗</a>'}).join('')+'</div>':'')+'</div>';
+}
+function renderTickets(){
+  var el=$('#ticketBox');if(!el)return;
+  var today=jstToday(),next=null;
+  TICKETS.forEach(function(x){if(!next&&x.d>=today)next=x.id});
+  var unlocked=!!TK_PW,html='';
+  if(!unlocked){
+    html+='<div class="card tk-lock"><p>🔒 Buchungsnummern und persönliche Ticket-Links sind verschlüsselt. Mit dem Tresor-Passwort entsperren (dasselbe wie bei „Unterkünfte“).</p>'
+      +'<input type="password" id="tkPw" autocomplete="current-password" placeholder="Passwort" aria-label="Tresor-Passwort">'
+      +'<button type="button" class="btn btn-light btn-sm" id="tkUnlock">Entsperren</button><span class="sum-sub" id="tkMsg">'+esc(tkMsg)+'</span></div>';
+  }else if(!VAULT_TICKETS&&!TK_DATA){
+    html+='<div class="card tk-lock"><p>🔓 Tresor offen, aber noch keine Ticketdaten hinterlegt. Unten unter „Tresor-Tickets aktualisieren“ einfügen.</p></div>';
+  }
+  html+='<div class="card tk-list">'+TICKETS.map(function(x){
+    var past=x.d<today,isNext=x.id===next;
+    var st='<span class="tk-st '+x.st+'">'+esc(x.stl||TK_ST[x.st])+'</span>'+(isNext?'<span class="tk-st nx">als Nächstes</span>':'');
+    var acts=(x.L||[]).map(function(l){return '<a href="'+esc(l[1])+'" target="_blank" rel="noopener noreferrer">'+esc(l[0])+' ↗</a>'});
+    if(x.q)acts.push('<a href="'+esc(tkGmail(x.q))+'" target="_blank" rel="noopener noreferrer">✉ Mail</a>');
+    return '<div class="tk-row'+(past?' past':'')+(isNext?' next':'')+'" data-tk="'+x.id+'"><div class="tk-when">'+dShort(x.d)+'<small>'+esc(x.tm)+'</small></div>'
+      +'<div><div class="tk-t">'+x.ic+' '+esc(x.t)+st+'</div><div class="tk-w">'+esc(x.w)+'</div>'
+      +'<div class="tk-src"><b>Ticket:</b> '+esc(x.src)+'</div>'
+      +(acts.length?'<div class="tk-acts">'+acts.join('')+'</div>':'')+(unlocked?tkPrivate(x):'')+'</div></div>';
+  }).join('')+'</div>';
+  if(unlocked){
+    html+='<details class="card tk-edit"><summary>🔐 Tresor-Tickets aktualisieren</summary>'
+      +'<p>Ticketdaten (JSON) einfügen. Sie werden hier auf deinem Gerät mit deinem Tresor-Passwort verschlüsselt, das Passwort verlässt das Gerät nicht. Den verschlüsselten Block danach an Claude schicken, der ersetzt damit <code>VAULT_TICKETS</code>.</p>'
+      +'<textarea id="tkIn" spellcheck="false" placeholder=\'{"v":1,"t":{"planets":{"ref":"…","links":[["My Tickets","https://…"]]}}}\'></textarea>'
+      +'<div class="row"><button type="button" class="btn btn-light btn-sm" id="tkEnc">Verschlüsseln</button><span class="sum-sub" id="tkEncMsg"></span></div>'
+      +'<textarea id="tkOut" readonly spellcheck="false" placeholder="Hier erscheint der verschlüsselte Block" hidden></textarea>'
+      +'<div class="row"><button type="button" class="btn btn-line btn-sm" id="tkCopy" hidden>Verschlüsselten Block kopieren</button></div></details>';
+  }
+  el.innerHTML=html;
+}
+$('#ticketBox').addEventListener('click',function(e){
+  var id=e.target.id;
+  if(id==='tkUnlock'){
+    var inp=$('#tkPw'),pw=(inp&&inp.value)||'';if(!pw)return;
+    tkMsg='…';var m=$('#tkMsg');if(m)m.textContent='…';
+    var done=function(ok){tkMsg=ok?'':'Falsches Passwort';if(ok)ticketsUnlock(pw);else renderTickets()};
+    if(vaultLocked())vaultUnlock(pw,done);
+    else if(VAULT_TICKETS)tkDecrypt(pw).then(function(){done(true)},function(){done(false)});
+    else done(true);
+  }else if(id==='tkEnc'){
+    var msg=$('#tkEncMsg'),raw=($('#tkIn').value||'').trim(),obj;
+    try{obj=JSON.parse(raw)}catch(err){msg.textContent='Kein gültiges JSON';return}
+    if(!obj||typeof obj.t!=='object'){msg.textContent='Es fehlt der Teil "t"';return}
+    msg.textContent='verschlüssle …';
+    tkEncrypt(TK_PW,obj).then(function(c){
+      TK_DATA=obj;var out='VAULT_TICKETS='+JSON.stringify(c)+';';
+      renderTickets();
+      var d=$('#ticketBox details.tk-edit');if(d)d.open=true;
+      var o=$('#tkOut'),b=$('#tkCopy');o.value=out;o.hidden=false;b.hidden=false;
+      $('#tkEncMsg').textContent='Fertig ✓ Oben siehst du schon die Vorschau. Block kopieren und an Claude schicken.';
+    },function(){msg.textContent='Verschlüsseln fehlgeschlagen'});
+  }else if(id==='tkCopy'){
+    var o=$('#tkOut');
+    if(navigator.clipboard)navigator.clipboard.writeText(o.value).then(function(){toast('Verschlüsselter Block kopiert')},function(){o.select()});
+    else{o.select();try{document.execCommand('copy');toast('Kopiert')}catch(err){}}
+  }
+});
+$('#ticketBox').addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.id==='tkPw'){e.preventDefault();var b=$('#tkUnlock');if(b)b.click()}});
+
 /* ---------- Reise-Film: Tage ---------- */
 // Stimmung (m), 3 Highlights (hl) und Zähler pro Tag; Titel, Datum und Farbe kommen aus ITIN.
 // at/from/to: Kartenpunkt (MAP_STOPS-id oder [x,y]); path: vorhandene Routenlinien der Karte; z: Zoom (Karteneinheiten) oder 'all'
@@ -3088,7 +3259,7 @@ function muPlay(on,restart){
 
 /* ---------- Start ---------- */
 function renderAll(){
-  renderFact();renderPlan();renderHotels();renderChecks();renderBookCal();renderJR();
+  renderFact();renderPlan();renderHotels();renderChecks();renderBookCal();renderJR();renderTickets();
   renderPhraseCats();renderPhrases();renderFood();renderGoshuin();
   lastPhase=null;tick();
 }
