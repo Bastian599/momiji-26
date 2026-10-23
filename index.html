@@ -1616,7 +1616,7 @@ var MAP_STOPS=[
  {id:'koyasan',n:'Kōyasan',x:442,y:386,t:'stay',day:'2026-11-22',dates:'22.–23.11.',lx:442,ly:408,an:'middle',sub:'',lines:[
    '🏮 Fukuchi-in (gebucht, bezahlt) — der Onsen-Tempel: Check-in ab ~16:00 angegeben, Abendessen nur bei Ankunft bis 18:30, Shōjin-Ryōri komplett vegetarisch',
    '🌙 19:00 Okunoin bei Nacht auf eigene Faust — 20:30 zurück sein, Türen schließen um 21:00!',
-   '🚄 Ab: Mo 23.11. (Feiertag) ~10:00 — über Namba und Shin-Ōsaka nach Hiroshima, Ankunft ~15:00 (Sitzplätze reservieren)']},
+   '🚄 Ab: Mo 23.11. (Feiertag) ~10:00 — über Namba nach Shin-Ōsaka, 13:47 Sakura 797 nach Hiroshima (reserviert ✓, Wagen 5, 9-A + 9-B), an 15:11']},
  {id:'hiroshima',n:'Hiroshima',x:119,y:365,t:'stay',day:'2026-11-23',dates:'23.–25.11.',lx:119,ly:338,an:'middle',sub:'',lines:[
    '🏨 Dormy Inn „Aki no Yu" (gebucht) — Check-in ab 15:00; am Friedensboulevard, frisch renoviert, Onsen-Bad + Gratis-Ramen',
    '🕊 Mo ab ~15:30: Friedenspark, Genbaku-Dom, Museum (bis 18 Uhr) · Di 24.11.: Miyajima',
@@ -2366,10 +2366,8 @@ $('#resetAll').addEventListener('click',function(){
 // ck = Checklisten-Schlüssel (Gruppe.Punkt): Haken hier und in den Checklisten sind derselbe Zustand.
 // at = Verkaufsstart/Frist als UTC; ohne at gilt der ganze Tag d (deutsche Zeit).
 var BOOK_CAL=[
- {ck:'org.resto',k:'buchen',opt:1,d:'2026-10-01',t:'Vegetarisches Mittagessen in Kyōto',n:'Shigetsu im Tenryū-ji oder Yudōfu am Nanzen-ji'},
  {ck:'tix.mizuho',k:'buchen',d:'2026-10-25',at:'2026-10-25T01:00:00Z',t:'Sitzplätze Mizuho 600',n:'Mi 25.11., Hiroshima 8:56 → Himeji 9:52 · in derselben JR-Pass-Reservierung nachtragen',u:'https://www.westjr.co.jp/travel-information/en/tickets-passes/'},
  {ck:'org.shibuyasky',k:'buchen',hot:1,d:'2026-10-25',at:'2026-10-25T15:00:00Z',t:'Shibuya Sky, Sonnenuntergangs-Slot',n:'Mo 9.11., Slot ~16:00 · die Slots sind in Stunden weg',u:'https://www.shibuya-scramble-square.com/sky/ticket/'},
- {ck:'final.airbnbreg',k:'todo',hot:1,d:'2026-11-01',t:'Airbnb-Gäste-Registrierung (beide einzeln)',n:'Pflicht für Ikebukuro · offizielle Frist 2.11. · danach Yuqi Bescheid geben'},
  {ck:'final.checkin',k:'todo',hot:1,d:'2026-11-04',at:'2026-11-04T08:15:00Z',t:'Online-Check-in Hinflug + Sitze',n:'QR 70 · freie Standardsitze sind jetzt gratis · beide zusammen einchecken',u:'https://www.qatarairways.com/en/manage-booking.html'},
  {ck:'final.return',k:'todo',hot:1,d:'2026-11-25',at:'2026-11-25T15:25:00Z',t:'Online-Check-in Rückflug + Sitze',n:'QR 813 ab Haneda · ihr seid dann in Tokio, öffnet 00:25 Uhr japanischer Zeit',u:'https://www.qatarairways.com/en/manage-booking.html'}
 ];
