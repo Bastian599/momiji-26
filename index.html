@@ -3665,37 +3665,70 @@ function kfUi(){var E=KF.el;if(!E.play)return;
   if(E.posterTxt)E.posterTxt.textContent=end?'↺ Nochmal ansehen':'▶ Die Reise eurer Koffer · 0:48';
   var m=$('#kfMute');if(m){m.textContent=KF.mute?'🔇':'♪';m.setAttribute('aria-label',KF.mute?'Ton an':'Ton aus')}}
 function kfLoop(ts){if(!KF.on)return;var dt=KF.last?Math.min(.25,(ts-KF.last)/1000):0;KF.last=ts;
-  var T=KF.t+dt;if(T>=KF.dur){kfFrame(KF.dur);kfPause();return}
+  var T=KF.t+dt;if(T>=KF.dur){kfFrame(KF.dur);kfAudio(KF.dur);kfPause(2.6);return}
   kfFrame(T);kfAudio(T);KF.raf=requestAnimationFrame(kfLoop)}
 function kfPlay(){if(!kfBuild())return;if(KF.t>=KF.dur-.05)KF.t=0;KF.on=true;KF.last=0;KF.ni=kfNoteIdx(KF.t);kfAudioOn();KF.raf=requestAnimationFrame(kfLoop);kfUi()}
-function kfPause(){KF.on=false;cancelAnimationFrame(KF.raf);kfAudioOff();kfUi()}
+function kfPause(f){KF.on=false;cancelAnimationFrame(KF.raf);kfAudioOff(f);kfUi()}
 function kfSeek(T){if(!kfBuild())return;kfFrame(Math.max(0,Math.min(KF.dur,T)));KF.ni=kfNoteIdx(KF.t);kfUi()}
-/* Musik: Koto-artige Zupftöne in der In-Skala auf D, im Browser erzeugt */
-function kfScore(){var sc=[146.83,155.56,196,220,233.08,293.66,311.13,392,440,466.16,587.33],n=[],seed=11,t=.5,idx=6;
-  function rnd(){seed=seed*16807%2147483647;return seed/2147483647}
-  while(t<KF.dur-1.5){var st=rnd()<.5?1:-1;if(rnd()<.25)st*=2;idx=Math.max(4,Math.min(10,idx+st));
-    n.push([t,sc[idx],.5+rnd()*.3]);if(rnd()<.2)n.push([t+.13,sc[Math.max(3,idx-2)],.3]);t+=rnd()<.3?1.2:.6}
-  KF.B.slice(0,5).forEach(function(b){n.push([b+.05,73.42,.9]);n.push([b+.1,110,.55])});
-  for(var i=0;i<6;i++)n.push([44.2+i*.17,sc[5+i],.6]);
-  n.push([46.6,146.83,.8]);n.push([46.66,220,.5]);n.push([46.72,293.66,.5]);
-  return n.sort(function(a,b){return a[0]-b[0]})}
-function kfNoteIdx(T){var n=KF.notes,i=0;while(i<n.length&&n[i][0]<T)i++;return i}
+/* Musik: kleine Komposition in D-Dur-Pentatonik, 80 BPM, ein Takt = 3 s, Taktanfänge bei 2, 5, 8 … s (Szenen bei 5, 17, 29, 41 s) */
+// Pro Sendung 4 Takte D – Hm – G – A mit eigener Melodiephrase, Finale G – A, Schlussakkord D bei 47 s.
+var KF_CH={D:{b:38,p:[57,61,66]},Bm:{b:47,p:[54,57,62]},G:{b:43,p:[54,59,62]},A:{b:45,p:[57,62,64]}};
+// Melodie je Takt: [MIDI-Ton, Schlag, Länge in Schlägen]
+var KF_MEL={
+  A:[[[69,0,1],[66,1,.5],[69,1.5,.5],[71,2,1.5],[69,3.5,.5]],[[66,0,1],[64,1,1],[62,2,2]],[[71,0,.5],[74,.5,.5],[76,1,1.5],[74,2.5,.5],[71,3,1]],[[69,0,3],[66,3,.5],[64,3.5,.5]]],
+  B:[[[74,0,1.5],[71,1.5,.5],[69,2,1],[66,3,1]],[[69,0,.5],[71,.5,.5],[74,1,1],[71,2,1],[69,3,1]],[[71,0,1],[69,1,.5],[66,1.5,.5],[64,2,2]],[[64,0,1],[66,1,1],[69,2,2]]],
+  N:[[[69,0,1.5],[66,1.5,.5],[64,2,2]],[[66,0,1],[69,1,1],[71,2,2]],[[74,0,1],[71,1,1],[69,2,1],[66,3,1]],[[64,0,2],[62,2,2]]],
+  F:[[[74,0,.5],[76,.5,.5],[78,1,1],[76,2,.5],[74,2.5,.5],[71,3,1]],[[69,0,1],[76,1,1],[78,2,1],[76,3,1]]]
+};
+function kfScore(){var n=[],bt=.75;
+  function ev(t,k,m,d,v){n.push({t:t,k:k,m:m,d:d,v:v})}
+  function bar(t0,ch,mel,o){var c=KF_CH[ch];
+    c.p.forEach(function(m){ev(t0,'pad',m,3,o.pad)});
+    if(o.night)ev(t0,'bass',c.b,3,.7);else{ev(t0,'bass',c.b,1.4,.9);ev(t0+2*bt,'bass',c.b,1.4,.6)}
+    if(o.arp)[0,1.5,3].forEach(function(b,i){ev(t0+b*bt,'arp',c.p[i]+12,1,o.arp)});
+    if(o.sh)[.5,1.5,2.5,3.5].forEach(function(b){ev(t0+b*bt,'shk',0,.1,o.sh)});
+    (mel||[]).forEach(function(x){ev(t0+x[1]*bt,'lead',x[0],x[2]*bt,o.mv||.7)})}
+  function phrase(t0,mel,o){['D','Bm','G','A'].forEach(function(ch,i){bar(t0+i*3,ch,mel&&mel[i],o)})}
+  // Titel: Glocke und leise Fläche, dann ein Einleitungstakt
+  ev(.15,'lead',74,1.5,.45);ev(.9,'lead',69,1.5,.35);[57,61,66].forEach(function(m){ev(0,'pad',m,2,.5)});
+  bar(2,'D',[[[62,0,1],[66,1,1],[69,2,2]]][0],{pad:.6,arp:.25,mv:.4});
+  phrase(5,KF_MEL.A,{pad:.8,arp:.35,sh:.5});
+  phrase(17,KF_MEL.B,{pad:.8,arp:.35,sh:.6});
+  phrase(29,KF_MEL.N,{pad:.6,arp:.22,night:1,mv:.55});
+  bar(41,'G',KF_MEL.F[0],{pad:.9,arp:.4,sh:.6,mv:.8});bar(44,'A',KF_MEL.F[1],{pad:.9,arp:.4,sh:.6,mv:.8});
+  KF_CH.D.p.forEach(function(m){ev(47,'pad',m,3,.9)});ev(47,'bass',38,3,.9);ev(47,'lead',74,2.5,.75);ev(47.02,'lead',62,2.5,.4);
+  return n.sort(function(a,b){return a.t-b.t})}
+function kfNoteIdx(T){var n=KF.notes,i=0;while(i<n.length&&n[i].t<T-.02)i++;return i}
+function kfMidi(m){return 440*Math.pow(2,(m-69)/12)}
 function kfAudioOn(){if(KF.mute)return;var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
-  try{if(!KF.ac){var ac=KF.ac=new AC(),m=ac.createGain(),d=ac.createDelay(),fb=ac.createGain(),wet=ac.createGain();
-      m.gain.value=.8;d.delayTime.value=.27;fb.gain.value=.28;wet.gain.value=.3;m.connect(ac.destination);m.connect(d);d.connect(fb);fb.connect(d);d.connect(wet);wet.connect(ac.destination);KF.out=m}
-    if(KF.ac.resume)KF.ac.resume();
-    if(!KF.drone){var a=KF.ac,g=a.createGain(),o1=a.createOscillator(),o2=a.createOscillator();o1.frequency.value=73.42;o2.frequency.value=110;
-      g.gain.setValueAtTime(0,a.currentTime);g.gain.linearRampToValueAtTime(.035,a.currentTime+1.2);o1.connect(g);o2.connect(g);g.connect(KF.out);o1.start();o2.start();KF.drone={g:g,o:[o1,o2]}}
-  }catch(e){}}
-function kfAudioOff(){var d=KF.drone;if(!d||!KF.ac)return;KF.drone=null;
-  try{var t=KF.ac.currentTime;d.g.gain.cancelScheduledValues(t);d.g.gain.setValueAtTime(d.g.gain.value,t);d.g.gain.linearRampToValueAtTime(0,t+.4);d.o.forEach(function(o){o.stop(t+.5)})}catch(e){}}
-function kfPluck(when,f,v){var a=KF.ac,o=a.createOscillator(),o2=a.createOscillator(),fl=a.createBiquadFilter(),g=a.createGain();
-  o.type='sawtooth';o.frequency.setValueAtTime(f*1.012,when);o.frequency.exponentialRampToValueAtTime(f,when+.08);o2.type='triangle';o2.frequency.value=f*2;
-  fl.type='lowpass';fl.Q.value=3;fl.frequency.setValueAtTime(Math.min(4200,f*9),when);fl.frequency.exponentialRampToValueAtTime(Math.max(320,f*1.6),when+.6);
-  g.gain.setValueAtTime(.0001,when);g.gain.exponentialRampToValueAtTime(.14*v,when+.006);g.gain.exponentialRampToValueAtTime(.0001,when+1.6);
-  o.connect(fl);o2.connect(fl);fl.connect(g);g.connect(KF.out);o.start(when);o2.start(when);o.stop(when+1.7);o2.stop(when+1.7)}
-function kfAudio(T){if(KF.mute||!KF.ac||!KF.out)return;var n=KF.notes,now=KF.ac.currentTime;
-  while(KF.ni<n.length&&n[KF.ni][0]<T+.3){var x=n[KF.ni++];if(x[0]>=T-.05)try{kfPluck(now+Math.max(0,x[0]-T),x[1],x[2])}catch(e){}}}
+  try{if(!KF.ac){var a=KF.ac=new AC(),comp=a.createDynamicsCompressor(),bus=a.createGain(),rev=a.createConvolver(),wet=a.createGain();
+      comp.threshold.value=-14;comp.ratio.value=3;comp.connect(a.destination);
+      var len=Math.floor(a.sampleRate*2.4),ir=a.createBuffer(2,len,a.sampleRate);
+      for(var ch=0;ch<2;ch++){var d=ir.getChannelData(ch);for(var i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3)}
+      rev.buffer=ir;wet.gain.value=.3;bus.gain.value=.9;bus.connect(comp);bus.connect(rev);rev.connect(wet);wet.connect(comp);KF.bus=bus;
+      var nl=Math.floor(a.sampleRate*.1),nb=a.createBuffer(1,nl,a.sampleRate),nd=nb.getChannelData(0);for(var j=0;j<nl;j++)nd[j]=Math.random()*2-1;KF.noise=nb;KF.voices=[]}
+    if(KF.ac.resume)KF.ac.resume()}catch(e){}}
+function kfAudioOff(f){if(!KF.ac||!KF.voices)return;f=f||.15;var now=KF.ac.currentTime;
+  KF.voices.forEach(function(x){if(x.end<=now)return;try{x.g.gain.cancelScheduledValues(now);x.g.gain.setValueAtTime(x.g.gain.value,now);x.g.gain.linearRampToValueAtTime(0,now+f);x.os.forEach(function(o){o.stop(now+f+.05)})}catch(e){}});
+  KF.voices=[]}
+function kfVoice(t,m,d,v,k){var a=KF.ac,g=a.createGain(),fl=a.createBiquadFilter(),os=[],f=kfMidi(m),end;
+  function osc(type,fr,lvl,det){var o=a.createOscillator(),og=a.createGain();o.type=type;o.frequency.value=fr;if(det)o.detune.value=det;og.gain.value=lvl;o.connect(og);og.connect(fl);os.push(o)}
+  fl.type='lowpass';g.gain.setValueAtTime(.0001,t);
+  if(k==='lead'){osc('triangle',f,1);osc('sine',f*2,.3);fl.frequency.setValueAtTime(3400,t);fl.frequency.exponentialRampToValueAtTime(1100,t+1);
+    end=t+Math.max(1.3,d+1);g.gain.exponentialRampToValueAtTime(.17*v,t+.01);g.gain.exponentialRampToValueAtTime(.06*v,t+.4);g.gain.exponentialRampToValueAtTime(.0001,end)}
+  else if(k==='arp'){osc('sine',f,1);osc('triangle',f,.4);fl.frequency.value=2600;end=t+1.1;g.gain.exponentialRampToValueAtTime(.08*v,t+.008);g.gain.exponentialRampToValueAtTime(.0001,end)}
+  else if(k==='pad'){osc('triangle',f,1,-7);osc('triangle',f,1,7);osc('sine',f/2,.5);fl.frequency.value=1000;end=t+d+1;
+    g.gain.linearRampToValueAtTime(.032*v,t+.6);g.gain.setValueAtTime(.032*v,t+d);g.gain.linearRampToValueAtTime(.0001,end)}
+  else{osc('sine',f,1);osc('triangle',f,.25);fl.frequency.value=480;end=t+d+.3;
+    g.gain.exponentialRampToValueAtTime(.22*v,t+.02);g.gain.exponentialRampToValueAtTime(.12*v,t+.35);g.gain.setValueAtTime(.12*v,t+d);g.gain.exponentialRampToValueAtTime(.0001,end)}
+  fl.connect(g);g.connect(KF.bus);os.forEach(function(o){o.start(t);o.stop(end+.05)});KF.voices.push({g:g,os:os,end:end})}
+function kfShk(t,v){var a=KF.ac,s=a.createBufferSource(),hp=a.createBiquadFilter(),g=a.createGain();s.buffer=KF.noise;hp.type='highpass';hp.frequency.value=6500;
+  g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.035*v,t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+.07);
+  s.connect(hp);hp.connect(g);g.connect(KF.bus);s.start(t);s.stop(t+.09)}
+function kfAudio(T){if(KF.mute||!KF.ac||!KF.bus)return;var n=KF.notes,now=KF.ac.currentTime;
+  KF.voices=KF.voices.filter(function(x){return x.end>now});
+  while(KF.ni<n.length&&n[KF.ni].t<T+.35){var x=n[KF.ni++];if(x.t<T-.05)continue;var w=now+Math.max(0,x.t-T);
+    try{if(x.k==='shk')kfShk(w,x.v);else kfVoice(w,x.m,x.d,x.v,x.k)}catch(e){}}}
 function kfInit(){
   var stage=$('#kfStage');if(!stage||!$('#kfSvg'))return;
   if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){
