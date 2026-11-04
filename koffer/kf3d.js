@@ -556,28 +556,58 @@ export function createFilm(host, opt = {}) {
   }); composer.addPass(finish);
 
   /* ---------- Kamera je Szene ---------- */
+  // Regel: Die Kamera folgt nie der Flugrichtung des Kranichs, sondern fährt mit fester Blickachse seitlich mit
+  // (wie ein Kamerawagen auf Schienen). Danach glättet ein Zeitfilter jede Fahrt (siehe camAt).
   const look = V(0, 0, 0), pos = V(0, 0, 0), wp = V(0, 0, 0);
+  SH.forEach(S => { S.dir = V(S.c1.x - S.c0.x, 0, S.c1.z - S.c0.z).normalize(); S.mid = V(S.ox + (S.c0.x + S.c1.x) / 2, 8, (S.c0.z + S.c1.z) / 2); });
   function blend(seq) { pos.copy(seq[0][0].p); look.copy(seq[0][0].l); for (let i = 1; i < seq.length; i++) { pos.lerp(seq[i][0].p, seq[i][1]); look.lerp(seq[i][0].l, seq[i][1]); } }
-  const chase = (cp, tan) => { const th = V(tan.x, 0, tan.z).normalize(); return { p: cp.clone().add(th.clone().multiplyScalar(-3.5)).add(V(0, 2.4, 14.5)), l: cp.clone().add(th.multiplyScalar(4)).add(V(0, -.8, 0)) }; };
-  function shotS1(t, cp, tan) {
+  const chase = (cp, S) => { const th = S.dir, c = cp.clone().lerp(S.mid, .35);
+    return { p: c.clone().addScaledVector(th, -3.5).add(V(0, 2.4, 14.5)), l: cp.clone().addScaledVector(th, 3).add(V(0, -.8, 0)).lerp(c, .3) }; };
+  const chaseNight = (cp, S) => { const th = S.dir, c = cp.clone().lerp(S.mid, .35), p = c.clone().addScaledVector(th, -6).add(V(0, -3.2, 17.5));
+    p.y = Math.max(p.y, 3.4); return { p, l: V(lerp(cp.x, c.x, .3) + th.x * 5, 3.2 + Math.max(0, cp.y - 1.3) * .6, -6) }; };
+  function shotS1(t, cp) {
     const A = { p: V(CARD.x + Math.sin(t * .3) * .3, CARD.y + .2, CARD.z + 11.5 - t * .55), l: V(CARD.x, CARD.y, CARD.z) };
     const B = { p: V(-36.5 + (t - 5) * .9, 6.2 - (t - 5) * .5, 19 - (t - 5) * 1.6), l: V(-28, 2.2, 1) };
     const c0 = SH[0].c0, c1 = SH[0].c1;
     const C1 = { p: V(c0.x + 2.3 - (t - 7) * .35, 1.75 + (t - 7) * .25, c0.z + 5.6 - (t - 7) * .55), l: V(c0.x - .4, .85 + (t - 7) * .2, c0.z) };
-    const ang = -.62 + (t - 12) * .16, rise = smooth(win(t, 15.8, 17));
-    const E = { p: V(c1.x + Math.sin(ang) * 9.8, 3.9 - (t - 12) * .12 + rise * 6, c1.z + Math.cos(ang) * 9.8), l: V(c1.x + 1.2, 1.9 + rise * 8, c1.z - 2.2) };
-    blend([[A, 0], [B, smooth(win(t, 3.9, 5.4))], [C1, smooth(win(t, 6.4, 7.3))], [chase(cp, tan), smooth(win(t, 8.45, 9.4))], [E, smooth(win(t, 11.9, 13.3))]]);
+    const ang = -.62 + (t - 12) * .12, rise = smooth(win(t, 15.0, 17));
+    const E = { p: V(c1.x + Math.sin(ang) * 9.8, 3.9 - (t - 12) * .1 + rise * 4, c1.z + Math.cos(ang) * 9.8), l: V(c1.x + 1.2, 1.9 + rise * 5, c1.z - 2.2) };
+    blend([[A, 0], [B, smooth(win(t, 3.7, 5.6))], [C1, smooth(win(t, 5.5, 7.8))], [chase(cp, SH[0]), smooth(win(t, 8.0, 10.0))], [E, smooth(win(t, 11.2, 13.8))]]);
     return lerp(.25, 1.0, smooth(win(t, 4.5, 5.5))) * (1 - .6 * smooth(win(t, 8.2, 9))) + .5 * smooth(win(t, 13, 14));
   }
-  function shotS(S, lt, cp, tan, endLook) {
+  function shotS(S, lt, cp, endLook) {
     const ox = S.ox, c0 = S.c0, c1 = S.c1;
-    const B = { p: V(ox - 40 + lt * 2.2, 15 - lt * 4.2, 22 - lt * 2.8), l: V(ox - 27, 2.2, 0) };
+    const B = { p: V(ox - 38.8 + lt * 1.6, 12.6 - lt * 3.0, 20.4 - lt * 2.0), l: V(ox - 27, 2.2, 0) };
     const C1 = { p: V(ox + c0.x + 2.3 - (lt - 2) * .35, 1.75 + (lt - 2) * .25, c0.z + 5.6 - (lt - 2) * .55), l: V(ox + c0.x - .4, .85 + (lt - 2) * .2, c0.z) };
-    const ang = endLook.a0 + (lt - 7) * .16, rise = smooth(win(lt, 10.8, 12));
-    const E = { p: V(ox + c1.x + Math.sin(ang) * 10, 4 - (lt - 7) * .12 + rise * 6, c1.z + Math.cos(ang) * 10), l: V(ox + c1.x + endLook.dx, 2 + rise * 8, c1.z + endLook.dz) };
-    const CH = S.night ? (() => { const th = V(tan.x, 0, tan.z).normalize(); const p = cp.clone().add(th.clone().multiplyScalar(-6)).add(V(0, -3.2, 17.5)); p.y = Math.max(p.y, 3.4); return { p, l: V(cp.x + th.x * 5, 3.2, -6) }; })() : chase(cp, tan);
-    blend([[B, 0], [C1, smooth(win(lt, 1.3, 2.3))], [CH, smooth(win(lt, 3.45, 4.4))], [E, smooth(win(lt, 6.9, 8.3))]]);
+    const ang = endLook.a0 + (lt - 7) * .12, rise = smooth(win(lt, 10.0, 12));
+    const E = { p: V(ox + c1.x + Math.sin(ang) * 10, 4 - (lt - 7) * .1 + rise * 4, c1.z + Math.cos(ang) * 10), l: V(ox + c1.x + endLook.dx, 2 + rise * 5, c1.z + endLook.dz) };
+    const CH = S.night ? chaseNight(cp, S) : chase(cp, S);
+    blend([[B, 0], [C1, smooth(win(lt, .5, 2.8))], [CH, smooth(win(lt, 3.0, 5.0))], [E, smooth(win(lt, 6.2, 8.8))]]);
     return lerp(.35, 1.0, smooth(win(lt, .8, 1.8))) * (1 - .6 * smooth(win(lt, 3.2, 4))) + .5 * smooth(win(lt, 8, 9));
+  }
+  // Flugposition des Kranichs als reine Funktion der Szenenzeit (auch für Nachbarzeitpunkte des Filters)
+  const flyEase = (lt) => smooth(win(lt, 3.6, 8.5));
+  function flightAt(S, lt, outP, outT) { const f = flyEase(lt); S.curve.getPointAt(clamp(f), outP); outP.x += S.ox; S.curve.getTangentAt(clamp(f, .001, .999), outT); }
+  const ENDLOOK = [null, { a0: -.38, dx: 2.2, dz: -2.6 }, { a0: -.62, dx: 1.2, dz: -2.4 }];
+  const fcp = V(0, 0, 0), ftan = V(1, 0, 0), accP = V(0, 0, 0), accL = V(0, 0, 0);
+  function camRaw(si, ts) {
+    const S = SH[si];
+    if (si === 0 && ts < 5) { fcp.set(-19.3, 1.3, 3.3); ftan.set(1, 0, 0); } else flightAt(S, ts - S.start, fcp, ftan);
+    return si === 0 ? shotS1(ts, fcp) : shotS(S, ts - S.start, fcp, ENDLOOK[si]);
+  }
+  // Zeitfilter: Mittel der Kamera über ±1,2 s (Gauß), begrenzt auf die eigene Szene. Ergebnis landet in pos/look.
+  const FK = 17, FR = 1.2, FS = .5;
+  function camAt(si, t) {
+    const S = SH[si], lo = si === 0 ? 0 : S.start, hi = S.start + 12 - 1e-4;
+    let ws = 0, tl = .5; accP.set(0, 0, 0); accL.set(0, 0, 0);
+    for (let k = 0; k < FK; k++) {
+      const dt = -FR + 2 * FR * k / (FK - 1), w = Math.exp(-dt * dt / (2 * FS * FS)), r = camRaw(si, clamp(t + dt, lo, hi));
+      if (k === (FK - 1) / 2) tl = r;
+      accP.addScaledVector(pos, w); accL.addScaledVector(look, w); ws += w;
+    }
+    pos.copy(accP).divideScalar(ws); look.copy(accL).divideScalar(ws);
+    pos.x += Math.sin(t * .37) * .1; pos.y += Math.sin(t * .29 + 1) * .07;   // leichtes Atmen der Kamera
+    return tl;
   }
   function shotF(lt) {
     const a = .5 + lt * .17, r = lerp(31, 26, smooth(lt / 10)), h = lerp(10, 18, smooth(win(lt, 0, 7)));
@@ -645,9 +675,9 @@ export function createFilm(host, opt = {}) {
   const cp = V(0, 0, 0), tan = V(1, 0, 0), focus = V(0, 0, 0);
   let lastPal = null;
   function rig(S, lt, t) {
-    const appear = outBack(win(lt, 1.0, 1.7)), fOut = inOut(win(lt, 2.4, 3.5)), fly = inOut(win(lt, 3.6, 8.5)), fIn = inOut(win(lt, 8.6, 9.6));
+    const appear = outBack(win(lt, 1.0, 1.7)), fOut = inOut(win(lt, 2.4, 3.5)), fly = flyEase(lt), fIn = inOut(win(lt, 8.6, 9.6));
     const atEnd = lt >= 8.6, P = atEnd ? S.c1 : S.c0, ox = S.ox, R = atEnd ? S.r1 : S.r0;
-    S.curve.getPointAt(clamp(fly), cp); cp.x += ox; S.curve.getTangentAt(clamp(fly, .001, .999), tan);
+    flightAt(S, lt, cp, tan);
     setSuitcase(0);
     suit.position.set(ox + P.x, atEnd ? 0 : (1 - appear) * 3, P.z); suit.rotation.y = R; suit.scale.setScalar(atEnd ? 1 : Math.max(.001, appear));
     suit.visible = (lt >= 1.0 && lt < 2.4) || lt >= 9.6;
@@ -691,13 +721,13 @@ export function createFilm(host, opt = {}) {
         card.position.set(CARD.x - away * 3, CARD.y + away * 9, CARD.z - away * 6); card.rotation.set(-away * 1.2, away * .6, away * .3); card.visible = t < 5.3;
         if (t < 5) { suit.visible = crane.visible = sheet.visible = MORPH.mesh.visible = false; walkers.forEach(w => w.visible = false); setLeaves(t, V(-30, 0, 10), .12); focus.set(-28, 0, 4); cp.set(-19.3, 1.3, 3.3); tan.set(1, 0, 0); }
         else rig(S, lt, t);
-        tiltAmt = shotS1(t, cp, tan);
+        tiltAmt = camAt(0, t);
         glow1.forEach(m => { m.emissiveIntensity = .15 + .25 * smooth(win(t, 13, 16)); });
         steam.forEach((s, i) => { const ph = ((t * .35 + i / steam.length) % 1); s.position.set(Math.sin(i * 2.1 + t) * .5, .5 + ph * 2.6, Math.cos(i * 1.7) * .4); s.scale.setScalar(.6 + ph * 1.4); s.material.opacity = .5 * (1 - ph); });
         clouds1.position.x = t * .5;
       } else {
         rig(S, lt, t);
-        tiltAmt = shotS(S, lt, cp, tan, si === 1 ? { a0: -.38, dx: 2.2, dz: -2.6 } : { a0: -.62, dx: 1.2, dz: -2.4 });
+        tiltAmt = camAt(si, t);
         if (si === 1) { clouds2.position.x = lt * .5; lanterns2.forEach((m, i) => m.emissiveIntensity = 1.2 + .25 * Math.sin(t * 6 + i)); }
         if (si === 2) { clouds3.position.x = lt * .4; lant3.forEach((m, i) => m.emissiveIntensity = 2 + .3 * Math.sin(t * 5 + i * 2));
           const tv = inOut(win(lt, 2.6, 9.4)); train.position.set(lerp(-46, 52, tv), 0, -5.4);
@@ -738,5 +768,5 @@ export function createFilm(host, opt = {}) {
   }
   resize(W0, H0);
   palette(PAL.morning);
-  return { renderAt, resize, canvas: cv, overlay: ov, renderer, duration: DURATION };
+  return { renderAt, resize, canvas: cv, overlay: ov, renderer, camera, duration: DURATION };
 }
