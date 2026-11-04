@@ -417,16 +417,69 @@ export function createFilm(host, opt = {}) {
     const wr = new THREE.Group(); wr.position.set(0, .3, -.02); crane.add(wr);
     wr.add(new THREE.Mesh(triGeo([[-.55, 0, 0], [-.15, .05, -1.95], [.5, 0, 0], [-.55, 0, 0], [-.05, -.06, -.8], [-.15, .05, -1.95]]), m2));
     crane.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
-    crane.userData.set = (f, flap) => {
+    crane.userData.set = (f, flap, amp = 1) => {
       const a = smooth(win(f, 0, .45)), b = smooth(win(f, .25, .75)), c = smooth(win(f, .5, 1));
       body.scale.set(1, lerp(.05, 1, a), lerp(.2, 1, a)); neck.rotation.z = lerp(-1.05, 0, b); tail.rotation.z = lerp(1.0, 0, b);
-      const w = c, fl = Math.sin(flap) * .75 * w;
+      const w = c, fl = Math.sin(flap) * .75 * w * amp;
       wl.rotation.x = lerp(-0.02, -.15, w) - fl; wr.rotation.x = lerp(0.02, .15, w) + fl; wl.scale.setScalar(lerp(.6, 1, c)); wr.scale.setScalar(lerp(.6, 1, c)); };
     scene.add(crane); return crane;
   }
   const crane = makeCrane(C.red, C.redD);
   const finCranes = [makeCrane(C.red, C.redD), makeCrane('#3E64A3', C.indD), makeCrane('#86A86F', C.matD)];
-  const sheet = mesh(new THREE.PlaneGeometry(2.4, 2.4), C.red); sheet.rotation.x = -Math.PI / 2; scene.add(sheet);
+  const sheet = new THREE.Group(); // (nicht mehr benutzt)
+  /* Koffer → Kranich: dieselben 72 Papierflächen falten sich um */
+  const MORPH = (() => {
+    const red = new THREE.Color(C.red), redD = new THREE.Color(C.redD), vt = V(0, 0, 0);
+    const mid = (p, q) => [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2, (p[2] + q[2]) / 2];
+    const sub = tris => { const o = []; tris.forEach(([a, b, c, col]) => { const ab = mid(a, b), bc = mid(b, c), ca = mid(c, a); o.push([a, ab, ca, col], [ab, b, bc, col], [ca, bc, c, col], [ab, bc, ca, col]); }); return o; };
+    crane.userData.set(1, 0, 0); crane.position.set(0, 0, 0); crane.rotation.set(0, 0, 0); crane.scale.setScalar(1); crane.updateMatrixWorld(true);
+    const ct = []; crane.traverse(o => { if (!o.isMesh) return; const pa = o.geometry.attributes.position, col = o.material === paper(C.red) ? red : redD;
+      for (let i = 0; i < pa.count; i += 3) { const tri = []; for (let k = 0; k < 3; k++) { vt.fromBufferAttribute(pa, i + k).applyMatrix4(o.matrixWorld); tri.push([vt.x, vt.y, vt.z]); } tri.push(col); ct.push(tri); } });
+    const craneT = sub(ct);
+    const bt = [], W = CW / 2, D = CD / 2, H = CH;
+    const face = (o, u, v, col) => { for (let i = 0; i < 2; i++) for (let j = 0; j < 3; j++) { const p = (a, b) => [o[0] + u[0] * a + v[0] * b, o[1] + u[1] * a + v[1] * b, o[2] + u[2] * a + v[2] * b];
+      const a0 = i / 2, a1 = (i + 1) / 2, b0 = j / 3, b1 = (j + 1) / 3; bt.push([p(a0, b0), p(a1, b0), p(a1, b1), col], [p(a0, b0), p(a1, b1), p(a0, b1), col]); } };
+    face([-W, 0, D], [CW, 0, 0], [0, H, 0], red); face([W, 0, -D], [-CW, 0, 0], [0, H, 0], redD);
+    face([-W, 0, -D], [0, 0, CD], [0, H, 0], redD); face([W, 0, D], [0, 0, -CD], [0, H, 0], red);
+    face([-W, H, D], [CW, 0, 0], [0, 0, -CD], red); face([-W, 0, -D], [CW, 0, 0], [0, 0, CD], redD);
+    const cen = t => [(t[0][0] + t[1][0] + t[2][0]) / 3, (t[0][1] + t[1][1] + t[2][1]) / 3, (t[0][2] + t[1][2] + t[2][2]) / 3];
+    // Zuordnung nach Lage: Koffer-Höhe → Kranich-Länge, Koffer-Breite → Flügel, Koffer-Tiefe → oben/unten
+    const nb = t => { const c = cen(t); return [(c[1] / H), (c[0] + W) / (2 * W), (c[2] + D) / (2 * D)]; };
+    const cx = craneT.map(cen), mn = [0, 1, 2].map(k => Math.min(...cx.map(c => c[k]))), mx = [0, 1, 2].map(k => Math.max(...cx.map(c => c[k])));
+    const nc = c => [(c[0] - mn[0]) / (mx[0] - mn[0]), (c[2] - mn[2]) / (mx[2] - mn[2]), (c[1] - mn[1]) / (mx[1] - mn[1])];
+    const BN = bt.map(nb), CN = cx.map(nc), cand = [];
+    BN.forEach((b, i) => CN.forEach((c, j) => cand.push([(b[0] - c[0]) ** 2 + (b[1] - c[1]) ** 2 * 1.3 + (b[2] - c[2]) ** 2 * .6, i, j])));
+    cand.sort((a, b) => a[0] - b[0]);
+    const usedB = new Set(), usedC = new Set(), pairs = [];
+    cand.forEach(([, i, j]) => { if (usedB.has(i) || usedC.has(j)) return; usedB.add(i); usedC.add(j);
+      const cc = cx[j]; pairs.push({ b: bt[i], c: craneT[j], d: .38 * clamp(Math.hypot(cc[2] / 1.8, cc[0] / 1.7, (cc[1] - .3) / 1.2)) }); });
+    const N = pairs.length, pos = new Float32Array(N * 9), colA = new Float32Array(N * 9);
+    const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setAttribute('color', new THREE.BufferAttribute(colA, 3));
+    const mat = new THREE.MeshStandardMaterial({ vertexColors: true, map: tex, bumpMap: tex, bumpScale: 1.2, roughness: .93, flatShading: true, side: THREE.DoubleSide });
+    const m = new THREE.Mesh(geo, mat); m.castShadow = true; m.receiveShadow = true; m.frustumCulled = false; scene.add(m);
+    const q = new THREE.Quaternion(), ax = V(0, 0, 0), o = V(0, 0, 0), ob = V(0, 0, 0), oc = V(0, 0, 0), cb = V(0, 0, 0), cc = V(0, 0, 0), up = V(0, 1, 0), tc = new THREE.Color();
+    const SC = .8, LIFT = 1.05;
+    function set(f, r) { // f: 0 = Koffer, 1 = Kranich · r: Drehung des Koffers (Kranich steht danach bei Welt-Drehung −0.2)
+      const a = -.2 - r, ca = Math.cos(a), sa = Math.sin(a);
+      const tf = p => [SC * (p[0] * ca + p[2] * sa), LIFT + SC * p[1], SC * (-p[0] * sa + p[2] * ca)];
+      pairs.forEach((pr, k) => {
+        const p = smooth(win(f, pr.d, pr.d + .62)), B = pr.b, Cr = [tf(pr.c[0]), tf(pr.c[1]), tf(pr.c[2])];
+        cb.set((B[0][0] + B[1][0] + B[2][0]) / 3, (B[0][1] + B[1][1] + B[2][1]) / 3, (B[0][2] + B[1][2] + B[2][2]) / 3);
+        cc.set((Cr[0][0] + Cr[1][0] + Cr[2][0]) / 3, (Cr[0][1] + Cr[1][1] + Cr[2][1]) / 3, (Cr[0][2] + Cr[1][2] + Cr[2][2]) / 3);
+        ax.subVectors(cc, cb); ax.y = 0; if (ax.lengthSq() < 1e-4) ax.set(1, 0, 0); ax.normalize().cross(up); if (ax.lengthSq() < 1e-4) ax.set(1, 0, 0); ax.normalize();
+        q.setFromAxisAngle(ax, Math.sin(p * Math.PI) * .45);
+        const lift = Math.sin(p * Math.PI) * .18;
+        for (let v = 0; v < 3; v++) {
+          ob.set(B[v][0], B[v][1], B[v][2]).sub(cb); oc.set(Cr[v][0], Cr[v][1], Cr[v][2]).sub(cc);
+          o.copy(ob).lerp(oc, p).applyQuaternion(q);
+          const i = (k * 3 + v) * 3; pos[i] = lerp(cb.x, cc.x, p) + o.x; pos[i + 1] = lerp(cb.y, cc.y, p) + lift + o.y; pos[i + 2] = lerp(cb.z, cc.z, p) + o.z;
+          tc.copy(pr.b[3]).lerp(pr.c[3], p); colA[i] = tc.r; colA[i + 1] = tc.g; colA[i + 2] = tc.b;
+        }
+      });
+      geo.attributes.position.needsUpdate = true; geo.attributes.color.needsUpdate = true; geo.computeVertexNormals();
+    }
+    return { mesh: m, mat, set, SC, LIFT };
+  })();
   function walker(col) {
     const g = new THREE.Group();
     const body = mesh(new THREE.CapsuleGeometry(.2, .45, 3, 8), col); body.position.y = .62; g.add(body);
@@ -513,7 +566,7 @@ export function createFilm(host, opt = {}) {
     const C1 = { p: V(c0.x + 2.3 - (t - 7) * .35, 1.75 + (t - 7) * .25, c0.z + 5.6 - (t - 7) * .55), l: V(c0.x - .4, .85 + (t - 7) * .2, c0.z) };
     const ang = -.62 + (t - 12) * .16, rise = smooth(win(t, 15.8, 17));
     const E = { p: V(c1.x + Math.sin(ang) * 9.8, 3.9 - (t - 12) * .12 + rise * 6, c1.z + Math.cos(ang) * 9.8), l: V(c1.x + 1.2, 1.9 + rise * 8, c1.z - 2.2) };
-    blend([[A, 0], [B, smooth(win(t, 3.9, 5.4))], [C1, smooth(win(t, 6.4, 7.3))], [chase(cp, tan), smooth(win(t, 8.0, 9.0))], [E, smooth(win(t, 11.9, 13.3))]]);
+    blend([[A, 0], [B, smooth(win(t, 3.9, 5.4))], [C1, smooth(win(t, 6.4, 7.3))], [chase(cp, tan), smooth(win(t, 8.45, 9.4))], [E, smooth(win(t, 11.9, 13.3))]]);
     return lerp(.25, 1.0, smooth(win(t, 4.5, 5.5))) * (1 - .6 * smooth(win(t, 8.2, 9))) + .5 * smooth(win(t, 13, 14));
   }
   function shotS(S, lt, cp, tan, endLook) {
@@ -523,7 +576,7 @@ export function createFilm(host, opt = {}) {
     const ang = endLook.a0 + (lt - 7) * .16, rise = smooth(win(lt, 10.8, 12));
     const E = { p: V(ox + c1.x + Math.sin(ang) * 10, 4 - (lt - 7) * .12 + rise * 6, c1.z + Math.cos(ang) * 10), l: V(ox + c1.x + endLook.dx, 2 + rise * 8, c1.z + endLook.dz) };
     const CH = S.night ? (() => { const th = V(tan.x, 0, tan.z).normalize(); const p = cp.clone().add(th.clone().multiplyScalar(-6)).add(V(0, -3.2, 17.5)); p.y = Math.max(p.y, 3.4); return { p, l: V(cp.x + th.x * 5, 3.2, -6) }; })() : chase(cp, tan);
-    blend([[B, 0], [C1, smooth(win(lt, 1.3, 2.3))], [CH, smooth(win(lt, 3.0, 4.0))], [E, smooth(win(lt, 6.9, 8.3))]]);
+    blend([[B, 0], [C1, smooth(win(lt, 1.3, 2.3))], [CH, smooth(win(lt, 3.45, 4.4))], [E, smooth(win(lt, 6.9, 8.3))]]);
     return lerp(.35, 1.0, smooth(win(lt, .8, 1.8))) * (1 - .6 * smooth(win(lt, 3.2, 4))) + .5 * smooth(win(lt, 8, 9));
   }
   function shotF(lt) {
@@ -592,26 +645,30 @@ export function createFilm(host, opt = {}) {
   const cp = V(0, 0, 0), tan = V(1, 0, 0), focus = V(0, 0, 0);
   let lastPal = null;
   function rig(S, lt, t) {
-    const appear = outBack(win(lt, 1.0, 1.7)), unfold = inOut(win(lt, 2.35, 2.95)), fold = win(lt, 2.9, 3.6);
-    const fly = inOut(win(lt, 3.5, 8.5)), land = win(lt, 8.45, 9.05), refold = inOut(win(lt, 8.95, 9.55));
-    const atEnd = lt >= 8.95, P = atEnd ? S.c1 : S.c0, ox = S.ox;
+    const appear = outBack(win(lt, 1.0, 1.7)), fOut = inOut(win(lt, 2.4, 3.5)), fly = inOut(win(lt, 3.6, 8.5)), fIn = inOut(win(lt, 8.6, 9.6));
+    const atEnd = lt >= 8.6, P = atEnd ? S.c1 : S.c0, ox = S.ox, R = atEnd ? S.r1 : S.r0;
     S.curve.getPointAt(clamp(fly), cp); cp.x += ox; S.curve.getTangentAt(clamp(fly, .001, .999), tan);
-    suit.position.set(ox + P.x, atEnd ? 0 : (1 - appear) * 3, P.z); suit.rotation.y = atEnd ? S.r1 : S.r0; suit.scale.setScalar(atEnd ? 1 : Math.max(.001, appear));
-    setSuitcase(atEnd ? 1 - refold : unfold); suit.visible = (lt >= 1.0 && lt < 3.05) || lt >= 8.95;
-    const early = lt < 5, SP = early ? S.c0 : S.c1;
-    sheet.visible = (lt >= 2.85 && lt < 3.45) || (lt >= 8.5 && lt < 9.05); sheet.position.set(ox + SP.x, .02, SP.z);
-    sheet.scale.setScalar(Math.max(.001, early ? 1 - smooth(win(lt, 3.0, 3.45)) : smooth(win(lt, 8.5, 8.9)))); sheet.rotation.z = early ? S.r0 : S.r1;
-    crane.visible = lt >= 2.9 && lt < 9.05; crane.userData.set(early ? smooth(fold) : 1 - smooth(land), t * 13);
-    if (lt < 3.5) { crane.position.set(ox + S.c0.x, .05 + smooth(win(lt, 3.2, 3.5)) * 1.2, S.c0.z); crane.rotation.set(0, -.2, 0); }
-    else if (lt < 8.5) { crane.position.copy(cp); crane.position.y += Math.sin(t * 2.2) * .12;
-      crane.rotation.set(Math.sin(t * 1.3) * .12, Math.atan2(-tan.z, tan.x), Math.asin(clamp(tan.y, -1, 1)) * .8); }
-    else { crane.position.set(ox + S.c1.x, 1.3 - smooth(land) * 1.25, S.c1.z); crane.rotation.set(0, -.5, 0); }
-    crane.scale.setScalar(lt < 3.5 ? lerp(.55, 1, smooth(win(lt, 3.0, 3.5))) : lt > 8.5 ? lerp(1.25, .55, smooth(land)) : lerp(1, 1.25, smooth(win(lt, 3.5, 4.3))));
-    S.trail.visible = lt > 3.5 && lt < 9.6; S.trail.geometry.setDrawRange(0, Math.floor(S.trailCount * clamp(fly) / 3) * 3); S.trail.material.opacity = (S.night ? .4 : .85) * (1 - smooth(win(lt, 8.4, 9.6)));
+    setSuitcase(0);
+    suit.position.set(ox + P.x, atEnd ? 0 : (1 - appear) * 3, P.z); suit.rotation.y = R; suit.scale.setScalar(atEnd ? 1 : Math.max(.001, appear));
+    suit.visible = (lt >= 1.0 && lt < 2.4) || lt >= 9.6;
+    MORPH.mesh.visible = (lt >= 2.4 && lt < 3.5) || (lt >= 8.6 && lt < 9.6);
+    if (MORPH.mesh.visible) { MORPH.mesh.position.set(ox + P.x, 0, P.z); MORPH.mesh.rotation.set(0, R, 0); MORPH.set(atEnd ? 1 - fIn : fOut, R); }
+    sheet.visible = false;
+    crane.visible = lt >= 3.5 && lt < 8.6;
+    const rest0 = V(ox + S.c0.x, MORPH.LIFT, S.c0.z), rest1 = V(ox + S.c1.x, MORPH.LIFT, S.c1.z);
+    const kA = smooth(win(lt, 3.5, 3.95)), kB = smooth(win(lt, 8.2, 8.6));
+    const amp = lt < 6 ? kA : 1 - kB;
+    crane.userData.set(1, t * 13, amp);
+    const flyPos = cp.clone(); flyPos.y += Math.sin(t * 2.2) * .12 * amp;
+    const yaw = Math.atan2(-tan.z, tan.x), pitch = clamp(Math.asin(clamp(tan.y, -1, 1)) * .4, -.32, .32);
+    if (lt < 6) { crane.position.copy(rest0).lerp(flyPos, kA); crane.rotation.set(Math.sin(t * 1.3) * .12 * kA, lerp(-.2, yaw, kA), pitch * kA); }
+    else { crane.position.copy(flyPos).lerp(rest1, kB); crane.rotation.set(Math.sin(t * 1.3) * .12 * (1 - kB), lerp(yaw, -.2, kB), pitch * (1 - kB)); }
+    crane.scale.setScalar(lt < 6 ? lerp(MORPH.SC, 1.25, smooth(win(lt, 3.5, 4.3))) : lerp(1.25, MORPH.SC, kB));
+    S.trail.visible = lt > 3.6 && lt < 9.6; S.trail.geometry.setDrawRange(0, Math.floor(S.trailCount * clamp(fly) / 3) * 3); S.trail.material.opacity = (S.night ? .4 : .85) * (1 - smooth(win(lt, 8.4, 9.6)));
     walkers.forEach((w, i) => { const v = win(lt, 3.4, 9.2); w.visible = !!S.walk && lt > 3.4 && lt < 9.6;
       if (S.walk) w.position.set(ox + lerp(S.walk[0], S.walk[1], v) - i * .75, Math.abs(Math.sin(t * 7 + i)) * .06, S.walk[2] + i * .35);
       w.userData.legs[0].rotation.x = Math.sin(t * 7 + i) * .5; w.userData.legs[1].rotation.x = -Math.sin(t * 7 + i) * .5; });
-    focus.set(lt < 3.5 ? ox - 26 : lt < 8.5 ? cp.x : ox + S.c1.x, 0, lt < 8.5 && lt >= 3.5 ? 0 : 2);
+    focus.set(lt < 3.6 ? ox - 26 : lt < 8.5 ? cp.x : ox + S.c1.x, 0, lt < 8.5 && lt >= 3.6 ? 0 : 2);
     const L = S.leaves; setLeaves(t, lt < 8 ? V(ox + L[0].x, 0, L[0].z) : V(ox + L[1].x, 0, L[1].z), lt < 8 ? L[2] : L[3]);
   }
   function renderAt(t) {
@@ -620,7 +677,7 @@ export function createFilm(host, opt = {}) {
     worlds.forEach((w, i) => { w.visible = i === si; });
     const palName = ['morning', 'golden', 'night', 'sunrise'][si];
     if (palName !== lastPal) { palette(PAL[palName]); lastPal = palName;
-      [paper(C.red), paper(C.redD)].forEach(m => { m.emissive.set(si === 2 ? '#FF5A32' : '#000000'); m.emissiveIntensity = si === 2 ? .55 : 0; }); }
+      [paper(C.red), paper(C.redD), MORPH.mat].forEach(m => { m.emissive.set(si === 2 ? '#FF5A32' : '#000000'); m.emissiveIntensity = si === 2 ? .55 : 0; }); }
     pops.forEach(p => { const v = win(t, p.t0, p.t0 + p.dur), k = v <= 0 ? 0 : outBack(v); p.inner.rotation.x = -(Math.PI / 2) * (1 - k); p.inner.visible = v > 0; p.inner.scale.y = lerp(.6, 1, smooth(v)); });
     SH.forEach((S, i) => { if (i !== si) S.trail.visible = false; });
     let tiltAmt = .5;
@@ -632,7 +689,7 @@ export function createFilm(host, opt = {}) {
           if (f.k === 't') f.hinge.rotation.x = a; else if (f.k === 'b') f.hinge.rotation.x = -a; else if (f.k === 'l') f.hinge.rotation.y = -a; else f.hinge.rotation.y = a; });
         const away = inOut(win(t, 3.9, 5.1));
         card.position.set(CARD.x - away * 3, CARD.y + away * 9, CARD.z - away * 6); card.rotation.set(-away * 1.2, away * .6, away * .3); card.visible = t < 5.3;
-        if (t < 5) { suit.visible = crane.visible = sheet.visible = false; walkers.forEach(w => w.visible = false); setLeaves(t, V(-30, 0, 10), .12); focus.set(-28, 0, 4); cp.set(-19.3, 1.3, 3.3); tan.set(1, 0, 0); }
+        if (t < 5) { suit.visible = crane.visible = sheet.visible = MORPH.mesh.visible = false; walkers.forEach(w => w.visible = false); setLeaves(t, V(-30, 0, 10), .12); focus.set(-28, 0, 4); cp.set(-19.3, 1.3, 3.3); tan.set(1, 0, 0); }
         else rig(S, lt, t);
         tiltAmt = shotS1(t, cp, tan);
         glow1.forEach(m => { m.emissiveIntensity = .15 + .25 * smooth(win(t, 13, 16)); });
@@ -649,7 +706,7 @@ export function createFilm(host, opt = {}) {
       camera.position.copy(pos); camera.lookAt(look);
     } else {
       const lt = t - 41;
-      suit.visible = crane.visible = sheet.visible = false; walkers.forEach(w => w.visible = false);
+      suit.visible = crane.visible = sheet.visible = MORPH.mesh.visible = false; walkers.forEach(w => w.visible = false);
       finCases.forEach((c, i) => { const v = win(lt, .5 + i * .18, 1.1 + i * .18); c.position.y = (1 - outBack(v)) * 6; c.visible = v > 0; });
       finCranes.forEach((c, i) => { c.visible = lt > .2; const a = lt * .55 + i * Math.PI * 2 / 3, r = 7.5 - lt * .25, y = 3.5 + lt * 1.05 + Math.sin(lt * 2 + i) * .4;
         c.position.set(900 + Math.cos(a) * r, y, Math.sin(a) * r); c.rotation.set(Math.sin(lt * 1.3 + i) * .1, Math.atan2(-Math.cos(a), -Math.sin(a)), .22); c.scale.setScalar(lerp(.6, 1.3, smooth(lt / 3)));
